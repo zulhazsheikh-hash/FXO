@@ -3,71 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FXO - Liquid Glass Edition</title>
-    <!-- Tailwind CSS -->
+    <title>FXO - Pro Earn & Admin Engine</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Telegram WebApp SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <!-- Adsgram SDK -->
     <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
     <style>
         body {
-            background: radial-gradient(circle at top left, #0f172a, #020617, #1e1b4b);
-            color: #f8fafc;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0284c7 100%);
+            color: #ffffff;
             font-family: system-ui, -apple-system, sans-serif;
             user-select: none;
             min-height: 100vh;
         }
 
-        .glass-card {
-            background: rgba(15, 23, 42, 0.55);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-        }
-
-        .glass-nav {
-            background: rgba(15, 23, 42, 0.75);
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
         }
 
-        .glow-cyan {
-            box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+        .liquid-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        .glow-fuchsia {
-            box-shadow: 0 0 25px rgba(217, 70, 239, 0.35);
+        .glow-blue {
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
         }
     </style>
 </head>
-<body class="flex flex-col min-h-screen max-w-md mx-auto relative border-x border-slate-800/60">
+<body class="flex flex-col min-h-screen max-w-md mx-auto relative border-x border-white/10 shadow-2xl">
 
     <!-- Header -->
-    <div class="p-4 glass-nav flex items-center justify-between sticky top-0 z-30">
+    <div class="p-4 liquid-glass flex items-center justify-between sticky top-0 z-30 border-b border-white/10">
         <div class="flex items-center space-x-3">
-            <div class="bg-gradient-to-tr from-cyan-500 via-fuchsia-500 to-pink-500 p-2.5 rounded-2xl shadow-lg glow-cyan">
-                <i data-lucide="zap" class="w-6 h-6 text-slate-950 fill-current"></i>
+            <div class="bg-gradient-to-tr from-blue-600 to-sky-400 p-2.5 rounded-2xl shadow-lg glow-blue">
+                <i data-lucide="zap" class="w-6 h-6 text-white fill-current"></i>
             </div>
             <div>
-                <h1 id="app-title-display" class="font-black text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-pink-400">
+                <h1 id="app-title-display" class="font-black text-xl tracking-wider text-white drop-shadow-md">
                     FXO EARN
                 </h1>
-                <p id="user-display-name" class="text-xs text-slate-400 font-medium">@loading...</p>
+                <p id="user-display-name" class="text-xs text-sky-200 font-medium">@loading...</p>
             </div>
         </div>
-        <div class="bg-slate-800/80 border border-slate-700/60 px-3.5 py-1.5 rounded-full flex items-center space-x-2 shadow-inner">
-            <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
-            <span id="coins-display" class="font-extrabold text-amber-300">0 Pts</span>
+        <div class="bg-white/10 border border-white/20 px-3.5 py-1.5 rounded-full flex items-center space-x-2 shadow-inner">
+            <i data-lucide="sparkles" class="w-4 h-4 text-sky-300"></i>
+            <span id="coins-display" class="font-extrabold text-white">0 Pts</span>
         </div>
     </div>
 
@@ -76,136 +67,174 @@
 
         <!-- TAB 1: HOME -->
         <div id="tab-home" class="space-y-5">
-            <div class="relative overflow-hidden glass-card rounded-3xl p-6 text-center shadow-2xl glow-cyan">
-                <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-cyan-500/10 rounded-full blur-3xl"></div>
-                <p class="text-slate-400 text-sm font-semibold">বর্তমান মোট জমা টাকা (সর্বনিম্ন উইথড্র ৳১০০০)</p>
-                <h2 id="taka-display" class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 my-3">
+            <div class="relative overflow-hidden liquid-glass rounded-3xl p-6 text-center shadow-2xl glow-blue">
+                <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-sky-400/20 rounded-full blur-3xl"></div>
+                <p class="text-sky-200 text-sm font-semibold">বর্তমান মোট জমা টাকা (ন্যূনতম উইথড্র ৳১০০০)</p>
+                <h2 id="taka-display" class="text-4xl font-black text-white my-3 drop-shadow-lg">
                     ৳ 0.00 BDT
                 </h2>
-                <div class="inline-block bg-slate-800/70 border border-slate-700/60 rounded-full px-4 py-1 text-xs text-cyan-300 font-medium">
+                <div class="inline-block bg-blue-900/50 border border-sky-400/30 rounded-full px-4 py-1 text-xs text-sky-200 font-medium">
                     ১০০ পয়েন্ট = ৳ ১ টাকা
                 </div>
             </div>
 
             <!-- SYSTEM 1 -->
-            <div class="glass-card rounded-2xl p-4 space-y-3">
+            <div class="liquid-glass rounded-2xl p-4 space-y-3">
                 <div class="flex justify-between items-center">
-                    <span class="font-bold text-sm text-cyan-400 flex items-center gap-1.5">
+                    <span class="font-bold text-sm text-sky-200 flex items-center gap-1.5">
                         <i data-lucide="play-circle" class="w-4 h-4"></i> সিঙ্গেল অ্যাড (১৫ সেঃ টাইমার)
                     </span>
-                    <span id="sys1-status" class="text-[11px] bg-slate-800/80 px-2.5 py-1 rounded-full text-slate-300 border border-slate-700">রেডি</span>
+                    <span id="sys1-status" class="text-[11px] bg-blue-950/60 px-2.5 py-1 rounded-full text-sky-300 border border-sky-500/30">রেডি</span>
                 </div>
-                <button id="btn-sys1" onclick="handleSystem1Ad()" class="w-full py-4 bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 font-black rounded-xl shadow-lg active:scale-95 transition">
+                <button id="btn-sys1" onclick="handleSystem1Ad()" class="w-full py-4 bg-gradient-to-r from-blue-600 via-sky-500 to-blue-500 text-white font-black rounded-xl shadow-lg active:scale-95 transition border border-white/30">
                     অ্যাড দেখুন (১৫ সেঃ বিরতি)
                 </button>
             </div>
 
             <!-- SYSTEM 2 -->
-            <div class="glass-card rounded-2xl p-4 space-y-3">
+            <div class="liquid-glass rounded-2xl p-4 space-y-3">
                 <div class="flex justify-between items-center">
-                    <span class="font-bold text-sm text-fuchsia-400 flex items-center gap-1.5">
+                    <span class="font-bold text-sm text-sky-200 flex items-center gap-1.5">
                         <i data-lucide="layers" class="w-4 h-4"></i> ৩টি অ্যাড মোড (৩০ সেঃ টাইমার)
                     </span>
-                    <span id="sys2-counter" class="text-[11px] bg-slate-800/80 px-2.5 py-1 rounded-full text-fuchsia-300 border border-slate-700">ধাপ: ০/৩</span>
+                    <span id="sys2-counter" class="text-[11px] bg-blue-950/60 px-2.5 py-1 rounded-full text-sky-300 border border-sky-500/30">ধাপ: ০/৩</span>
                 </div>
-                <button id="btn-sys2" onclick="handleSystem2Ad()" class="w-full py-4 bg-gradient-to-r from-fuchsia-500 via-purple-500 to-pink-500 text-white font-black rounded-xl shadow-lg active:scale-95 transition">
+                <button id="btn-sys2" onclick="handleSystem2Ad()" class="w-full py-4 bg-gradient-to-r from-sky-600 via-blue-600 to-indigo-600 text-white font-black rounded-xl shadow-lg active:scale-95 transition border border-white/30">
                     ট্রিপল অ্যাড শুরু করুন
                 </button>
             </div>
         </div>
 
-        <!-- TAB 2: PROFILE -->
+        <!-- TAB 2: PROFILE & REFERRAL -->
         <div id="tab-profile" class="space-y-4 hidden">
-            <div class="glass-card rounded-2xl p-5 space-y-4">
-                <h3 class="font-bold text-lg text-cyan-400 flex items-center space-x-2">
+            <div class="liquid-glass rounded-2xl p-5 space-y-4">
+                <h3 class="font-bold text-lg text-white flex items-center space-x-2">
                     <i data-lucide="user" class="w-5 h-5"></i>
                     <span>ইউজার প্রোফাইল</span>
                 </h3>
-                <div class="space-y-3 text-sm text-slate-300">
-                    <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                        <span class="text-slate-400">ইউজার নাম:</span>
+                <div class="space-y-3 text-sm text-sky-100">
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span class="text-sky-200">ইউজার নাম:</span>
                         <span id="profile-name" class="font-bold">-</span>
                     </div>
-                    <div class="flex justify-between border-b border-slate-800/60 pb-2">
-                        <span class="text-slate-400">টেলিগ্রাম আইডি:</span>
-                        <span id="profile-id" class="font-mono text-cyan-300">-</span>
+                    <div class="flex justify-between border-b border-white/10 pb-2">
+                        <span class="text-sky-200">টেলিগ্রাম আইডি:</span>
+                        <span id="profile-id" class="font-mono text-white">-</span>
                     </div>
+                </div>
+            </div>
+
+            <!-- Referral Link Card -->
+            <div class="liquid-glass rounded-2xl p-5 space-y-3">
+                <h4 class="font-bold text-sm text-sky-200 flex items-center gap-2">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> বন্ধুদের রেফার লিংক
+                </h4>
+                <p class="text-xs text-sky-300">লিংক শেয়ার করে বন্ধুদের জয়েন করালেই পাবেন ১০% স্থায়ী বোনাস!</p>
+                <div class="p-2.5 bg-blue-950/70 rounded-xl border border-white/20 flex items-center justify-between">
+                    <span id="ref-link-display" class="text-xs text-white truncate mr-2 font-mono">Loading...</span>
+                    <button onclick="copyRefLink()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 px-3 py-1.5 rounded-lg text-xs font-bold shrink-0">কপি</button>
                 </div>
             </div>
         </div>
 
         <!-- TAB 3: WALLET -->
         <div id="tab-wallet" class="space-y-5 hidden">
-            <div class="glass-card rounded-2xl p-5 shadow-lg">
-                <h3 class="font-bold text-lg mb-4 text-cyan-400 flex items-center space-x-2">
+            <div class="liquid-glass rounded-2xl p-5 shadow-lg space-y-4">
+                <h3 class="font-bold text-lg text-white flex items-center space-x-2">
                     <i data-lucide="wallet" class="w-5 h-5"></i>
                     <span>টাকা উত্তোলন (ন্যূনতম ৳১০০০)</span>
                 </h3>
                 
                 <form onsubmit="handleWithdraw(event)" class="space-y-4">
                     <div>
-                        <label class="block text-xs text-slate-400 mb-2">মেথড নির্বাচন করুন</label>
+                        <label class="block text-xs text-sky-200 mb-2">মেথড নির্বাচন করুন</label>
                         <div class="grid grid-cols-2 gap-3">
-                            <button type="button" id="m-bkash" onclick="setMethod('bkash')" class="py-3 rounded-xl border text-sm font-bold bg-pink-600/20 border-pink-500 text-pink-400">বিকাশ (bKash)</button>
-                            <button type="button" id="m-nagad" onclick="setMethod('nagad')" class="py-3 rounded-xl border text-sm font-bold bg-slate-800 border-slate-700 text-slate-400">নগদ (Nagad)</button>
+                            <button type="button" id="m-bkash" onclick="setMethod('bkash')" class="py-3 rounded-xl border text-sm font-bold bg-pink-600/30 border-pink-400 text-pink-200">বিকাশ (bKash)</button>
+                            <button type="button" id="m-nagad" onclick="setMethod('nagad')" class="py-3 rounded-xl border text-sm font-bold bg-blue-950/50 border-white/20 text-sky-200">নগদ (Nagad)</button>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">মোবাইল নম্বর</label>
-                        <input type="text" id="acc-number" placeholder="017XXXXXXXX" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-500" required>
+                        <label class="block text-xs text-sky-200 mb-1">মোবাইল নম্বর</label>
+                        <input type="text" id="acc-number" placeholder="017XXXXXXXX" class="w-full bg-blue-950/60 border border-white/20 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-sky-400" required>
                     </div>
                     <div>
-                        <label class="block text-xs text-slate-400 mb-1">পরিমাণ (সর্বনিম্ন ১০০০ টাকা)</label>
-                        <input type="number" id="withdraw-amount" placeholder="1000" class="w-full bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-cyan-500" required>
+                        <label class="block text-xs text-sky-200 mb-1">পরিমাণ (সর্বনিম্ন ১০০০ টাকা)</label>
+                        <input type="number" id="withdraw-amount" placeholder="1000" class="w-full bg-blue-950/60 border border-white/20 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-sky-400" required>
                     </div>
-                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 text-white font-bold rounded-xl shadow-lg active:scale-95 transition">
+                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-blue-600 to-sky-500 text-white font-bold rounded-xl shadow-lg active:scale-95 transition border border-white/30">
                         উইথড্র রিকোয়েস্ট পাঠান
                     </button>
                 </form>
             </div>
+
+            <!-- User Withdrawal History -->
+            <div class="liquid-glass rounded-2xl p-4 space-y-3">
+                <h4 class="text-xs font-bold text-sky-200 flex items-center gap-1.5"><i data-lucide="history" class="w-4 h-4"></i> আপনার সাম্প্রতিক উইথড্র হিস্ট্রি</h4>
+                <div id="user-payout-history" class="space-y-2 text-xs max-h-36 overflow-y-auto">
+                    <p class="text-slate-300 text-[11px]">কোনো পেমেন্ট হিস্ট্রি পাওয়া যায়নি।</p>
+                </div>
+            </div>
         </div>
 
-        <!-- TAB 4: ADMIN PANEL (Only for You) -->
+        <!-- TAB 4: MASTER ADMIN PANEL -->
         <div id="tab-admin" class="space-y-5 hidden">
-            <div class="glass-card rounded-2xl p-5 space-y-4 border-red-500/40 glow-fuchsia">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <h3 class="font-bold text-lg text-red-400 flex items-center space-x-2">
-                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                        <span>এডমিন কন্ট্রোল ড্যাশবোর্ড</span>
+            <div class="liquid-glass rounded-2xl p-5 space-y-5 border-blue-400/40 glow-blue">
+                <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                    <h3 class="font-bold text-lg text-white flex items-center space-x-2">
+                        <i data-lucide="shield-alert" class="w-5 h-5 text-sky-300"></i>
+                        <span>মাস্টার কন্ট্রোল প্যানেল</span>
                     </h3>
-                    <span class="text-xs bg-red-500/20 text-red-300 px-2 py-0.5 rounded border border-red-500/40">Owner Only</span>
+                    <span class="text-xs bg-sky-500/20 text-sky-200 px-2.5 py-1 rounded-full border border-sky-400/30">Owner Only</span>
                 </div>
                 
+                <!-- Live Stats -->
                 <div class="grid grid-cols-2 gap-3">
-                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-center">
-                        <p class="text-[11px] text-slate-400">মোট ইউজার</p>
-                        <h4 id="admin-total-users" class="text-2xl font-black text-cyan-400">0</h4>
+                    <div class="liquid-card p-3 rounded-xl text-center">
+                        <p class="text-[11px] text-sky-200">মোট ইউজার</p>
+                        <h4 id="admin-total-users" class="text-2xl font-black text-white">0</h4>
                     </div>
-                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 text-center">
-                        <p class="text-[11px] text-slate-400">অনলাইনে একটিভ</p>
-                        <h4 id="admin-active-users" class="text-2xl font-black text-emerald-400">0</h4>
+                    <div class="liquid-card p-3 rounded-xl text-center">
+                        <p class="text-[11px] text-sky-200">অনলাইনে একটিভ</p>
+                        <h4 id="admin-active-users" class="text-2xl font-black text-emerald-300">0</h4>
                     </div>
                 </div>
 
-                <div class="space-y-2 pt-2 border-t border-slate-800">
-                    <label class="text-xs font-bold text-slate-300">অ্যাপের নাম পরিবর্তন:</label>
+                <!-- Admin Withdrawal Payout Management Box -->
+                <div class="liquid-card p-4 rounded-2xl space-y-3 border-amber-400/30">
+                    <h4 class="text-xs font-bold text-amber-300 flex items-center gap-1.5"><i data-lucide="credit-card" class="w-4 h-4"></i> পেন্ডিং উইথড্র পেআউট বক্স</h4>
+                    <div id="admin-payout-list" class="space-y-2 max-h-44 overflow-y-auto">
+                        <p class="text-[11px] text-sky-200">কোনো পেন্ডিং উইথড্র রিকোয়েস্ট নেই।</p>
+                    </div>
+                </div>
+
+                <!-- App Customization Box -->
+                <div class="liquid-card p-4 rounded-2xl space-y-3">
+                    <h4 class="text-xs font-bold text-sky-200 flex items-center gap-1.5"><i data-lucide="sliders" class="w-4 h-4"></i> অ্যাপ কাস্টমাইজেশন (নো কোড)</h4>
+                    <div class="space-y-2">
+                        <label class="text-[11px] text-sky-300">অ্যাপের নাম পরিবর্তন:</label>
+                        <div class="flex space-x-2">
+                            <input type="text" id="admin-app-name-input" placeholder="নতুন নাম লিখুন" class="flex-1 bg-blue-950/60 border border-white/20 rounded-xl p-2 text-xs text-white">
+                            <button onclick="changeAppName()" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-xl text-xs font-bold border border-white/20">সেভ</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User ID Management Box (Grid Cards) -->
+                <div class="liquid-card p-4 rounded-2xl space-y-3">
+                    <h4 class="text-xs font-bold text-sky-200 flex items-center gap-1.5"><i data-lucide="users" class="w-4 h-4"></i> ইউজার আইডি ম্যানেজমেন্ট বক্স</h4>
                     <div class="flex space-x-2">
-                        <input type="text" id="admin-app-name-input" placeholder="নতুন নাম" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-white">
-                        <button onclick="changeAppName()" class="bg-cyan-500 text-slate-950 px-3 py-2 rounded-xl text-xs font-bold">সেভ</button>
+                        <input type="text" id="kick-user-id" placeholder="ইউজার আইডি দিন" class="flex-1 bg-blue-950/60 border border-white/20 rounded-xl p-2 text-xs text-white">
+                        <button onclick="kickUser()" class="bg-red-600 hover:bg-red-500 text-white px-3 py-2 rounded-xl text-xs font-bold shadow">ব্যান / কিক</button>
                     </div>
+                    <div id="admin-user-grid" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
                 </div>
 
-                <div class="space-y-2 pt-2 border-t border-slate-800">
-                    <label class="text-xs font-bold text-slate-300">ইউজার ব্যান / কিক করুন:</label>
-                    <div class="flex space-x-2">
-                        <input type="text" id="kick-user-id" placeholder="ইউজার আইডি দিন" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-white">
-                        <button onclick="kickUser()" class="bg-red-600 text-white px-3 py-2 rounded-xl text-xs font-bold">ব্যান</button>
+                <!-- Anti-Cheat / Fraud Log Box -->
+                <div class="liquid-card p-4 rounded-2xl space-y-3 border-red-500/30">
+                    <h4 class="text-xs font-bold text-red-300 flex items-center gap-1.5"><i data-lucide="shield-alert" class="w-4 h-4"></i> অনিয়ম ও অটো এন্টি-চিট বক্স</h4>
+                    <div id="admin-fraud-box" class="bg-blue-950/80 border border-red-500/20 p-2.5 rounded-xl text-[11px] text-red-200 max-h-32 overflow-y-auto">
+                        সিস্টেম নিরাপদ আছে। কোনো ফেক ক্লিক বা ভিপিএন অ্যালার্ট মেলেনি।
                     </div>
-                </div>
-
-                <div class="pt-2 border-t border-slate-800">
-                    <h4 class="text-xs font-bold text-slate-400 mb-2">লাইভ ইউজার লিস্ট:</h4>
-                    <div id="admin-user-list" class="space-y-2 max-h-48 overflow-y-auto text-xs"></div>
                 </div>
             </div>
         </div>
@@ -213,20 +242,20 @@
     </div>
 
     <!-- Bottom Navigation Bar -->
-    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto glass-nav p-2 grid grid-cols-3 gap-1 z-30" id="nav-container">
-        <button onclick="switchTab('home')" id="nav-home" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-cyan-400 bg-slate-800/60">
+    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto liquid-glass p-2 grid grid-cols-3 gap-1 z-30 border-t border-white/10" id="nav-container">
+        <button onclick="switchTab('home')" id="nav-home" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-white bg-blue-600/40 border border-white/10">
             <i data-lucide="play" class="w-5 h-5"></i>
             <span class="text-xs font-semibold">অ্যাড আয়</span>
         </button>
-        <button onclick="switchTab('profile')" id="nav-profile" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-slate-400">
+        <button onclick="switchTab('profile')" id="nav-profile" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-200">
             <i data-lucide="user" class="w-5 h-5"></i>
             <span class="text-xs font-semibold">প্রোফাইল</span>
         </button>
-        <button onclick="switchTab('wallet')" id="nav-wallet" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-slate-400">
+        <button onclick="switchTab('wallet')" id="nav-wallet" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-200">
             <i data-lucide="wallet" class="w-5 h-5"></i>
             <span class="text-xs font-semibold">ওয়ালেট</span>
         </button>
-        <button onclick="switchTab('admin')" id="nav-admin" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-red-400 hidden">
+        <button onclick="switchTab('admin')" id="nav-admin" class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-red-300 hidden">
             <i data-lucide="shield" class="w-5 h-5"></i>
             <span class="text-xs font-semibold">এডমিন</span>
         </button>
@@ -249,9 +278,10 @@
         let userCoins = 0;
         let telegramUser = { id: "demo_user_123", first_name: "Demo", username: "user" };
         let selectedMethod = 'bkash';
+        let lastAdTime = 0;
 
-        // 🔴 আপনার আসল টেলিগ্রাম ইউজার আইডি এখানে বসানো আছে (আপনার প্রোফাইল অনুযায়ী)
-        const ADMIN_TELEGRAM_ID = "8255077276"; // আপনার স্ক্রিনশট থেকে প্রাপ্ত আইডি
+        const ADMIN_TELEGRAM_ID = "8255077276";
+        const CUSTOM_REF_BASE = "t.me/FindingExtraOrdinarybot/httpszulhazsheikhhashgithub";
 
         lucide.createIcons();
 
@@ -268,11 +298,12 @@
             document.getElementById('profile-name').innerText = telegramUser.first_name;
             document.getElementById('profile-id').innerText = telegramUser.id;
 
-            // Check if current user is Admin
+            const myRefLink = `${CUSTOM_REF_BASE}?start=${telegramUser.id}`;
+            document.getElementById('ref-link-display').innerText = myRefLink;
+
             if (String(telegramUser.id) === ADMIN_TELEGRAM_ID) {
-                // Unlock Admin Panel Automatically for You
                 const navContainer = document.getElementById('nav-container');
-                navContainer.className = "fixed bottom-0 left-0 right-0 max-w-md mx-auto glass-nav p-2 grid grid-cols-4 gap-1 z-30";
+                navContainer.className = "fixed bottom-0 left-0 right-0 max-w-md mx-auto liquid-glass p-2 grid grid-cols-4 gap-1 z-30 border-t border-white/10";
                 document.getElementById('nav-admin').classList.remove('hidden');
                 loadAdminDashboard();
             }
@@ -283,7 +314,7 @@
             if (docSnap.exists) {
                 const data = docSnap.data();
                 if (data.isBanned) {
-                    document.body.innerHTML = "<div class='p-10 text-center text-red-500 font-bold'>Access Denied: You are banned by Admin.</div>";
+                    document.body.innerHTML = "<div class='p-10 text-center text-red-400 font-bold'>Access Denied: You are banned by Admin.</div>";
                     return;
                 }
                 userCoins = data.coins || 0;
@@ -298,6 +329,7 @@
                 });
             }
             updateUI();
+            loadUserHistory();
         });
 
         function updateUI() {
@@ -305,8 +337,14 @@
             document.getElementById('taka-display').innerText = `৳ ${(userCoins / 100).toFixed(2)} BDT`;
         }
 
-        // SYSTEM 1: Single Ad (15s Cooldown)
         function handleSystem1Ad() {
+            const now = Date.now();
+            if (now - lastAdTime < 10000) {
+                logFraud("স্প্যামিং চেষ্টা: অতি দ্রুত অ্যাড ক্লিকের চেষ্টা করা হয়েছে!");
+                return alert("অনুগ্রহ করে অপেক্ষা করুন!");
+            }
+            lastAdTime = now;
+
             const btn = document.getElementById('btn-sys1');
             const status = document.getElementById('sys1-status');
             btn.disabled = true;
@@ -333,7 +371,6 @@
             });
         }
 
-        // SYSTEM 2: Triple Ad (30s Cooldown)
         function handleSystem2Ad() {
             const btn = document.getElementById('btn-sys2');
             const counter = document.getElementById('sys2-counter');
@@ -389,8 +426,9 @@
             await db.collection("users").doc(String(telegramUser.id)).update({ coins: userCoins });
         }
 
-        function handleWithdraw(e) {
+        async function handleWithdraw(e) {
             e.preventDefault();
+            const acc = document.getElementById('acc-number').value;
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
             const currentTaka = userCoins / 100;
 
@@ -406,13 +444,48 @@
             userCoins -= (amount * 100);
             updateUI();
             syncCoins();
+
+            await db.collection("withdrawals").add({
+                userId: String(telegramUser.id),
+                userName: telegramUser.first_name || 'User',
+                method: selectedMethod,
+                accountNumber: acc,
+                amountTaka: amount,
+                status: "pending",
+                requestedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
             alert("১০০০+ টাকার উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
+            loadUserHistory();
+            if (String(telegramUser.id) === ADMIN_TELEGRAM_ID) loadAdminDashboard();
+        }
+
+        async function loadUserHistory() {
+            const container = document.getElementById('user-payout-history');
+            const snap = await db.collection("withdrawals").where("userId", "==", String(telegramUser.id)).get();
+            if (snap.empty) return;
+
+            container.innerHTML = "";
+            snap.forEach(doc => {
+                const w = doc.data();
+                const isPaid = w.status === 'paid';
+                container.innerHTML += `
+                    <div class="bg-blue-950/60 p-2.5 rounded-xl border border-white/10 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-white">৳${w.amountTaka} (${w.method})</p>
+                            <p class="text-[10px] text-sky-300">${w.accountNumber}</p>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] rounded-full font-bold ${isPaid ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">
+                            ${isPaid ? 'PAID' : 'PENDING'}
+                        </span>
+                    </div>`;
+            });
         }
 
         function setMethod(m) {
             selectedMethod = m;
-            document.getElementById('m-bkash').className = m === 'bkash' ? "py-3 rounded-xl border text-sm font-bold bg-pink-600/20 border-pink-500 text-pink-400" : "py-3 rounded-xl border text-sm font-bold bg-slate-800 border-slate-700 text-slate-400";
-            document.getElementById('m-nagad').className = m === 'nagad' ? "py-3 rounded-xl border text-sm font-bold bg-orange-600/20 border-orange-500 text-orange-400" : "py-3 rounded-xl border text-sm font-bold bg-slate-800 border-slate-700 text-slate-400";
+            document.getElementById('m-bkash').className = m === 'bkash' ? "py-3 rounded-xl border text-sm font-bold bg-pink-600/30 border-pink-400 text-pink-200" : "py-3 rounded-xl border text-sm font-bold bg-blue-950/50 border-white/20 text-sky-200";
+            document.getElementById('m-nagad').className = m === 'nagad' ? "py-3 rounded-xl border text-sm font-bold bg-blue-900/30 border-blue-400 text-blue-200" : "py-3 rounded-xl border text-sm font-bold bg-blue-950/50 border-white/20 text-sky-200";
         }
 
         function switchTab(tab) {
@@ -420,15 +493,17 @@
                 const el = document.getElementById(`tab-${t}`);
                 const nav = document.getElementById(`nav-${t}`);
                 if(el) el.classList.add('hidden');
-                if(nav) nav.className = "py-2.5 rounded-xl flex flex-col items-center space-y-1 text-slate-400";
+                if(nav) nav.className = "py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-200";
             });
             document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            document.getElementById(`nav-${tab}`).className = `py-2.5 rounded-xl flex flex-col items-center space-y-1 ${tab === 'admin' ? 'text-red-400' : 'text-cyan-400'} bg-slate-800/60`;
+            document.getElementById(`nav-${tab}`).className = `py-2.5 rounded-xl flex flex-col items-center space-y-1 text-white bg-blue-600/40 border border-white/10`;
         }
 
         async function loadAdminDashboard() {
-            const listEl = document.getElementById('admin-user-list');
-            listEl.innerHTML = "";
+            const gridEl = document.getElementById('admin-user-grid');
+            const payoutEl = document.getElementById('admin-payout-list');
+            gridEl.innerHTML = "";
+            payoutEl.innerHTML = "";
             
             const snapshot = await db.collection("users").get();
             let total = snapshot.size;
@@ -437,21 +512,53 @@
 
             snapshot.forEach(doc => {
                 const u = doc.data();
-                if (u.lastActive && (now - u.lastActive.toDate()) < 600000) {
-                    active++;
-                }
-                listEl.innerHTML += `
-                    <div class="flex justify-between items-center bg-slate-950/80 p-2.5 rounded-xl border border-slate-800">
+                if (u.lastActive && (now - u.lastActive.toDate()) < 600000) active++;
+                gridEl.innerHTML += `
+                    <div class="bg-blue-950/70 border border-white/15 p-2.5 rounded-xl flex justify-between items-center">
                         <div>
-                            <p class="font-bold text-slate-200">${u.name}</p>
-                            <p class="text-[10px] text-slate-500">ID: ${u.id}</p>
+                            <p class="font-bold text-white text-xs">${u.name}</p>
+                            <p class="text-[10px] text-sky-300 font-mono">ID: ${u.id}</p>
                         </div>
-                        <span class="text-amber-400 font-bold">${u.coins || 0} Pts</span>
+                        <span class="text-amber-300 font-bold text-xs">${u.coins || 0} Pts</span>
                     </div>`;
             });
 
+            const wSnap = await db.collection("withdrawals").where("status", "==", "pending").get();
+            if (wSnap.empty) {
+                payoutEl.innerHTML = `<p class="text-[11px] text-sky-200">কোনো পেন্ডিং উইথড্র নেই।</p>`;
+            } else {
+                wSnap.forEach(doc => {
+                    const w = doc.data();
+                    payoutEl.innerHTML += `
+                        <div class="bg-blue-950/80 p-2.5 rounded-xl border border-amber-400/30 flex justify-between items-center">
+                            <div>
+                                <p class="font-bold text-white text-xs">৳${w.amountTaka} - ${w.method.toUpperCase()}</p>
+                                <p class="text-[10px] text-sky-200">নম্বর: ${w.accountNumber} (ID: ${w.userId})</p>
+                            </div>
+                            <button onclick="markAsPaid('${doc.id}')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold">PAID মার্ক করুন</button>
+                        </div>`;
+                });
+            }
+
             document.getElementById('admin-total-users').innerText = total;
             document.getElementById('admin-active-users').innerText = active;
+        }
+
+        async function markAsPaid(docId) {
+            await db.collection("withdrawals").doc(docId).update({ status: "paid" });
+            alert("পেমেন্ট সফল হিসেবে চিহ্নিত করা হয়েছে!");
+            loadAdminDashboard();
+        }
+
+        async function logFraud(reason) {
+            const fraudBox = document.getElementById('admin-fraud-box');
+            fraudBox.innerHTML += `<div class="mt-1 border-t border-red-500/20 pt-1">⚠️ [${telegramUser.id}] ${reason}</div>`;
+        }
+
+        function copyRefLink() {
+            const myRefLink = `${CUSTOM_REF_BASE}?start=${telegramUser.id}`;
+            navigator.clipboard.writeText(myRefLink);
+            alert("রেফারেল লিংক কপি হয়েছে!");
         }
 
         function changeAppName() {
