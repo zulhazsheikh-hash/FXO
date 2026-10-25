@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FXO - Watch to Earn</title>
+    <!-- Tailwind CSS for UI Design -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Adsgram SDK -->
+    <script src="https://sad.adsgram.ai/js/sad.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        body {
+            background-color: #090d16;
+            color: #f8fafc;
+            font-family: system-ui, -apple-system, sans-serif;
+            user-select: none;
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.15);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen max-w-md mx-auto relative border-x border-slate-800/60 shadow-2xl">
+
+    <!-- App Header -->
+    <div class="p-4 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 flex items-center justify-between sticky top-0 z-20">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-tr from-cyan-500 to-fuchsia-500 p-2.5 rounded-2xl shadow-lg">
+                <i data-lucide="zap" class="w-6 h-6 text-slate-950 fill-current"></i>
+            </div>
+            <div>
+                <h1 class="font-black text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-pink-400">
+                    FXO EARN
+                </h1>
+                <p id="user-display-name" class="text-xs text-slate-400 font-medium">@loading...</p>
+            </div>
+        </div>
+        <div class="bg-slate-800/80 border border-slate-700/60 px-3.5 py-1.5 rounded-full flex items-center space-x-2 shadow-inner">
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-400"></i>
+            <span id="coins-display" class="font-extrabold text-amber-300">0 Pts</span>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="p-4 flex-1 pb-28">
+
+        <!-- TAB 1: HOME (Watch Ads) -->
+        <div id="tab-home" class="space-y-5">
+            <!-- Balance Card -->
+            <div class="relative overflow-hidden bg-gradient-to-br from-indigo-950/80 via-slate-900 to-slate-950 border border-cyan-500/30 rounded-3xl p-6 text-center shadow-xl glow-effect">
+                <p class="text-slate-400 text-sm font-semibold tracking-wide">বর্তমান মোট জমা টাকা</p>
+                <h2 id="taka-display" class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 my-2">
+                    ৳ 0.00 BDT
+                </h2>
+                <div class="inline-block bg-slate-800/80 border border-slate-700/50 rounded-full px-3 py-1 text-xs text-cyan-300">
+                    ১০০০ পয়েন্ট = ৳ ১০ টাকা
+                </div>
+            </div>
+
+            <!-- Daily Ad Progress -->
+            <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 space-y-2">
+                <div class="flex justify-between text-sm">
+                    <span class="text-slate-400">আজকের অ্যাড দেখার সীমা</span>
+                    <span id="ad-count-text" class="font-bold text-cyan-400">0 / 30</span>
+                </div>
+                <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden p-0.5 border border-slate-800">
+                    <div id="ad-progress-bar" class="bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-pink-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <p class="text-xs text-slate-400 text-right">প্রতি অ্যাডে ইনকাম ৳০.৫০ টাকা</p>
+            </div>
+
+            <!-- Watch Ad Button -->
+            <button id="btn-watch-ad" onclick="handleWatchAd()" class="w-full py-5 rounded-2xl font-black text-lg transition-all duration-200 flex items-center justify-center space-x-3 border bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-slate-950 border-emerald-300 shadow-lg shadow-emerald-500/20 active:scale-95">
+                <i data-lucide="play" class="w-6 h-6 fill-current"></i>
+                <span id="btn-watch-text">অ্যাড দেখুন ও আয় করুন</span>
+            </button>
+        </div>
+
+        <!-- TAB 2: WALLET (Withdraw) -->
+        <div id="tab-wallet" class="space-y-5 hidden">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                <h3 class="font-bold text-lg mb-4 text-cyan-400 flex items-center space-x-2">
+                    <i data-lucide="wallet" class="w-5 h-5"></i>
+                    <span>টাকা উত্তোলন করুন</span>
+                </h3>
+                
+                <form id="withdraw-form" onsubmit="handleWithdraw(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-2">পেমেন্ট মেথড নির্বাচন করুন</label>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button type="button" id="btn-method-bkash" onclick="setMethod('bkash')" class="py-3 rounded-xl border text-sm font-bold bg-pink-600/20 border-pink-500 text-pink-400">
+                                বিকাশ (bKash)
+                            </button>
+                            <button type="button" id="btn-method-nagad" onclick="setMethod('nagad')" class="py-3 rounded-xl border text-sm font-bold bg-slate-800/50 border-slate-700 text-slate-400">
+                                নগদ (Nagad)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">পার্সোনাল মোবাইল নম্বর</label>
+                        <input type="text" id="acc-number" placeholder="017XXXXXXXX" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-500 text-white" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-slate-400 mb-1">পরিমাণ (টাকা)</label>
+                        <input type="number" id="withdraw-amount" placeholder="সর্বনিম্ন ৫০ টাকা" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm focus:outline-none focus:border-cyan-500 text-white" required>
+                    </div>
+
+                    <button type="submit" id="btn-withdraw-submit" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-white font-bold rounded-xl shadow-lg hover:opacity-90 active:scale-95 transition">
+                        উইথড্র রিকোয়েস্ট পাঠান
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 3: REFERRAL -->
+        <div id="tab-refer" class="space-y-5 hidden">
+            <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 text-center shadow-lg">
+                <div class="w-16 h-16 bg-fuchsia-500/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i data-lucide="share-2" class="w-8 h-8 text-fuchsia-400"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-100">বন্ধুদের ইনভাইট করুন</h3>
+                <p class="text-sm text-slate-400 mt-2">
+                    আপনার রেফারেল লিংক শেয়ার করে বন্ধুদের ইনভাইট করুন এবং পেয়ে যান <span class="text-amber-400 font-bold">১০% রেফারেল কমিশন!</span>
+                </p>
+
+                <div class="mt-6 p-3 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between">
+                    <span id="ref-link-text" class="text-xs text-slate-400 truncate mr-2">https://t.me/FindingExtraOrdinarybot</span>
+                    <button onclick="copyReferralLink()" class="bg-cyan-400 hover:bg-cyan-300 text-slate-950 px-3 py-2 rounded-lg font-bold text-xs flex items-center space-x-1 shrink-0 transition">
+                        <i data-lucide="copy" class="w-4 h-4"></i>
+                        <span id="copy-btn-text">কপি</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-slate-900/95 backdrop-blur-md border-t border-slate-800 p-2 grid grid-cols-3 gap-1 z-30">
+        <button onclick="switchTab('home')" id="nav-home" class="py-2 rounded-xl flex flex-col items-center space-y-1 text-cyan-400 bg-slate-800/60">
+            <i data-lucide="play" class="w-5 h-5"></i>
+            <span class="text-xs font-medium">অ্যাড আয়</span>
+        </button>
+        <button onclick="switchTab('wallet')" id="nav-wallet" class="py-2 rounded-xl flex flex-col items-center space-y-1 text-slate-400">
+            <i data-lucide="wallet" class="w-5 h-5"></i>
+            <span class="text-xs font-medium">ওয়ালেট</span>
+        </button>
+        <button onclick="switchTab('refer')" id="nav-refer" class="py-2 rounded-xl flex flex-col items-center space-y-1 text-slate-400">
+            <i data-lucide="share-2" class="w-5 h-5"></i>
+            <span class="text-xs font-medium">রেফার</span>
+        </button>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // 1. Firebase Config Setup
+        const firebaseConfig = {
+            apiKey: "AIzaSyDEkBXnYqwlNnDuuvUOhleZg-MV0NsZ3JM",
+            authDomain: "fxok-ef3a8.firebaseapp.com",
+            projectId: "fxok-ef3a8",
+            storageBucket: "fxok-ef3a8.firebasestorage.app",
+            messagingSenderId: "1082694486552",
+            appId: "1:1082694486552:web:6f1d77877cd63c2858516d",
+            measurementId: "G-C5E0MTFZFH"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // 2. Constants & Variables
+        const ADSGRAM_BLOCK_ID = "int-55995";
+        const BOT_USERNAME = "FindingExtraOrdinarybot";
+        const DAILY_LIMIT = 30;
+        const REWARD_PER_AD = 50; // 50 Points = ৳0.50 Taka
+
+        let userCoins = 0;
+        let adsWatchedToday = 0;
+        let selectedMethod = 'bkash';
+        let telegramUser = { id: "demo_user_123", first_name: "Demo", username: "user" };
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // 3. App Load Logic
+        window.addEventListener('DOMContentLoaded', async () => {
+            if (window.Telegram?.WebApp) {
+                window.Telegram.WebApp.ready();
+                window.Telegram.WebApp.expand();
+                if (window.Telegram.WebApp.initDataUnsafe?.user) {
+                    telegramUser = window.Telegram.WebApp.initDataUnsafe.user;
+                }
+            }
+
+            document.getElementById('user-display-name').innerText = `@${telegramUser.username || telegramUser.first_name}`;
+            document.getElementById('ref-link-text').innerText = `https://t.me/${BOT_USERNAME}?start=${telegramUser.id}`;
+
+            // Sync User with Firebase
+            const todayStr = new Date().toISOString().split('T')[0];
+            const userRef = db.collection("users").doc(String(telegramUser.id));
+
+            try {
+                const docSnap = await userRef.get();
+                if (docSnap.exists) {
+                    const data = docSnap.data();
+                    userCoins = data.coins || 0;
+                    if (data.lastAdDate === todayStr) {
+                        adsWatchedToday = data.adsWatchedToday || 0;
+                    } else {
+                        adsWatchedToday = 0;
+                        await userRef.update({ adsWatchedToday: 0, lastAdDate: todayStr });
+                    }
+                } else {
+                    await userRef.set({
+                        id: String(telegramUser.id),
+                        name: telegramUser.first_name || 'User',
+                        username: telegramUser.username || '',
+                        coins: 0,
+                        adsWatchedToday: 0,
+                        lastAdDate: todayStr,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                }
+            } catch (e) {
+                console.error("Firebase sync failed:", e);
+            }
+
+            updateUI();
+        });
+
+        // 4. Update UI Functions
+        function updateUI() {
+            document.getElementById('coins-display').innerText = `${userCoins} Pts`;
+            document.getElementById('taka-display').innerText = `৳ ${(userCoins / 100).toFixed(2)} BDT`;
+            document.getElementById('ad-count-text').innerText = `${adsWatchedToday} / ${DAILY_LIMIT}`;
+            document.getElementById('ad-progress-bar').style.width = `${(adsWatchedToday / DAILY_LIMIT) * 100}%`;
+
+            const watchBtn = document.getElementById('btn-watch-ad');
+            const watchText = document.getElementById('btn-watch-text');
+
+            if (adsWatchedToday >= DAILY_LIMIT) {
+                watchBtn.disabled = true;
+                watchBtn.className = "w-full py-5 rounded-2xl font-black text-lg flex items-center justify-center space-x-3 bg-slate-800 border border-slate-700 text-slate-500 cursor-not-allowed";
+                watchText.innerText = "আজকের সীমা শেষ";
+            }
+        }
+
+        // 5. Watch Ad Trigger
+        function handleWatchAd() {
+            if (adsWatchedToday >= DAILY_LIMIT) return;
+
+            const watchBtn = document.getElementById('btn-watch-ad');
+            const watchText = document.getElementById('btn-watch-text');
+            watchBtn.disabled = true;
+            watchText.innerText = "অ্যাড লোড হচ্ছে...";
+
+            if (window.Adsgram) {
+                const AdController = window.Adsgram.init({ blockId: ADSGRAM_BLOCK_ID });
+                AdController.show().then(() => {
+                    onAdWatchedSuccess();
+                }).catch(() => {
+                    alert("অ্যাড পুরোপুরি শেষ হয়নি!");
+                    resetWatchBtn();
+                });
+            } else {
+                // Testing simulation
+                setTimeout(() => {
+                    onAdWatchedSuccess();
+                }, 3000);
+            }
+        }
+
+        async function onAdWatchedSuccess() {
+            userCoins += REWARD_PER_AD;
+            adsWatchedToday += 1;
+            const todayStr = new Date().toISOString().split('T')[0];
+
+            updateUI();
+            resetWatchBtn();
+
+            try {
+                await db.collection("users").doc(String(telegramUser.id)).update({
+                    coins: userCoins,
+                    adsWatchedToday: adsWatchedToday,
+                    lastAdDate: todayStr
+                });
+            } catch (e) {
+                console.error("Error updating ad count:", e);
+            }
+        }
+
+        function resetWatchBtn() {
+            const watchBtn = document.getElementById('btn-watch-ad');
+            const watchText = document.getElementById('btn-watch-text');
+            watchBtn.disabled = false;
+            watchText.innerText = "অ্যাড দেখুন ও আয় করুন";
+        }
+
+        // 6. Navigation Tabs
+        function switchTab(tab) {
+            ['home', 'wallet', 'refer'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`nav-${t}`).className = "py-2 rounded-xl flex flex-col items-center space-y-1 text-slate-400";
+            });
+            document.getElementById(`tab-${tab}`).classList.remove('hidden');
+            document.getElementById(`nav-${tab}`).className = "py-2 rounded-xl flex flex-col items-center space-y-1 text-cyan-400 bg-slate-800/60";
+        }
+
+        // 7. Withdraw Logic
+        function setMethod(m) {
+            selectedMethod = m;
+            document.getElementById('btn-method-bkash').className = m === 'bkash' ? "py-3 rounded-xl border text-sm font-bold bg-pink-600/20 border-pink-500 text-pink-400" : "py-3 rounded-xl border text-sm font-bold bg-slate-800/50 border-slate-700 text-slate-400";
+            document.getElementById('btn-method-nagad').className = m === 'nagad' ? "py-3 rounded-xl border text-sm font-bold bg-orange-600/20 border-orange-500 text-orange-400" : "py-3 rounded-xl border text-sm font-bold bg-slate-800/50 border-slate-700 text-slate-400";
+        }
+
+        async function handleWithdraw(e) {
+            e.preventDefault();
+            const acc = document.getElementById('acc-number').value;
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const currentTaka = userCoins / 100;
+
+            if (amount < 50) return alert("সর্বনিম্ন ৫০ টাকা উইথড্র করা যাবে।");
+            if (amount > currentTaka) return alert("আপনার একাউন্টে পর্যাপ্ত ব্যালেন্স নেই!");
+
+            const submitBtn = document.getElementById('btn-withdraw-submit');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "প্রসেস হচ্ছে...";
+
+            try {
+                const coinsToDeduct = amount * 100;
+                userCoins -= coinsToDeduct;
+
+                await db.collection("withdrawals").add({
+                    userId: String(telegramUser.id),
+                    userName: telegramUser.first_name || 'User',
+                    method: selectedMethod,
+                    accountNumber: acc,
+                    amountTaka: amount,
+                    status: "pending",
+                    requestedAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                await db.collection("users").doc(String(telegramUser.id)).update({ coins: userCoins });
+
+                updateUI();
+                document.getElementById('withdraw-form').reset();
+                alert("উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!");
+            } catch (err) {
+                alert("সমস্যা হয়েছে! পরে আবার চেষ্টা করুন।");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "উইথড্র রিকোয়েস্ট পাঠান";
+            }
+        }
+
+        // 8. Copy Referral Link
+        function copyReferralLink() {
+            const link = `https://t.me/${BOT_USERNAME}?start=${telegramUser.id}`;
+            navigator.clipboard.writeText(link);
+            document.getElementById('copy-btn-text').innerText = "কপি হয়েছে";
+            setTimeout(() => {
+                document.getElementById('copy-btn-text').innerText = "কপি";
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
