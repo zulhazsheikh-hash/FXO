@@ -604,6 +604,12 @@ const db=firebase.firestore();
    TELEGRAM BOT
 ===================================================== */
 
+/*
+WARNING:
+এই token HTML-এর মধ্যে থাকলে public হয়ে যাবে।
+Production-এর জন্য backend ব্যবহার করা উচিত।
+*/
+
 const BOT_TOKEN =
 "8357657946:AAGNqBQczWijdVuQi9_gTXNl-tv2RzMI8fM";
 
@@ -647,16 +653,19 @@ null;
 
 
 if(tg){
+
     tg.ready();
+
     tg.expand();
 }
 
 
 if(
-tg &&
-tg.initDataUnsafe &&
-tg.initDataUnsafe.user
+    tg &&
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.user
 ){
+
     telegramUser=
     tg.initDataUnsafe.user;
 }
@@ -672,18 +681,22 @@ function updateUserUI(){
     telegramUser.first_name ||
     "User";
 
+
     document.getElementById(
         "headerUserName"
     ).textContent=name;
+
 
     document.getElementById(
         "profileName"
     ).textContent=name;
 
+
     document.getElementById(
         "profileId"
     ).textContent=
     telegramUser.id || "-";
+
 
     document.getElementById(
         "profileUsername"
@@ -694,16 +707,19 @@ function updateUserUI(){
     :
     "-";
 
+
     const link=
     "https://t.me/FindingExtraOrdinarybot?start="+
     encodeURIComponent(
         String(telegramUser.id)
     );
 
+
     document.getElementById(
         "refLink"
     ).value=link;
 }
+
 
 updateUserUI();
 
@@ -720,14 +736,18 @@ async function loadUser(){
         db.collection("users")
         .doc(String(telegramUser.id));
 
+
         const snap=
         await ref.get();
+
 
         if(!snap.exists){
 
             await ref.set({
 
-                id:String(telegramUser.id),
+                id:String(
+                    telegramUser.id
+                ),
 
                 name:
                 telegramUser.first_name ||
@@ -753,11 +773,13 @@ async function loadUser(){
 
             });
 
+
             userCoins=0;
 
         }else{
 
             const data=snap.data();
+
 
             if(data.isBanned){
 
@@ -771,6 +793,7 @@ async function loadUser(){
                     padding:25px
                 ">
                     <div>
+
                         <h1 style="
                             font-size:28px;
                             font-weight:800
@@ -784,17 +807,21 @@ async function loadUser(){
                         ">
                             Your FXO account has been restricted.
                         </p>
+
                     </div>
                 </div>`;
 
                 return;
             }
 
+
             userCoins=
             Number(data.coins||0);
         }
 
+
         updateCoins();
+
 
         await ref.set({
 
@@ -806,6 +833,7 @@ async function loadUser(){
         },{
             merge:true
         });
+
 
     }catch(error){
 
@@ -823,9 +851,11 @@ function updateCoins(){
         "headerCoins"
     ).textContent=userCoins;
 
+
     document.getElementById(
         "walletCoins"
     ).textContent=userCoins;
+
 
     document.getElementById(
         "homeBalance"
@@ -837,6 +867,7 @@ function updateCoins(){
 async function syncCoins(){
 
     updateCoins();
+
 
     await db
     .collection("users")
@@ -868,39 +899,65 @@ function switchTab(
     document
     .querySelectorAll(".page")
     .forEach(page=>{
-        page.classList.remove("active");
+
+        page.classList.remove(
+            "active"
+        );
+
     });
+
 
     document
     .getElementById(pageId)
     .classList.add("active");
 
+
     document
-    .querySelectorAll("#bottomNav button")
+    .querySelectorAll(
+        "#bottomNav button"
+    )
     .forEach(btn=>{
-        btn.classList.remove("active");
+
+        btn.classList.remove(
+            "active"
+        );
+
     });
 
+
     if(button){
-        button.classList.add("active");
+
+        button.classList.add(
+            "active"
+        );
     }
 
+
     if(pageId==="videosPage"){
+
         loadVideos();
     }
+
 
     if(
         pageId==="adminPage" &&
         adminUnlocked
     ){
+
         loadAdminDashboard();
+
         loadAdminVideos();
+
         loadWithdrawals();
     }
 
+
     window.scrollTo({
+
         top:0,
+
         behavior:"smooth"
+
     });
 }
 
@@ -914,18 +971,27 @@ async function showAd(){
     try{
 
         if(typeof Adsgram==="undefined"){
+
             await delay(2000);
+
             return true;
         }
 
+
         const controller=
         Adsgram.init({
-            blockId:ADSGRAM_BLOCK_ID
+
+            blockId:
+            ADSGRAM_BLOCK_ID
+
         });
+
 
         await controller.show();
 
+
         return true;
+
 
     }catch(error){
 
@@ -933,6 +999,7 @@ async function showAd(){
             "Adsgram:",
             error
         );
+
 
         return false;
     }
@@ -948,6 +1015,7 @@ async function systemOne(){
     const success=
     await showAd();
 
+
     if(!success){
 
         alert(
@@ -957,11 +1025,16 @@ async function systemOne(){
         return;
     }
 
+
     userCoins+=50;
+
 
     await syncCoins();
 
-    alert("+50 Points Added!");
+
+    alert(
+        "+50 Points Added!"
+    );
 }
 
 
@@ -971,10 +1044,15 @@ async function systemOne(){
 
 async function systemTwo(){
 
-    for(let i=1;i<=3;i++){
+    for(
+        let i=1;
+        i<=3;
+        i++
+    ){
 
         const success=
         await showAd();
+
 
         if(!success){
 
@@ -985,16 +1063,23 @@ async function systemTwo(){
             return;
         }
 
+
         if(i<3){
+
             await delay(30000);
         }
     }
 
+
     userCoins+=200;
+
 
     await syncCoins();
 
-    alert("+200 Points Added!");
+
+    alert(
+        "+200 Points Added!"
+    );
 }
 
 
@@ -1007,21 +1092,31 @@ async function showVideoAd(){
     try{
 
         if(typeof Adsgram==="undefined"){
+
             return false;
         }
 
+
         const controller=
         Adsgram.init({
-            blockId:ADSGRAM_BLOCK_ID
+
+            blockId:
+            ADSGRAM_BLOCK_ID
+
         });
+
 
         await controller.show();
 
+
         /*
-        এখানে কোনো points দেওয়া হচ্ছে না।
+        Video unlock ad-এর জন্য
+        কোনো points দেওয়া হচ্ছে না।
         */
 
+
         return true;
+
 
     }catch(error){
 
@@ -1029,6 +1124,7 @@ async function showVideoAd(){
             "Video Ad:",
             error
         );
+
 
         return false;
     }
@@ -1044,13 +1140,19 @@ function videoCountdown(
     return new Promise(resolve=>{
 
         const modal=
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
+
 
         modal.className="modal";
 
+
         let remaining=seconds;
 
+
         modal.innerHTML=`
+
         <div class="modal-box">
 
             <div class="glass card text-center">
@@ -1082,27 +1184,40 @@ function videoCountdown(
 
         </div>`;
 
-        document.body.appendChild(modal);
+
+        document.body.appendChild(
+            modal
+        );
+
 
         const timer=
         setInterval(()=>{
 
             remaining--;
 
+
             const el=
             modal.querySelector(
                 "#videoTimer"
             );
 
+
             if(el){
-                el.textContent=remaining;
+
+                el.textContent=
+                remaining;
             }
+
 
             if(remaining<=0){
 
-                clearInterval(timer);
+                clearInterval(
+                    timer
+                );
+
 
                 modal.remove();
+
 
                 resolve();
             }
@@ -1120,7 +1235,10 @@ async function runVideoAds(
 ){
 
     const total=
-    Number(adsRequired||3);
+    Number(
+        adsRequired||3
+    );
+
 
     for(
         let i=1;
@@ -1131,6 +1249,7 @@ async function runVideoAds(
         const success=
         await showVideoAd();
 
+
         if(!success){
 
             alert(
@@ -1139,6 +1258,7 @@ async function runVideoAds(
 
             return;
         }
+
 
         if(i<total){
 
@@ -1150,6 +1270,7 @@ async function runVideoAds(
         }
     }
 
+
     openVideoPlayer(
         videoUrl,
         title
@@ -1158,7 +1279,7 @@ async function runVideoAds(
 
 
 /* =====================================================
-   TELEGRAM VIDEO UPLOAD
+   TELEGRAM UPLOAD
 ===================================================== */
 
 async function uploadToTelegram(
@@ -1169,20 +1290,24 @@ async function uploadToTelegram(
     const form=
     new FormData();
 
+
     form.append(
         "chat_id",
         TELEGRAM_CHANNEL
     );
+
 
     form.append(
         "caption",
         title
     );
 
+
     form.append(
         "supports_streaming",
         "true"
     );
+
 
     form.append(
         "video",
@@ -1193,14 +1318,28 @@ async function uploadToTelegram(
 
     const response=
     await fetch(
+
         "https://api.telegram.org/bot"+
         BOT_TOKEN+
         "/sendVideo",
+
         {
+
             method:"POST",
+
             body:form
+
         }
     );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "Telegram server error: "+
+            response.status
+        );
+    }
 
 
     const data=
@@ -1210,8 +1349,10 @@ async function uploadToTelegram(
     if(!data.ok){
 
         throw new Error(
+
             data.description ||
             "Telegram upload failed"
+
         );
     }
 
@@ -1221,7 +1362,7 @@ async function uploadToTelegram(
 
 
 /* =====================================================
-   GET TELEGRAM VIDEO URL
+   GET TELEGRAM FILE URL
 ===================================================== */
 
 async function getTelegramFileUrl(
@@ -1230,11 +1371,23 @@ async function getTelegramFileUrl(
 
     const response=
     await fetch(
+
         "https://api.telegram.org/bot"+
         BOT_TOKEN+
         "/getFile?file_id="+
-        encodeURIComponent(fileId)
+        encodeURIComponent(
+            fileId
+        )
+
     );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "Telegram getFile server error"
+        );
+    }
 
 
     const data=
@@ -1244,8 +1397,10 @@ async function getTelegramFileUrl(
     if(!data.ok){
 
         throw new Error(
+
             data.description ||
             "Telegram getFile failed"
+
         );
     }
 
@@ -1254,11 +1409,13 @@ async function getTelegramFileUrl(
     data.result.file_path;
 
 
-    return(
+    return (
+
         "https://api.telegram.org/file/bot"+
         BOT_TOKEN+
         "/"+
         path
+
     );
 }
 
@@ -1271,21 +1428,32 @@ async function addVideo(){
 
     const title=
     document
-    .getElementById("videoTitle")
+    .getElementById(
+        "videoTitle"
+    )
     .value
     .trim();
 
+
     const file=
     document
-    .getElementById("videoFile")
+    .getElementById(
+        "videoFile"
+    )
     .files[0];
+
 
     const adsRequired=
     Number(
+
         document
-        .getElementById("videoAds")
+        .getElementById(
+            "videoAds"
+        )
         .value
+
     );
+
 
     const progress=
     document.getElementById(
@@ -1314,24 +1482,35 @@ async function addVideo(){
 
 
     /*
-    Direct Bot API playback-এর জন্য
-    20MB-এর বেশি দেওয়া হচ্ছে না।
+    Direct browser playback-এর জন্য
+    এই version-এ 20MB limit রাখা হয়েছে।
     */
 
-    if(
-        file.size >
-        20*1024*1024
-    ){
+
+    const MAX_SIZE=
+    20*1024*1024;
+
+
+    if(file.size>MAX_SIZE){
 
         alert(
-            "Video 20MB-এর কম হতে হবে।"
+            "Video 20MB-এর কম হতে হবে।\n\n"+
+            "Selected size: "+
+            (
+                file.size/
+                1024/
+                1024
+            ).toFixed(2)+
+            " MB"
         );
 
         return;
     }
 
 
-    progress.style.display="block";
+    progress.style.display=
+    "block";
+
 
     progress.textContent=
     "Telegram Channel-এ video upload হচ্ছে...";
@@ -1361,8 +1540,16 @@ async function addVideo(){
         "Telegram upload complete...";
 
 
+        const telegramVideo=
+        telegramMessage.video;
+
+
         const fileId=
-        telegramMessage.video.file_id;
+        telegramVideo.file_id;
+
+
+        progress.textContent=
+        "Telegram video URL তৈরি হচ্ছে...";
 
 
         const videoUrl=
@@ -1375,20 +1562,17 @@ async function addVideo(){
         "Firestore-এ video save হচ্ছে...";
 
 
-        await db
-        .collection("videos")
-        .add({
+        const videoData={
 
             title:title,
 
             videoUrl:videoUrl,
 
-            telegramFileId:fileId,
+            telegramFileId:
+            fileId,
 
             telegramFileUniqueId:
-            telegramMessage
-            .video
-            .file_unique_id ||
+            telegramVideo.file_unique_id ||
             "",
 
             telegramMessageId:
@@ -1396,6 +1580,24 @@ async function addVideo(){
 
             telegramChannel:
             TELEGRAM_CHANNEL,
+
+            telegramCaption:
+            title,
+
+            telegramFileSize:
+            Number(
+                telegramVideo.file_size||0
+            ),
+
+            telegramWidth:
+            Number(
+                telegramVideo.width||0
+            ),
+
+            telegramHeight:
+            Number(
+                telegramVideo.height||0
+            ),
 
             thumbnailUrl:"",
 
@@ -1410,9 +1612,18 @@ async function addVideo(){
             .serverTimestamp(),
 
             addedBy:
-            String(telegramUser.id)
+            String(
+                telegramUser.id
+            )
 
-        });
+        };
+
+
+        await db
+        .collection("videos")
+        .add(
+            videoData
+        );
 
 
         progress.textContent=
@@ -1442,14 +1653,17 @@ async function addVideo(){
     }catch(error){
 
         console.error(
+            "UPLOAD ERROR:",
             error
         );
+
 
         progress.textContent=
         "❌ Upload failed";
 
+
         alert(
-            "Upload Error:\n"+
+            "Upload Error:\n\n"+
             error.message
         );
     }
@@ -1467,7 +1681,9 @@ async function loadVideos(){
         "videoList"
     );
 
+
     list.innerHTML=`
+
     <div class="glass card small">
         Loading videos...
     </div>`;
@@ -1489,6 +1705,7 @@ async function loadVideos(){
         if(snapshot.empty){
 
             list.innerHTML=`
+
             <div class="glass card small">
                 এখনো কোনো ভিডিও প্রকাশ করা হয়নি।
             </div>`;
@@ -1503,8 +1720,11 @@ async function loadVideos(){
         snapshot.forEach(doc=>{
 
             videos.push({
+
                 id:doc.id,
+
                 ...doc.data()
+
             });
 
         });
@@ -1520,6 +1740,7 @@ async function loadVideos(){
             :
             0;
 
+
             const bTime=
             b.createdAt &&
             b.createdAt.toMillis
@@ -1528,7 +1749,9 @@ async function loadVideos(){
             :
             0;
 
+
             return bTime-aTime;
+
         });
 
 
@@ -1538,7 +1761,10 @@ async function loadVideos(){
         videos.forEach(video=>{
 
             const row=
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
             row.className=
             "glass video-row";
@@ -1564,7 +1790,12 @@ async function loadVideos(){
                 ${
                     video.thumbnailUrl
                     ?
-                    `<img src="${escapeHTML(video.thumbnailUrl)}">`
+                    `<img
+                        src="${escapeHTML(
+                            video.thumbnailUrl
+                        )}"
+                        alt=""
+                    >`
                     :
                     `<i data-lucide="play"></i>`
                 }
@@ -1592,7 +1823,11 @@ async function loadVideos(){
                 Watch
             </button>`;
 
-            list.appendChild(row);
+
+            list.appendChild(
+                row
+            );
+
         });
 
 
@@ -1601,9 +1836,14 @@ async function loadVideos(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Video load error:",
+            error
+        );
+
 
         list.innerHTML=`
+
         <div class="glass card danger">
             Video load করতে সমস্যা হয়েছে।
         </div>`;
@@ -1678,7 +1918,11 @@ async function watchVideo(
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "Watch error:",
+            error
+        );
+
 
         alert(
             "Video খুলতে সমস্যা হয়েছে।"
@@ -1697,7 +1941,10 @@ function openVideoPlayer(
 ){
 
     const modal=
-    document.createElement("div");
+    document.createElement(
+        "div"
+    );
+
 
     modal.className="modal";
 
@@ -1720,7 +1967,9 @@ function openVideoPlayer(
 
         <button
             class="close-btn"
-            onclick="this.closest('.modal').remove()"
+            onclick="
+                this.closest('.modal').remove()
+            "
         >
             Close
         </button>
@@ -1728,7 +1977,30 @@ function openVideoPlayer(
     </div>`;
 
 
-    document.body.appendChild(modal);
+    document.body.appendChild(
+        modal
+    );
+
+
+    const video=
+    modal.querySelector(
+        "video"
+    );
+
+
+    video.addEventListener(
+        "error",
+        ()=>{
+
+            console.error(
+                "Video playback error"
+            );
+
+            alert(
+                "Video playback করা যাচ্ছে না।"
+            );
+        }
+    );
 }
 
 
@@ -1744,14 +2016,18 @@ document
 
         logoClickCount++;
 
+
         clearTimeout(
             logoClickTimer
         );
 
+
         logoClickTimer=
         setTimeout(
             ()=>{
+
                 logoClickCount=0;
+
             },
             1500
         );
@@ -1763,6 +2039,7 @@ document
 
             unlockAdmin();
         }
+
     }
 );
 
@@ -1788,10 +2065,13 @@ function unlockAdmin(){
     if(adminUnlocked){
 
         switchTab(
+
             "adminPage",
+
             document.getElementById(
                 "adminNav"
             )
+
         );
 
         return;
@@ -1813,27 +2093,36 @@ function unlockAdmin(){
 
 
     const button=
-    document.createElement("button");
+    document.createElement(
+        "button"
+    );
 
 
-    button.id="adminNav";
+    button.id=
+    "adminNav";
 
 
     button.innerHTML=`
+
         <i data-lucide="settings"></i>
         Admin
+
     `;
 
 
     button.onclick=()=>{
+
         switchTab(
             "adminPage",
             button
         );
+
     };
 
 
-    nav.appendChild(button);
+    nav.appendChild(
+        button
+    );
 
 
     lucide.createIcons();
@@ -1920,9 +2209,19 @@ async function loadAdminVideos(){
                     )} Ads
                 </div>
 
+                <div class="small">
+                    Telegram:
+                    ${escapeHTML(
+                        data.telegramChannel ||
+                        "@fxok2"
+                    )}
+                </div>
+
                 <button
                     class="dark-btn mt-2"
-                    onclick="deleteVideo('${doc.id}')"
+                    onclick="
+                        deleteVideo('${doc.id}')
+                    "
                 >
                     Delete
                 </button>
@@ -1931,12 +2230,16 @@ async function loadAdminVideos(){
         });
 
 
-        list.innerHTML=html;
+        list.innerHTML=
+        html;
 
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         list.innerHTML=
         "Failed to load.";
@@ -1957,6 +2260,7 @@ async function deleteVideo(
             "এই video remove করবেন?"
         )
     ){
+
         return;
     }
 
@@ -1967,7 +2271,9 @@ async function deleteVideo(
         .collection("videos")
         .doc(videoId)
         .update({
+
             active:false
+
         });
 
 
@@ -1983,7 +2289,10 @@ async function deleteVideo(
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         alert(
             "Delete failed."
@@ -2020,6 +2329,7 @@ async function loadAdminDashboard(){
             if(
                 doc.data().lastActive
             ){
+
                 active++;
             }
 
@@ -2051,7 +2361,9 @@ async function loadAdminDashboard(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
     }
 }
 
@@ -2143,13 +2455,16 @@ async function requestWithdraw(){
         .add({
 
             userId:
-            String(telegramUser.id),
+            String(
+                telegramUser.id
+            ),
 
             userName:
             telegramUser.first_name||
             "User",
 
-            method:method,
+            method:
+            method,
 
             accountNumber:
             account,
@@ -2157,12 +2472,14 @@ async function requestWithdraw(){
             amountTaka:
             amount,
 
-            status:"pending",
+            status:
+            "pending",
 
             requestedAt:
             firebase.firestore
             .FieldValue
             .serverTimestamp()
+
         });
 
 
@@ -2183,12 +2500,17 @@ async function requestWithdraw(){
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         userCoins+=
         requiredCoins;
 
+
         await syncCoins();
+
 
         alert(
             "Withdrawal failed."
@@ -2276,7 +2598,9 @@ async function loadWithdrawals(){
 
                 <button
                     class="primary mt-2"
-                    onclick="markAsPaid('${doc.id}')"
+                    onclick="
+                        markAsPaid('${doc.id}')
+                    "
                 >
                     Mark Paid
                 </button>
@@ -2285,12 +2609,16 @@ async function loadWithdrawals(){
         });
 
 
-        list.innerHTML=html;
+        list.innerHTML=
+        html;
 
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         list.innerHTML=
         "Failed to load.";
@@ -2319,6 +2647,7 @@ async function markAsPaid(
             firebase.firestore
             .FieldValue
             .serverTimestamp()
+
         });
 
 
@@ -2334,7 +2663,10 @@ async function markAsPaid(
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            error
+        );
+
 
         alert(
             "Update failed."
@@ -2361,17 +2693,21 @@ async function copyRefLink(){
             input.value
         );
 
+
         alert(
             "Referral link copied!"
         );
+
 
     }catch(error){
 
         input.select();
 
+
         document.execCommand(
             "copy"
         );
+
 
         alert(
             "Copied!"
@@ -2399,11 +2735,31 @@ function delay(ms){
 function escapeHTML(value){
 
     return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+
+    .replaceAll(
+        "&",
+        "&amp;"
+    )
+
+    .replaceAll(
+        "<",
+        "&lt;"
+    )
+
+    .replaceAll(
+        ">",
+        "&gt;"
+    )
+
+    .replaceAll(
+        '"',
+        "&quot;"
+    )
+
+    .replaceAll(
+        "'",
+        "&#039;"
+    );
 }
 
 
