@@ -6,25 +6,9 @@
 
 <title>FXO EARN</title>
 
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-
 <style>
 
-/* =========================================================
-   FXO EARN — LIQUID BLUE EDITION
-   ========================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800;900&display=swap');
-
-:root{
-    --blue:#008cff;
-    --cyan:#00eaff;
-    --deep:#00152f;
-    --deep2:#002b58;
-    --glass:rgba(0,75,125,.42);
-    --line:rgba(126,239,255,.72);
-    --white:#ffffff;
-}
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap');
 
 *{
     margin:0;
@@ -33,2792 +17,895 @@
     -webkit-tap-highlight-color:transparent;
 }
 
-html{
-    scroll-behavior:smooth;
+html,body{
+    width:100%;
+    min-height:100%;
+    background:#020d18;
 }
 
 body{
-    min-height:100vh;
+    font-family:'Baloo Da 2','Inter',sans-serif;
+    color:#ffffff;
     overflow-x:hidden;
-
-    color:white;
-
-    font-family:
-        "Noto Sans Bengali",
-        Arial,
-        sans-serif;
-
-    background:
-        radial-gradient(
-            circle at 20% 10%,
-            rgba(0,225,255,.45),
-            transparent 25%
-        ),
-
-        radial-gradient(
-            circle at 90% 20%,
-            rgba(0,102,255,.55),
-            transparent 28%
-        ),
-
-        linear-gradient(
-            145deg,
-            #001127,
-            #003d72 45%,
-            #00152f 100%
-        );
 }
 
-/* =========================================================
-   BACKGROUND IMAGE
-   Put your anime background at:
-   assets/bg.jpg
-   ========================================================= */
-
-body::before{
-    content:"";
-
-    position:fixed;
-    inset:0;
-
-    z-index:-20;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0,12,32,.20),
-            rgba(0,10,30,.72)
-        ),
-        url("assets/bg.jpg")
-        center top /
-        cover
-        no-repeat;
-
-    opacity:.95;
-}
-
-/* Blue atmospheric glow */
-
-body::after{
-    content:"";
-
-    position:fixed;
-    inset:-30%;
-
-    z-index:-15;
-
-    pointer-events:none;
-
-    background:
-
-        radial-gradient(
-            ellipse at 15% 20%,
-            rgba(0,238,255,.35),
-            transparent 23%
-        ),
-
-        radial-gradient(
-            ellipse at 90% 45%,
-            rgba(0,98,255,.35),
-            transparent 25%
-        ),
-
-        radial-gradient(
-            ellipse at 40% 85%,
-            rgba(0,230,255,.22),
-            transparent 30%
-        );
-
-    filter:blur(25px);
-
-    animation:
-        atmosphere 12s
-        ease-in-out
-        infinite
-        alternate;
-}
-
-@keyframes atmosphere{
-
-    from{
-        transform:
-            translate3d(-2%,0,0)
-            scale(1);
-    }
-
-    to{
-        transform:
-            translate3d(2%,-2%,0)
-            scale(1.08);
-    }
-}
-
-/* =========================================================
-   LIQUID LIGHT
-   ========================================================= */
-
-.liquid{
-    position:fixed;
-
-    z-index:-10;
-
-    pointer-events:none;
-
-    border-radius:50%;
-
-    border:2px solid
-        rgba(106,239,255,.38);
-
-    box-shadow:
-
-        0 0 20px
-        rgba(0,229,255,.35),
-
-        inset 0 0 25px
-        rgba(0,213,255,.28);
-
-    filter:blur(.2px);
-
-    opacity:.75;
-}
-
-.liquid.one{
-    width:500px;
-    height:170px;
-
-    top:130px;
-    left:-250px;
-
-    transform:
-        rotate(-18deg);
-}
-
-.liquid.two{
-    width:520px;
-    height:190px;
-
-    top:500px;
-    right:-270px;
-
-    transform:
-        rotate(17deg);
-}
-
-.liquid.three{
-    width:460px;
-    height:150px;
-
-    bottom:180px;
-    left:-220px;
-
-    transform:
-        rotate(12deg);
-}
-
-/* =========================================================
-   BUBBLES
-   ========================================================= */
-
-.bubble{
-    position:fixed;
-
-    z-index:-5;
-
-    pointer-events:none;
-
-    border-radius:50%;
-
-    border:1px solid
-        rgba(174,249,255,.60);
-
-    background:
-        radial-gradient(
-            circle at 30% 25%,
-            rgba(255,255,255,.70),
-            rgba(0,220,255,.18) 35%,
-            transparent 70%
-        );
-
-    box-shadow:
-
-        inset
-        -8px -10px 20px
-        rgba(0,65,130,.35),
-
-        0 0 30px
-        rgba(0,226,255,.22);
-}
-
-.b1{
-    width:35px;
-    height:35px;
-
-    top:35%;
-    left:5%;
-}
-
-.b2{
-    width:65px;
-    height:65px;
-
-    top:51%;
-    right:3%;
-}
-
-.b3{
-    width:22px;
-    height:22px;
-
-    top:69%;
-    left:9%;
-}
-
-.b4{
-    width:45px;
-    height:45px;
-
-    bottom:15%;
-    right:12%;
-}
-
-/* =========================================================
-   APP
-   ========================================================= */
+/* =========================
+   MAIN BACKGROUND
+========================= */
 
 .app{
-    width:100%;
-    max-width:1100px;
-
     min-height:100vh;
-
-    margin:auto;
-
     position:relative;
-}
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.header{
-
-    min-height:155px;
-
-    padding:
-        25px
-        30px
-        20px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    gap:20px;
+    overflow:hidden;
 
     background:
-        linear-gradient(
-            135deg,
-            rgba(0,19,52,.82),
-            rgba(0,100,170,.32)
-        );
-
-    border-bottom:
-        1px solid
-        rgba(113,231,255,.40);
-
-    box-shadow:
-        0 15px 50px
-        rgba(0,0,0,.45);
-
-    backdrop-filter:
-        blur(18px);
-
-    -webkit-backdrop-filter:
-        blur(18px);
+        radial-gradient(circle at 10% 10%,rgba(0,174,255,.35),transparent 28%),
+        radial-gradient(circle at 90% 20%,rgba(0,98,255,.30),transparent 30%),
+        radial-gradient(circle at 50% 60%,rgba(0,196,255,.16),transparent 35%),
+        linear-gradient(145deg,#02111e,#042744 45%,#01101f);
 }
 
-/* =========================================================
-   BRAND
-   ========================================================= */
+/* Liquid glow */
+
+.app::before,
+.app::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    filter:blur(45px);
+    pointer-events:none;
+}
+
+.app::before{
+    width:260px;
+    height:260px;
+    background:rgba(0,174,255,.22);
+    top:100px;
+    left:-100px;
+}
+
+.app::after{
+    width:300px;
+    height:300px;
+    background:rgba(0,72,255,.20);
+    right:-130px;
+    top:500px;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    position:relative;
+    z-index:10;
+
+    min-height:118px;
+    padding:22px 24px 18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    background:
+        linear-gradient(120deg,
+        rgba(8,49,79,.94),
+        rgba(0,91,145,.65),
+        rgba(3,33,58,.92));
+
+    border-bottom:1px solid rgba(130,225,255,.38);
+
+    box-shadow:
+        0 8px 35px rgba(0,130,255,.20),
+        inset 0 -1px rgba(255,255,255,.08);
+}
 
 .brand{
     display:flex;
-
     align-items:center;
-
-    gap:18px;
+    gap:14px;
 }
 
 .logo{
-
-    width:88px;
-    height:88px;
-
-    flex-shrink:0;
+    width:78px;
+    height:78px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
-    border-radius:26px;
+    border-radius:23px;
 
-    font-family:Arial,sans-serif;
-
-    font-size:55px;
-
+    font-family:Inter,sans-serif;
+    font-size:43px;
     font-weight:900;
 
-    color:white;
+    color:#fff;
 
     background:
+        linear-gradient(145deg,#35d8ff,#087be8);
 
-        linear-gradient(
-            145deg,
-            #00dcff,
-            #0075ff
-        );
-
-    border:
-        2px solid
-        rgba(255,255,255,.85);
+    border:2px solid rgba(255,255,255,.48);
 
     box-shadow:
-
-        0 0 35px
-        rgba(0,220,255,.85),
-
-        inset
-        0 3px 15px
-        rgba(255,255,255,.60);
+        0 0 15px #00bfff,
+        0 0 35px rgba(0,145,255,.65),
+        inset 0 0 20px rgba(255,255,255,.28);
 }
 
-.brand-name{
-
-    font-family:Arial,sans-serif;
-
-    font-size:
-        clamp(34px,5vw,62px);
-
+.brandText h1{
+    font-family:Inter,sans-serif;
+    font-size:34px;
+    line-height:1;
     font-weight:900;
-
-    letter-spacing:-2px;
-
-    line-height:.95;
-
-    text-shadow:
-
-        0 0 8px
-        #00eaff,
-
-        0 0 28px
-        rgba(0,180,255,.80);
+    letter-spacing:-1px;
 }
 
-.brand-name span{
-    color:#00dfff;
+.brandText p{
+    margin-top:8px;
+    font-family:Inter,sans-serif;
+    font-size:17px;
+    font-weight:600;
+    color:#9edfff;
 }
 
-.tagline{
+/* Profile right */
 
-    margin-top:9px;
+.profileTop{
+    display:flex;
+    align-items:center;
+    gap:8px;
 
-    font-family:Arial,sans-serif;
+    padding:7px 9px;
 
-    font-size:13px;
+    border-radius:35px;
 
-    font-weight:800;
+    background:
+        linear-gradient(135deg,
+        rgba(255,255,255,.18),
+        rgba(0,159,255,.14));
 
-    letter-spacing:2px;
+    border:1px solid rgba(168,238,255,.55);
 
-    color:#d7fbff;
+    box-shadow:
+        inset 0 0 15px rgba(255,255,255,.08),
+        0 0 18px rgba(0,174,255,.25);
 }
 
-/* =========================================================
-   PROFILE HEADER
-   ========================================================= */
+.avatar{
+    width:53px;
+    height:53px;
 
-.header-profile{
-
-    min-width:340px;
-
-    padding:10px 13px;
+    border-radius:50%;
 
     display:flex;
-
     align-items:center;
+    justify-content:center;
 
-    gap:12px;
+    background:
+        radial-gradient(circle at 35% 30%,#7deaff,#0879d5 65%,#03487d);
+
+    border:2px solid rgba(255,255,255,.55);
+
+    font-family:Inter,sans-serif;
+    font-size:22px;
+    font-weight:800;
+
+    box-shadow:0 0 16px rgba(0,200,255,.65);
+}
+
+.userName{
+    display:none;
+}
+
+.points{
+    padding:11px 17px;
+
+    border-radius:25px;
+
+    font-family:Inter,sans-serif;
+    font-size:18px;
+    font-weight:800;
+
+    white-space:nowrap;
+
+    background:rgba(3,72,116,.72);
+    border:1px solid rgba(176,240,255,.58);
+
+    box-shadow:
+        inset 0 0 12px rgba(255,255,255,.07),
+        0 0 13px rgba(0,180,255,.25);
+}
+
+.points span{
+    color:#bdf5ff;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    position:relative;
+    z-index:2;
+
+    padding:28px 26px 130px;
+}
+
+/* =========================
+   GLASS CARD
+========================= */
+
+.glass{
+    position:relative;
 
     border-radius:32px;
 
     background:
-
         linear-gradient(
             135deg,
-            rgba(33,167,232,.36),
-            rgba(0,36,77,.72)
+            rgba(81,181,220,.24),
+            rgba(2,51,87,.74) 45%,
+            rgba(0,35,66,.86)
         );
 
-    border:
-        1.5px solid
-        rgba(137,241,255,.75);
+    border:2px solid rgba(145,232,255,.52);
 
     box-shadow:
+        inset 0 0 35px rgba(126,223,255,.08),
+        0 0 22px rgba(0,155,255,.18),
+        0 15px 35px rgba(0,0,0,.20);
 
-        0 0 30px
-        rgba(0,212,255,.25),
-
-        inset
-        0 1px 8px
-        rgba(255,255,255,.25);
-}
-
-.profile-photo{
-
-    width:68px;
-    height:68px;
-
-    flex-shrink:0;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:
-        3px solid
-        rgba(0,232,255,.90);
-
-    box-shadow:
-        0 0 22px
-        rgba(0,222,255,.80);
-
-    background:
-        linear-gradient(
-            135deg,
-            #00eaff,
-            #075eff
-        );
-}
-
-.profile-info{
-    flex:1;
-}
-
-.profile-name{
-
-    font-size:19px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-}
-
-.profile-user{
-
-    margin-top:2px;
-
-    color:#b7f5ff;
-
-    font-size:13px;
-
-    font-weight:700;
-}
-
-.points-pill{
-
-    margin-top:6px;
-
-    display:inline-flex;
-
-    align-items:center;
-
-    gap:7px;
-
-    padding:
-        6px
-        13px;
-
-    border-radius:20px;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(0,225,255,.25),
-            rgba(0,91,255,.45)
-        );
-
-    border:
-        1px solid
-        rgba(172,249,255,.72);
-
-    font-family:Arial,sans-serif;
-
-    font-size:14px;
-
-    font-weight:900;
-
-    box-shadow:
-        0 0 15px
-        rgba(0,210,255,.35);
-}
-
-.arrow{
-    font-size:27px;
-    font-weight:900;
-}
-
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
-main{
-
-    padding:
-        25px
-        30px
-        150px;
-}
-
-.page{
-    display:none;
-}
-
-.page.active{
-    display:block;
-}
-
-/* =========================================================
-   GLASS CARD
-   ========================================================= */
-
-.card{
-
-    position:relative;
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
 
     overflow:hidden;
-
-    border-radius:30px;
-
-    margin-bottom:20px;
-
-    padding:24px;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            rgba(0,128,188,.42),
-            rgba(0,30,66,.73)
-        );
-
-    border:
-        2px solid
-        rgba(120,239,255,.67);
-
-    box-shadow:
-
-        0 15px 45px
-        rgba(0,0,0,.40),
-
-        0 0 28px
-        rgba(0,191,255,.20),
-
-        inset
-        0 1px 12px
-        rgba(255,255,255,.20);
-
-    backdrop-filter:
-        blur(22px);
-
-    -webkit-backdrop-filter:
-        blur(22px);
 }
 
-/* liquid shine */
+/* Liquid reflections */
 
-.card::before{
-
+.glass::before{
     content:"";
-
     position:absolute;
 
-    width:80%;
+    width:180px;
+    height:180px;
 
-    height:80%;
-
-    left:-25%;
-
-    top:-45%;
+    top:-90px;
+    right:-50px;
 
     border-radius:50%;
 
     background:
-        rgba(104,245,255,.18);
-
-    filter:blur(35px);
-
-    pointer-events:none;
-}
-
-.card::after{
-
-    content:"";
-
-    position:absolute;
-
-    left:4%;
-    right:4%;
-
-    top:0;
-
-    height:3px;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,.85),
-            #00eaff,
-            rgba(255,255,255,.80),
-            transparent
+        radial-gradient(
+            circle,
+            rgba(153,241,255,.30),
+            rgba(0,145,255,.06) 50%,
+            transparent 70%
         );
 
-    box-shadow:
-        0 0 14px
-        #00eaff;
+    filter:blur(5px);
 }
 
-/* =========================================================
-   BALANCE CARD
-   ========================================================= */
+.glass::after{
+    content:"";
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    left:-60px;
+    bottom:-65px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(74,218,255,.22),
+            transparent 70%
+        );
+}
+
+/* =========================
+   BALANCE
+========================= */
 
 .balance{
+    min-height:535px;
 
-    min-height:320px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
+    padding:48px 25px;
 
     text-align:center;
 
-    padding:35px;
-
-    background:
-
-        radial-gradient(
-            circle at 85% 45%,
-            rgba(0,220,255,.30),
-            transparent 30%
-        ),
-
-        linear-gradient(
-            135deg,
-            rgba(0,100,157,.62),
-            rgba(0,28,66,.80)
-        );
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
 }
 
-.balance-content{
-    position:relative;
-    z-index:2;
-}
-
-.balance-icon{
-
-    width:100px;
-    height:100px;
-
-    margin:
-        0 auto
-        15px;
+.walletIcon{
+    width:120px;
+    height:120px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     border-radius:50%;
 
-    font-size:45px;
+    margin-bottom:27px;
+
+    font-size:53px;
 
     background:
+        radial-gradient(circle at 35% 25%,
+        rgba(255,255,255,.62),
+        rgba(52,161,211,.25) 55%,
+        rgba(0,55,91,.72));
 
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.28),
-            rgba(0,110,190,.45)
-        );
-
-    border:
-        2px solid
-        rgba(178,249,255,.85);
+    border:2px solid rgba(226,250,255,.68);
 
     box-shadow:
-
-        0 0 35px
-        rgba(0,220,255,.65),
-
-        inset
-        0 3px 15px
-        rgba(255,255,255,.42);
+        0 0 25px rgba(0,180,255,.35),
+        inset 0 0 22px rgba(255,255,255,.18);
 }
 
-.balance-title{
-
-    font-size:
-        clamp(25px,4vw,40px);
-
-    font-weight:900;
+.balanceTitle{
+    font-size:34px;
+    font-weight:800;
+    line-height:1.2;
 
     text-shadow:
-        0 2px 10px
-        rgba(0,0,0,.75);
+        0 0 12px rgba(255,255,255,.20);
 }
 
-.balance-sub{
+.minimum{
+    margin-top:8px;
 
-    margin-top:3px;
+    font-size:22px;
+    font-weight:600;
 
-    color:#87f1ff;
-
-    font-size:19px;
-
-    font-weight:700;
+    color:#7edcff;
 }
 
-.balance-money{
+.amount{
+    margin-top:15px;
 
-    margin:
-        7px
-        0
-        16px;
-
-    font-family:Arial,sans-serif;
-
-    font-size:
-        clamp(43px,7vw,76px);
-
+    font-family:Inter,sans-serif;
+    font-size:58px;
     font-weight:900;
-
     letter-spacing:-2px;
 
     color:#ffffff;
 
     text-shadow:
-
-        0 0 10px
-        #00eaff,
-
-        0 0 35px
-        rgba(0,195,255,.85);
+        0 0 10px rgba(255,255,255,.35),
+        0 0 30px rgba(0,178,255,.38);
 }
 
 .rate{
+    margin-top:20px;
 
-    display:inline-flex;
+    padding:12px 25px;
 
-    align-items:center;
+    border-radius:30px;
 
-    padding:
-        10px
-        22px;
-
-    border-radius:25px;
+    font-size:20px;
+    font-weight:800;
 
     background:
         linear-gradient(
-            135deg,
-            rgba(0,220,255,.40),
-            rgba(0,73,165,.55)
+            120deg,
+            rgba(255,255,255,.16),
+            rgba(33,151,207,.20)
         );
 
-    border:
-        1.5px solid
-        rgba(167,249,255,.78);
-
-    font-size:17px;
-
-    font-weight:900;
+    border:1px solid rgba(189,239,255,.55);
 
     box-shadow:
-        0 0 22px
-        rgba(0,205,255,.38);
+        inset 0 0 13px rgba(255,255,255,.08),
+        0 0 15px rgba(0,180,255,.16);
 }
 
-/* =========================================================
-   HOME GRID
-   ========================================================= */
+/* =========================
+   AD CARDS
+========================= */
 
-.home-grid{
-
-    display:grid;
-
-    grid-template-columns:
-        minmax(0,1.65fr)
-        minmax(300px,1fr);
-
-    gap:20px;
+.adCard{
+    margin-top:28px;
+    padding:32px 26px 27px;
 }
 
-.left-column,
-.right-column{
-    min-width:0;
-}
-
-/* =========================================================
-   CARD HEADER
-   ========================================================= */
-
-.card-head{
-
-    position:relative;
-    z-index:2;
-
+.adHeader{
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
-
-    gap:15px;
 }
 
-.head-left{
-
+.adTitle{
     display:flex;
-
     align-items:center;
-
-    gap:15px;
+    gap:18px;
 }
 
-.icon-box{
-
-    width:70px;
-    height:70px;
-
-    flex-shrink:0;
+.adIcon{
+    width:80px;
+    height:80px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
-    border-radius:22px;
+    border-radius:23px;
 
-    font-family:Arial,sans-serif;
-
-    font-size:34px;
-
-    background:
-
-        linear-gradient(
-            145deg,
-            rgba(0,226,255,.38),
-            rgba(0,59,130,.72)
-        );
-
-    border:
-        2px solid
-        rgba(168,249,255,.80);
-
-    box-shadow:
-
-        0 0 25px
-        rgba(0,221,255,.50),
-
-        inset
-        0 2px 9px
-        rgba(255,255,255,.35);
-}
-
-.card-title{
-
-    font-size:
-        clamp(22px,3vw,32px);
-
-    font-weight:900;
-
-    line-height:1.1;
-
-    text-shadow:
-        0 2px 9px
-        rgba(0,0,0,.75);
-}
-
-.card-desc{
-
-    position:relative;
-
-    z-index:2;
-
-    margin:
-        13px
-        0
-        18px;
-
-    color:#b7f3fc;
-
-    font-size:16px;
-
-    font-weight:700;
-}
-
-.status{
-
-    padding:
-        8px
-        17px;
-
-    border-radius:25px;
-
-    color:#e4ffff;
-
-    font-size:15px;
-
-    font-weight:900;
-
-    white-space:nowrap;
-
-    background:
-        rgba(0,190,177,.25);
-
-    border:
-        1px solid
-        rgba(73,255,225,.75);
-
-    box-shadow:
-        0 0 17px
-        rgba(0,255,204,.22);
-}
-
-/* =========================================================
-   MAIN BUTTON
-   ========================================================= */
-
-.main-btn{
-
-    position:relative;
-
-    z-index:2;
-
-    width:100%;
-
-    height:64px;
-
-    border:0;
-
-    border-radius:31px;
-
-    color:white;
-
-    font-family:inherit;
-
-    font-size:21px;
-
-    font-weight:900;
-
-    cursor:pointer;
-
-    background:
-
-        linear-gradient(
-            100deg,
-            #00bce9,
-            #087dfb,
-            #315df2
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.60);
-
-    box-shadow:
-
-        0 8px 30px
-        rgba(0,111,255,.55),
-
-        0 0 22px
-        rgba(0,205,255,.35),
-
-        inset
-        0 3px 8px
-        rgba(255,255,255,.35);
-}
-
-.main-btn:active{
-    transform:scale(.98);
-}
-
-/* =========================================================
-   PROFILE CARD
-   ========================================================= */
-
-.profile-card{
-
-    min-height:440px;
-
-    text-align:center;
-}
-
-.profile-card-title{
-
-    position:relative;
-
-    z-index:2;
-
-    text-align:left;
-
-    font-size:26px;
-
-    font-weight:900;
-}
-
-.profile-large{
-
-    position:relative;
-
-    z-index:2;
-
-    width:110px;
-    height:110px;
-
-    margin:
-        18px
-        auto
-        10px;
-
-    object-fit:cover;
-
-    border-radius:50%;
-
-    border:
-        3px solid
-        #00eaff;
-
-    box-shadow:
-
-        0 0 35px
-        rgba(0,225,255,.80);
+    font-family:Inter,sans-serif;
+    font-size:35px;
 
     background:
         linear-gradient(
-            135deg,
-            #00dfff,
-            #075cff
+            145deg,
+            rgba(105,219,255,.27),
+            rgba(0,74,121,.48)
         );
+
+    border:1px solid rgba(174,239,255,.65);
+
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,.09),
+        0 0 15px rgba(0,176,255,.18);
 }
 
-.profile-card-name{
-
-    position:relative;
-
-    z-index:2;
-
-    font-size:24px;
-
-    font-weight:900;
-}
-
-.profile-card-user{
-
-    position:relative;
-
-    z-index:2;
-
-    color:#6fefff;
-
-    font-size:16px;
-
+.adTitle h2{
+    font-size:31px;
     font-weight:800;
 }
 
-.stats{
+.status{
+    padding:9px 19px;
 
-    position:relative;
+    border-radius:24px;
 
-    z-index:2;
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:10px;
-
-    margin-top:20px;
-}
-
-.stat{
-
-    padding:14px 8px;
-
-    border-radius:18px;
-
-    background:
-        rgba(0,87,157,.42);
-
-    border:
-        1px solid
-        rgba(91,229,255,.65);
-
-    box-shadow:
-        0 0 15px
-        rgba(0,200,255,.14);
-}
-
-.stat-value{
-
-    display:block;
-
-    font-family:Arial,sans-serif;
-
-    font-size:24px;
-
-    font-weight:900;
-}
-
-.stat-label{
-
-    display:block;
-
-    margin-top:2px;
-
-    color:#b6eff8;
-
-    font-size:12px;
-
+    font-size:19px;
     font-weight:700;
+
+    color:#bffaff;
+
+    background:rgba(0,170,145,.18);
+
+    border:1px solid rgba(64,255,224,.48);
 }
 
-/* =========================================================
-   REFERRAL
-   ========================================================= */
-
-.referral{
-
-    position:relative;
-
-    z-index:2;
-
-    margin-top:12px;
-
-    padding:13px;
-
-    border-radius:18px;
-
-    text-align:left;
-
-    background:
-        rgba(0,66,128,.45);
-
-    border:
-        1px solid
-        rgba(91,231,255,.65);
+.status::before{
+    content:"●";
+    color:#27f59b;
+    margin-right:7px;
 }
 
-.ref-title{
+.adDescription{
+    margin:28px 0 23px;
 
-    font-size:15px;
+    font-size:21px;
+    font-weight:600;
 
-    font-weight:900;
+    color:#9ee2f6;
 }
 
-.ref-link-row{
+.mainButton{
+    width:100%;
+    height:82px;
 
-    display:flex;
-
-    align-items:center;
-
-    gap:8px;
-
-    margin-top:7px;
-}
-
-.ref-link{
-
-    flex:1;
-
-    min-width:0;
-
-    overflow:hidden;
-
-    white-space:nowrap;
-
-    text-overflow:ellipsis;
-
-    color:#aef5ff;
-
-    font-family:Arial,sans-serif;
-
-    font-size:11px;
-}
-
-.copy-small{
-
-    width:40px;
-    height:36px;
-
-    border:0;
-
-    border-radius:12px;
+    border:none;
+    border-radius:27px;
 
     color:white;
 
+    font-family:'Baloo Da 2',sans-serif;
+    font-size:29px;
+    font-weight:800;
+
     background:
         linear-gradient(
-            135deg,
-            #00c9f3,
-            #076ff4
+            100deg,
+            #05bdf2,
+            #087bea,
+            #355cf2
         );
 
-    font-size:18px;
+    border:2px solid rgba(124,237,255,.75);
+
+    box-shadow:
+        0 0 18px rgba(0,196,255,.42),
+        0 0 35px rgba(0,91,255,.25),
+        inset 0 0 15px rgba(255,255,255,.20);
 
     cursor:pointer;
+
+    transition:.2s;
 }
 
-/* =========================================================
-   PROMO BANNER
-   ========================================================= */
-
-.promo{
-
-    min-height:130px;
-
-    padding:0;
-
-    overflow:hidden;
-
-    display:flex;
-
-    align-items:center;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            rgba(0,34,75,.75),
-            rgba(0,105,166,.38)
-        );
+.mainButton:active{
+    transform:scale(.97);
 }
 
-.promo-image{
+/* =========================
+   DOUBLE AD
+========================= */
 
-    width:100%;
-
-    min-height:130px;
-
-    object-fit:cover;
-
-    display:block;
-
-    opacity:.95;
+.double{
+    margin-top:28px;
+    padding-bottom:30px;
 }
 
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
+/* =========================
+   BOTTOM NAV
+========================= */
 
-.bottom-nav{
-
+.bottomNav{
     position:fixed;
 
     z-index:100;
 
-    left:50%;
+    left:16px;
+    right:16px;
+    bottom:15px;
 
-    bottom:12px;
+    height:93px;
 
-    transform:
-        translateX(-50%);
-
-    width:
-        min(
-            calc(100% - 24px),
-            1050px
-        );
-
-    min-height:82px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
 
     padding:7px;
 
-    display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
-    gap:7px;
-
-    border-radius:30px;
+    border-radius:35px;
 
     background:
-
         linear-gradient(
-            135deg,
-            rgba(0,110,185,.75),
-            rgba(0,29,66,.82)
+            120deg,
+            rgba(5,65,103,.92),
+            rgba(5,118,169,.72),
+            rgba(2,54,93,.94)
         );
 
-    border:
-        2px solid
-        rgba(123,240,255,.75);
-
-    backdrop-filter:
-        blur(25px);
-
-    -webkit-backdrop-filter:
-        blur(25px);
+    border:2px solid rgba(145,234,255,.52);
 
     box-shadow:
+        0 0 30px rgba(0,146,255,.28),
+        0 10px 35px rgba(0,0,0,.38);
 
-        0 15px 45px
-        rgba(0,0,0,.55),
-
-        0 0 30px
-        rgba(0,202,255,.22),
-
-        inset
-        0 1px 10px
-        rgba(255,255,255,.25);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
 }
 
-.nav-btn{
-
-    border:0;
-
-    border-radius:23px;
-
-    color:#d4f9ff;
-
-    background:transparent;
-
-    font-family:inherit;
-
-    font-size:14px;
-
-    font-weight:900;
+.navItem{
+    border-radius:27px;
 
     display:flex;
-
+    flex-direction:column;
     align-items:center;
-
     justify-content:center;
 
-    flex-direction:column;
+    gap:3px;
 
-    gap:2px;
+    color:#aee8fa;
+
+    font-size:17px;
+    font-weight:700;
 
     cursor:pointer;
+
+    transition:.2s;
 }
 
-.nav-icon{
-
-    font-family:Arial,sans-serif;
-
-    font-size:29px;
-
+.navItem .navIcon{
+    font-family:Inter,sans-serif;
+    font-size:31px;
     line-height:1;
 }
 
-.nav-btn.active{
-
+.navItem.active{
     color:white;
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #00bff1,
-            #096cf4
-        );
-
-    border:
-        1px solid
-        rgba(255,255,255,.55);
-
-    box-shadow:
-
-        0 0 28px
-        rgba(0,205,255,.70),
-
-        inset
-        0 2px 7px
-        rgba(255,255,255,.40);
-}
-
-/* =========================================================
-   WALLET
-   ========================================================= */
-
-.methods{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:12px;
-
-    margin:
-        18px
-        0;
-}
-
-.method{
-
-    height:55px;
-
-    border:1px solid
-        rgba(160,245,255,.60);
-
-    border-radius:18px;
-
-    background:
-        rgba(255,255,255,.08);
-
-    color:white;
-
-    font-family:inherit;
-
-    font-size:17px;
-
-    font-weight:900;
-}
-
-.method.active{
 
     background:
         linear-gradient(
-            135deg,
-            #ee4ca3,
-            #c72b80
+            145deg,
+            #18baf3,
+            #1269ed
         );
 
     box-shadow:
-        0 0 22px
-        rgba(234,58,158,.40);
+        0 0 18px rgba(0,190,255,.65),
+        inset 0 0 14px rgba(255,255,255,.15);
 }
 
-.input{
-
-    width:100%;
-
-    height:57px;
-
-    padding:
-        0
-        16px;
-
-    margin:
-        5px
-        0
-        14px;
-
-    border-radius:18px;
-
-    outline:none;
-
-    border:
-        1px solid
-        rgba(128,239,255,.48);
-
-    background:
-        rgba(0,34,72,.58);
-
-    color:white;
-
-    font-family:inherit;
-
-    font-size:16px;
-
-    font-weight:700;
+.navItem:active{
+    transform:scale(.94);
 }
 
-.input::placeholder{
-    color:#78c6d7;
-}
-
-label{
-
-    display:block;
-
-    color:#b9f2fa;
-
-    font-size:14px;
-
-    font-weight:800;
-}
-
-/* =========================================================
-   TOAST
-   ========================================================= */
-
-.toast{
-
-    position:fixed;
-
-    z-index:300;
-
-    left:50%;
-
-    bottom:105px;
-
-    transform:
-        translate(-50%,20px);
-
-    opacity:0;
-
-    pointer-events:none;
-
-    padding:
-        12px
-        20px;
-
-    border-radius:18px;
-
-    background:
-        rgba(0,22,50,.95);
-
-    border:
-        1px solid
-        rgba(110,235,255,.65);
-
-    font-size:14px;
-
-    font-weight:800;
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,.50);
-
-    transition:.25s;
-}
-
-.toast.show{
-
-    opacity:1;
-
-    transform:
-        translate(-50%,0);
-}
-
-/* =========================================================
+/* =========================
    RESPONSIVE
-   ========================================================= */
-
-@media(max-width:800px){
-
-    .header{
-
-        min-height:100px;
-
-        padding:
-            13px
-            15px;
-
-    }
-
-    .logo{
-
-        width:58px;
-        height:58px;
-
-        border-radius:18px;
-
-        font-size:36px;
-    }
-
-    .brand{
-
-        gap:10px;
-    }
-
-    .brand-name{
-
-        font-size:29px;
-
-        letter-spacing:-1px;
-    }
-
-    .tagline{
-
-        font-size:8px;
-
-        letter-spacing:1px;
-    }
-
-    .header-profile{
-
-        min-width:0;
-
-        padding:6px;
-
-        border-radius:28px;
-    }
-
-    .profile-photo{
-
-        width:42px;
-        height:42px;
-    }
-
-    .profile-info{
-
-        display:none;
-    }
-
-    .points-pill{
-
-        margin:0;
-
-        font-size:12px;
-
-        padding:
-            8px
-            10px;
-    }
-
-    .arrow{
-        display:none;
-    }
-
-    main{
-
-        padding:
-            18px
-            15px
-            125px;
-    }
-
-    .balance{
-
-        min-height:300px;
-
-        padding:22px 14px;
-    }
-
-    .balance-icon{
-
-        width:75px;
-        height:75px;
-
-        font-size:34px;
-    }
-
-    .balance-title{
-
-        font-size:24px;
-    }
-
-    .balance-sub{
-
-        font-size:14px;
-    }
-
-    .balance-money{
-
-        font-size:42px;
-
-        letter-spacing:-1px;
-    }
-
-    .rate{
-
-        font-size:13px;
-
-        padding:
-            8px
-            15px;
-    }
-
-    .home-grid{
-
-        display:block;
-    }
-
-    .card{
-
-        padding:17px;
-
-        border-radius:25px;
-    }
-
-    .icon-box{
-
-        width:58px;
-        height:58px;
-
-        border-radius:18px;
-
-        font-size:28px;
-    }
-
-    .card-title{
-
-        font-size:21px;
-    }
-
-    .card-desc{
-
-        font-size:13px;
-    }
-
-    .status{
-
-        font-size:12px;
-
-        padding:
-            7px
-            11px;
-    }
-
-    .main-btn{
-
-        height:56px;
-
-        font-size:17px;
-    }
-
-    .profile-card{
-
-        min-height:auto;
-    }
-
-    .bottom-nav{
-
-        height:76px;
-
-        bottom:7px;
-
-        border-radius:27px;
-    }
-
-    .nav-icon{
-
-        font-size:23px;
-    }
-
-    .nav-btn{
-
-        font-size:11px;
-    }
-
-}
-
-/* =========================================================
-   VERY SMALL PHONE
-   ========================================================= */
+========================= */
 
 @media(max-width:390px){
 
-    .brand-name{
-        font-size:25px;
+    .topbar{
+        padding-left:17px;
+        padding-right:17px;
     }
 
     .logo{
-        width:52px;
-        height:52px;
+        width:64px;
+        height:64px;
+        font-size:35px;
     }
 
-    .points-pill{
-        font-size:11px;
+    .brandText h1{
+        font-size:27px;
     }
 
-    .balance-money{
-        font-size:37px;
+    .brandText p{
+        font-size:14px;
     }
 
-    .card-title{
-        font-size:19px;
+    .avatar{
+        width:43px;
+        height:43px;
     }
 
-    .icon-box{
-        width:52px;
-        height:52px;
+    .points{
+        font-size:15px;
+        padding:9px 11px;
     }
 
-    .bottom-nav{
-        width:calc(100% - 14px);
+    .content{
+        padding-left:18px;
+        padding-right:18px;
+    }
+
+    .balance{
+        min-height:470px;
+    }
+
+    .balanceTitle{
+        font-size:29px;
+    }
+
+    .amount{
+        font-size:48px;
+    }
+
+    .adTitle h2{
+        font-size:27px;
+    }
+
+    .adIcon{
+        width:67px;
+        height:67px;
+    }
+
+    .mainButton{
+        height:72px;
+        font-size:25px;
+    }
+
+    .navItem{
+        font-size:14px;
     }
 }
 
 </style>
 </head>
 
-
 <body>
-
-<!-- Background liquid elements -->
-
-<div class="liquid one"></div>
-<div class="liquid two"></div>
-<div class="liquid three"></div>
-
-<div class="bubble b1"></div>
-<div class="bubble b2"></div>
-<div class="bubble b3"></div>
-<div class="bubble b4"></div>
-
 
 <div class="app">
 
-<!-- =======================================================
-     HEADER
-======================================================= -->
+    <!-- TOP HEADER -->
+    <header class="topbar">
 
-<header class="header">
+        <div class="brand">
 
-    <div class="brand">
+            <div class="logo">ϟ</div>
 
-        <div class="logo">
-            ϟ
-        </div>
-
-        <div>
-
-            <div class="brand-name">
-                FXO <span>EARN</span>
-            </div>
-
-            <div class="tagline">
-                WATCH ADS &nbsp;•&nbsp;
-                EARN POINTS &nbsp;•&nbsp;
-                GET REWARDS
+            <div class="brandText">
+                <h1>FXO EARN</h1>
+                <p>@user</p>
             </div>
 
         </div>
 
-    </div>
+        <div class="profileTop">
 
+            <div class="avatar">U</div>
 
-    <div class="header-profile">
-
-        <!-- Put profile image here:
-             assets/profile.jpg
-        -->
-
-        <img
-            class="profile-photo"
-            id="headerPhoto"
-            src="assets/profile.jpg"
-            onerror="this.style.display='none';"
-            alt="Profile"
-        >
-
-        <div class="profile-info">
-
-            <div
-                class="profile-name"
-                id="headerName">
-                User
-            </div>
-
-            <div
-                class="profile-user"
-                id="headerUsername">
-                @user
-            </div>
-
-            <div class="points-pill">
-                ✧
-                <span id="headerPoints">
-                    0
-                </span>
-                Pts
+            <div class="points">
+                ✧ <span id="topPoints">0</span> Pts
             </div>
 
         </div>
 
-        <div class="arrow">
-            ›
-        </div>
-
-    </div>
-
-</header>
+    </header>
 
 
-<main>
+    <!-- CONTENT -->
+    <main class="content">
 
-<!-- =======================================================
-     HOME PAGE
-======================================================= -->
+        <!-- BALANCE CARD -->
+        <section class="glass balance">
 
-<section
-    id="home"
-    class="page active">
+            <div class="walletIcon">▱</div>
 
-
-    <!-- BALANCE -->
-
-    <div class="card balance">
-
-        <div class="balance-content">
-
-            <div class="balance-icon">
-                ▱
-            </div>
-
-            <div class="balance-title">
+            <div class="balanceTitle">
                 বর্তমান মোট জমা টাকা
             </div>
 
-            <div class="balance-sub">
+            <div class="minimum">
                 ন্যূনতম উইথড্র ৳১০০০
             </div>
 
-            <div
-                class="balance-money"
-                id="balanceMoney">
-
-                ৳ 0.00 BDT
-
+            <div class="amount">
+                ৳ <span id="balance">0.00</span> BDT
             </div>
 
             <div class="rate">
-                🔗 ১০০ পয়েন্ট = ৳ ১ টাকা
+                • ১০০ পয়েন্ট = ৳ ১ টাকা
             </div>
 
-        </div>
-
-    </div>
+        </section>
 
 
-    <!-- TWO COLUMN CONTENT -->
+        <!-- SINGLE AD -->
+        <section class="glass adCard">
 
-    <div class="home-grid">
+            <div class="adHeader">
 
-        <div class="left-column">
+                <div class="adTitle">
 
+                    <div class="adIcon">▶</div>
 
-            <!-- SINGLE AD -->
-
-            <div class="card">
-
-                <div class="card-head">
-
-                    <div class="head-left">
-
-                        <div class="icon-box">
-                            ▶
-                        </div>
-
-                        <div class="card-title">
-                            সিঙ্গেল অ্যাড
-                        </div>
-
-                    </div>
-
-                    <div class="status">
-                        🟢 রেডি
-                    </div>
+                    <h2>সিঙ্গেল অ্যাড</h2>
 
                 </div>
 
-
-                <div class="card-desc">
-                    অ্যাড দেখলে +৫০ পয়েন্ট পাবেন
-                </div>
-
-
-                <button
-                    class="main-btn"
-                    onclick="watchSingleAd()">
-
-                    ▶ &nbsp;
-                    অ্যাড দেখুন
-                    &nbsp; ›
-
-                </button>
-
-            </div>
-
-
-            <!-- TRIPLE AD -->
-
-            <div class="card">
-
-                <div class="card-head">
-
-                    <div class="head-left">
-
-                        <div class="icon-box">
-                            ▱
-                        </div>
-
-                        <div class="card-title">
-                            ৩টি অ্যাড মোড
-                        </div>
-
-                    </div>
-
-                    <div class="status">
-                        ধাপ:
-                        <span id="tripleStep">
-                            0
-                        </span>/3
-                    </div>
-
-                </div>
-
-
-                <div class="card-desc">
-                    ৩টি অ্যাড সম্পূর্ণ করলে +২০০ পয়েন্ট
-                </div>
-
-
-                <button
-                    class="main-btn"
-                    onclick="watchTripleAd()">
-
-                    ⚡ &nbsp;
-                    ট্রিপল অ্যাড শুরু করুন
-                    &nbsp; ›
-
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- RIGHT PROFILE -->
-
-        <div class="right-column">
-
-            <div class="card profile-card">
-
-                <div class="profile-card-title">
-                    আমার প্রোফাইল
-                    <span style="float:right">
-                        ›
-                    </span>
-                </div>
-
-
-                <img
-                    class="profile-large"
-                    src="assets/profile.jpg"
-                    onerror="
-                        this.src='';
-                        this.alt='FXO';
-                    "
-                    alt="Profile"
-                >
-
-
-                <div
-                    class="profile-card-name"
-                    id="profileName">
-                    User
-                </div>
-
-
-                <div
-                    class="profile-card-user"
-                    id="profileUsername">
-                    @user
-                </div>
-
-
-                <div class="stats">
-
-                    <div class="stat">
-
-                        <span
-                            class="stat-value"
-                            id="profilePoints">
-                            0
-                        </span>
-
-                        <span class="stat-label">
-                            মোট পয়েন্ট
-                        </span>
-
-                    </div>
-
-
-                    <div class="stat">
-
-                        <span class="stat-value">
-                            0
-                        </span>
-
-                        <span class="stat-label">
-                            মোট রেফারেল
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="referral">
-
-                    <div class="ref-title">
-                        🔗 রেফারেল লিংক
-                    </div>
-
-                    <div class="ref-link-row">
-
-                        <div
-                            class="ref-link"
-                            id="refLink">
-                            https://t.me/FXOBot?start=user
-                        </div>
-
-                        <button
-                            class="copy-small"
-                            onclick="copyReferral()">
-
-                            ⧉
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <button
-                    class="main-btn"
-                    style="margin-top:12px"
-                    onclick="copyReferral()">
-
-                    ⧉ &nbsp;
-                    কপি করুন
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- PROMOTIONAL BANNER -->
-
-    <div class="card promo">
-
-        <img
-            class="promo-image"
-            src="assets/banner.jpg"
-            onerror="this.style.display='none';"
-            alt="FXO Banner">
-
-    </div>
-
-
-</section>
-
-
-<!-- =======================================================
-     VIDEOS PAGE
-======================================================= -->
-
-<section
-    id="videos"
-    class="page">
-
-    <div class="card">
-
-        <div class="card-title">
-            🎬 ভিডিও
-        </div>
-
-        <div class="card-desc">
-            ভিডিও দেখতে প্রয়োজনীয় বিজ্ঞাপন সম্পূর্ণ করুন।
-        </div>
-
-
-        <div class="card">
-
-            <div class="card-head">
-
-                <div class="head-left">
-
-                    <div class="icon-box">
-                        ▶
-                    </div>
-
-                    <div>
-                        <div class="card-title">
-                            Naruto Episode 1
-                        </div>
-
-                        <div class="card-desc"
-                             style="margin:5px 0 0">
-                            3 Ads Required
-                        </div>
-                    </div>
-
+                <div class="status">
+                    রেডি
                 </div>
 
             </div>
 
-            <button
-                class="main-btn"
-                style="margin-top:15px"
-                onclick="
-                    showToast(
-                        'ভিডিও আনলক করতে ৩টি অ্যাড লাগবে'
-                    )
-                ">
+            <div class="adDescription">
+                অ্যাড দেখলে +৫০ পয়েন্ট পাবেন
+            </div>
 
-                ▶ &nbsp;
-                Watch
-
+            <button class="mainButton" onclick="watchAd()">
+                ▶ &nbsp; অ্যাড দেখুন
             </button>
 
-        </div>
+        </section>
 
 
-        <div class="card">
+        <!-- DOUBLE AD -->
+        <section class="glass adCard double">
 
-            <div class="card-title">
-                ⚔️ Solo Leveling
+            <div class="adHeader">
+
+                <div class="adTitle">
+
+                    <div class="adIcon">▱</div>
+
+                    <h2>৩টি অ্যাড মোড</h2>
+
+                </div>
+
+                <div class="status">
+                    ধাপ: 0/3
+                </div>
+
             </div>
 
-            <div class="card-desc">
-                3 Ads Required
+            <div class="adDescription">
+                ৩টি অ্যাড সম্পূর্ণ করলে +২০০ পয়েন্ট
             </div>
 
-            <button
-                class="main-btn"
-                onclick="
-                    showToast(
-                        'ভিডিও আনলক করতে ৩টি অ্যাড লাগবে'
-                    )
-                ">
-
-                ▶ &nbsp;
-                Watch
-
+            <button class="mainButton" onclick="startDoubleAd()">
+                ⚡ &nbsp; ট্রিপল অ্যাড শুরু করুন
             </button>
 
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottomNav">
+
+        <div class="navItem active" onclick="setActive(this)">
+            <div class="navIcon">▷</div>
+            <div>অ্যাড আয়</div>
         </div>
 
-
-        <div class="card">
-
-            <div class="card-title">
-                🔥 Demon Slayer
-            </div>
-
-            <div class="card-desc">
-                2 Ads Required
-            </div>
-
-            <button
-                class="main-btn"
-                onclick="
-                    showToast(
-                        'ভিডিও আনলক করতে ২টি অ্যাড লাগবে'
-                    )
-                ">
-
-                ▶ &nbsp;
-                Watch
-
-            </button>
-
+        <div class="navItem" onclick="setActive(this)">
+            <div class="navIcon">▣</div>
+            <div>ভিডিও</div>
         </div>
 
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     PROFILE PAGE
-======================================================= -->
-
-<section
-    id="profile"
-    class="page">
-
-    <div class="card profile-card">
-
-        <div class="profile-card-title">
-            আমার প্রোফাইল
+        <div class="navItem" onclick="setActive(this)">
+            <div class="navIcon">♙</div>
+            <div>প্রোফাইল</div>
         </div>
 
-        <img
-            class="profile-large"
-            src="assets/profile.jpg"
-            alt="Profile"
-        >
-
-        <div
-            class="profile-card-name"
-            id="profilePageName">
-            User
+        <div class="navItem" onclick="setActive(this)">
+            <div class="navIcon">▱</div>
+            <div>ওয়ালেট</div>
         </div>
 
-        <div
-            class="profile-card-user"
-            id="profilePageUsername">
-            @user
-        </div>
-
-        <div class="stats">
-
-            <div class="stat">
-
-                <span
-                    class="stat-value"
-                    id="profilePagePoints">
-                    0
-                </span>
-
-                <span class="stat-label">
-                    মোট পয়েন্ট
-                </span>
-
-            </div>
-
-            <div class="stat">
-
-                <span class="stat-value">
-                    0
-                </span>
-
-                <span class="stat-label">
-                    মোট রেফারেল
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =======================================================
-     WALLET PAGE
-======================================================= -->
-
-<section
-    id="wallet"
-    class="page">
-
-    <div class="card">
-
-        <div class="card-title">
-            💳 টাকা উত্তোলন
-        </div>
-
-        <div class="card-desc">
-            ন্যূনতম উইথড্র ৳১০০০
-        </div>
-
-
-        <div class="methods">
-
-            <button
-                class="method active"
-                onclick="selectMethod(this)">
-
-                বিকাশ
-
-            </button>
-
-            <button
-                class="method"
-                onclick="selectMethod(this)">
-
-                নগদ
-
-            </button>
-
-        </div>
-
-
-        <label>
-            মোবাইল নম্বর
-        </label>
-
-        <input
-            class="input"
-            id="phone"
-            type="tel"
-            inputmode="numeric"
-            placeholder="017XXXXXXXX"
-        >
-
-
-        <label>
-            পরিমাণ
-        </label>
-
-        <input
-            class="input"
-            id="amount"
-            type="number"
-            value="1000"
-            min="1000"
-        >
-
-
-        <button
-            class="main-btn"
-            onclick="withdraw()">
-
-            উইথড্র রিকোয়েস্ট পাঠান
-
-        </button>
-
-    </div>
-
-
-    <div class="card">
-
-        <div class="card-title">
-            ◷ উইথড্র হিস্ট্রি
-        </div>
-
-        <div class="card-desc">
-            কোনো পেমেন্ট হিস্ট্রি পাওয়া যায়নি।
-        </div>
-
-    </div>
-
-</section>
-
-</main>
-
-
-<!-- =======================================================
-     BOTTOM NAV
-======================================================= -->
-
-<nav class="bottom-nav">
-
-    <button
-        class="nav-btn active"
-        onclick="openPage('home',this)">
-
-        <span class="nav-icon">
-            ▶
-        </span>
-
-        অ্যাড আয়
-
-    </button>
-
-
-    <button
-        class="nav-btn"
-        onclick="openPage('videos',this)">
-
-        <span class="nav-icon">
-            ▣
-        </span>
-
-        ভিডিও
-
-    </button>
-
-
-    <button
-        class="nav-btn"
-        onclick="openPage('profile',this)">
-
-        <span class="nav-icon">
-            ♙
-        </span>
-
-        প্রোফাইল
-
-    </button>
-
-
-    <button
-        class="nav-btn"
-        onclick="openPage('wallet',this)">
-
-        <span class="nav-icon">
-            ▱
-        </span>
-
-        ওয়ালেট
-
-    </button>
-
-</nav>
-
-
-<div
-    id="toast"
-    class="toast">
-</div>
-
+    </nav>
 
 </div>
 
 
 <script>
 
-/* =========================================================
-   TELEGRAM WEB APP
-========================================================= */
-
-const tg =
-    window.Telegram &&
-    window.Telegram.WebApp
-        ? window.Telegram.WebApp
-        : null;
-
-
-if(tg){
-
-    tg.ready();
-
-    tg.expand();
-
-    try{
-
-        tg.setHeaderColor(
-            "#00152f"
-        );
-
-        tg.setBackgroundColor(
-            "#00152f"
-        );
-
-    }catch(e){}
-
-}
-
-
-/* =========================================================
-   DATA
-========================================================= */
+/* =========================
+   POINT SYSTEM
+========================= */
 
 let points = 0;
 
-let tripleStep = 0;
+function updateBalance(){
 
+    document.getElementById("topPoints").innerText = points;
 
-/* =========================================================
-   TELEGRAM USER
-========================================================= */
+    let taka = points / 100;
 
-function loadUser(){
-
-    const user =
-        tg &&
-        tg.initDataUnsafe &&
-        tg.initDataUnsafe.user
-            ? tg.initDataUnsafe.user
-            : null;
-
-
-    if(!user){
-
-        return;
-
-    }
-
-
-    const first =
-        user.first_name || "";
-
-
-    const last =
-        user.last_name || "";
-
-
-    const fullName =
-        (
-            first +
-            " " +
-            last
-        ).trim()
-        || "User";
-
-
-    const username =
-        user.username
-            ? "@" + user.username
-            : "@user";
-
-
-    document
-        .getElementById("headerName")
-        .textContent =
-        fullName;
-
-
-    document
-        .getElementById("headerUsername")
-        .textContent =
-        username;
-
-
-    document
-        .getElementById("profileName")
-        .textContent =
-        fullName;
-
-
-    document
-        .getElementById("profileUsername")
-        .textContent =
-        username;
-
-
-    document
-        .getElementById("profilePageName")
-        .textContent =
-        fullName;
-
-
-    document
-        .getElementById("profilePageUsername")
-        .textContent =
-        username;
-
-
-    const ref =
-        "https://t.me/FXOBot?start=" +
-        user.id;
-
-
-    document
-        .getElementById("refLink")
-        .textContent =
-        ref;
+    document.getElementById("balance").innerText =
+        taka.toFixed(2);
 
 }
 
 
-loadUser();
-
-
-/* =========================================================
-   UPDATE BALANCE
-========================================================= */
-
-function updatePoints(){
-
-    const money =
-        points / 100;
-
-
-    document
-        .getElementById("headerPoints")
-        .textContent =
-        points;
-
-
-    document
-        .getElementById("profilePoints")
-        .textContent =
-        points;
-
-
-    document
-        .getElementById("profilePagePoints")
-        .textContent =
-        points;
-
-
-    document
-        .getElementById("balanceMoney")
-        .textContent =
-        "৳ " +
-        money.toFixed(2) +
-        " BDT";
-
-}
-
-
-/* =========================================================
+/* =========================
    SINGLE AD
-========================================================= */
+========================= */
 
-function watchSingleAd(){
+function watchAd(){
 
     /*
-       DEMO ONLY
-
-       এখানে Adsgram-এর আসল rewarded ad
-       verification বসাতে হবে।
-
-       এখন test করার জন্য +50 points.
+       এখানে পরে তোমার AdGram /
+       বিজ্ঞাপনের JavaScript বসবে।
     */
 
-    points += 50;
-
-    updatePoints();
-
-    showToast(
-        "+৫০ পয়েন্ট যোগ হয়েছে"
-    );
-
-
-    haptic();
+    alert("Ad system connected হলে এখানে বিজ্ঞাপন চালু হবে।");
 
 }
 
 
-/* =========================================================
+/* =========================
    TRIPLE AD
-========================================================= */
+========================= */
 
-function watchTripleAd(){
+let doubleStep = 0;
 
-    tripleStep++;
+function startDoubleAd(){
 
+    doubleStep++;
 
-    document
-        .getElementById("tripleStep")
-        .textContent =
-        tripleStep;
-
-
-    if(tripleStep >= 3){
+    if(doubleStep >= 3){
 
         points += 200;
 
-        tripleStep = 0;
+        doubleStep = 0;
 
+        updateBalance();
 
-        document
-            .getElementById("tripleStep")
-            .textContent =
-            "0";
+        alert("অভিনন্দন! +200 Points যোগ হয়েছে।");
 
+    }else{
 
-        updatePoints();
-
-
-        showToast(
-            "৩টি অ্যাড সম্পূর্ণ! +২০০ পয়েন্ট"
-        );
-
-
-        haptic();
-
-    }
-    else{
-
-        showToast(
+        alert(
             "অ্যাড " +
-            tripleStep +
-            "/3 সম্পূর্ণ"
+            doubleStep +
+            "/3 সম্পূর্ণ হয়েছে।"
         );
 
     }
@@ -2826,242 +913,27 @@ function watchTripleAd(){
 }
 
 
-/* =========================================================
-   PAGE
-========================================================= */
+/* =========================
+   NAVIGATION
+========================= */
 
-function openPage(
-    id,
-    button
-){
+function setActive(element){
 
     document
-        .querySelectorAll(".page")
-        .forEach(
-            page =>
-                page.classList.remove(
-                    "active"
-                )
-        );
+        .querySelectorAll(".navItem")
+        .forEach(item => {
 
+            item.classList.remove("active");
 
-    document
-        .getElementById(id)
-        .classList.add("active");
+        });
 
-
-    document
-        .querySelectorAll(".nav-btn")
-        .forEach(
-            btn =>
-                btn.classList.remove(
-                    "active"
-                )
-        );
-
-
-    button.classList.add("active");
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    element.classList.add("active");
 
 }
 
 
-/* =========================================================
-   PAYMENT METHOD
-========================================================= */
-
-function selectMethod(button){
-
-    document
-        .querySelectorAll(".method")
-        .forEach(
-            item =>
-                item.classList.remove(
-                    "active"
-                )
-        );
-
-
-    button.classList.add("active");
-
-}
-
-
-/* =========================================================
-   WITHDRAW
-========================================================= */
-
-function withdraw(){
-
-    const phone =
-        document
-            .getElementById("phone")
-            .value
-            .trim();
-
-
-    const amount =
-        Number(
-            document
-                .getElementById("amount")
-                .value
-        );
-
-
-    if(
-        !/^01[3-9][0-9]{8}$/
-        .test(phone)
-    ){
-
-        showToast(
-            "সঠিক বাংলাদেশি মোবাইল নম্বর দিন"
-        );
-
-        return;
-
-    }
-
-
-    if(amount < 1000){
-
-        showToast(
-            "ন্যূনতম উইথড্র ৳১০০০"
-        );
-
-        return;
-
-    }
-
-
-    if(points < amount * 100){
-
-        showToast(
-            "আপনার পর্যাপ্ত পয়েন্ট নেই"
-        );
-
-        return;
-
-    }
-
-
-    showToast(
-        "উইথড্র রিকোয়েস্ট পাঠানো হয়েছে"
-    );
-
-}
-
-
-/* =========================================================
-   COPY REFERRAL
-========================================================= */
-
-async function copyReferral(){
-
-    const text =
-        document
-            .getElementById("refLink")
-            .textContent;
-
-
-    try{
-
-        await navigator
-            .clipboard
-            .writeText(text);
-
-        showToast(
-            "রেফারেল লিংক কপি হয়েছে"
-        );
-
-    }catch(e){
-
-        showToast(
-            "লিংক কপি করা যায়নি"
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   HAPTIC
-========================================================= */
-
-function haptic(){
-
-    try{
-
-        if(
-            tg &&
-            tg.HapticFeedback
-        ){
-
-            tg.HapticFeedback
-                .notificationOccurred(
-                    "success"
-                );
-
-        }
-
-    }catch(e){}
-
-}
-
-
-/* =========================================================
-   TOAST
-========================================================= */
-
-let toastTimer;
-
-
-function showToast(message){
-
-    const toast =
-        document
-            .getElementById("toast");
-
-
-    toast.textContent =
-        message;
-
-
-    toast.classList.add(
-        "show"
-    );
-
-
-    clearTimeout(
-        toastTimer
-    );
-
-
-    toastTimer =
-        setTimeout(
-            () => {
-
-                toast.classList.remove(
-                    "show"
-                );
-
-            },
-            2200
-        );
-
-}
-
-
-/* =========================================================
-   START
-========================================================= */
-
-updatePoints();
+/* INITIAL */
+updateBalance();
 
 </script>
 
