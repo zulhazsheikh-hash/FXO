@@ -4,12 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>FXO EARN</title>
+<title>FXO Earn</title>
 
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap');
-
 *{
     margin:0;
     padding:0;
@@ -20,205 +17,179 @@
 html,body{
     width:100%;
     min-height:100%;
-    background:#020d18;
 }
 
 body{
-    font-family:'Baloo Da 2','Inter',sans-serif;
-    color:#ffffff;
+    font-family:Arial,"Noto Sans Bengali",sans-serif;
+    background:#dff8ff;
+    color:#07527d;
     overflow-x:hidden;
 }
 
 /* =========================
-   MAIN BACKGROUND
+   MAIN APP BACKGROUND
 ========================= */
 
 .app{
+    width:100%;
     min-height:100vh;
     position:relative;
     overflow:hidden;
 
     background:
-        radial-gradient(circle at 10% 10%,rgba(0,174,255,.35),transparent 28%),
-        radial-gradient(circle at 90% 20%,rgba(0,98,255,.30),transparent 30%),
-        radial-gradient(circle at 50% 60%,rgba(0,196,255,.16),transparent 35%),
-        linear-gradient(145deg,#02111e,#042744 45%,#01101f);
-}
-
-/* Liquid glow */
-
-.app::before,
-.app::after{
-    content:"";
-    position:absolute;
-    border-radius:50%;
-    filter:blur(45px);
-    pointer-events:none;
+        radial-gradient(circle at 10% 5%,rgba(255,255,255,.95),transparent 28%),
+        radial-gradient(circle at 90% 10%,rgba(60,211,255,.55),transparent 30%),
+        radial-gradient(circle at 15% 70%,rgba(255,255,255,.65),transparent 30%),
+        linear-gradient(
+            135deg,
+            #eafcff 0%,
+            #a9eafa 35%,
+            #63cfea 65%,
+            #d9f9ff 100%
+        );
 }
 
 .app::before{
-    width:260px;
-    height:260px;
-    background:rgba(0,174,255,.22);
-    top:100px;
-    left:-100px;
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    top:-150px;
+    right:-160px;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+    filter:blur(55px);
+    pointer-events:none;
 }
 
 .app::after{
-    width:300px;
-    height:300px;
-    background:rgba(0,72,255,.20);
-    right:-130px;
-    top:500px;
+    content:"";
+    position:fixed;
+    width:350px;
+    height:350px;
+    left:-150px;
+    bottom:-100px;
+    border-radius:50%;
+    background:rgba(0,184,240,.28);
+    filter:blur(55px);
+    pointer-events:none;
 }
 
 /* =========================
-   TOP BAR
+   APP WIDTH
 ========================= */
 
-.topbar{
+.container{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    margin:auto;
     position:relative;
-    z-index:10;
+}
 
-    min-height:118px;
-    padding:22px 24px 18px;
+/* =========================
+   TOP HEADER
+========================= */
+
+.header{
+    height:110px;
+    padding:17px 16px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
 
     background:
-        linear-gradient(120deg,
-        rgba(8,49,79,.94),
-        rgba(0,91,145,.65),
-        rgba(3,33,58,.92));
+        linear-gradient(
+            180deg,
+            rgba(255,255,255,.42),
+            rgba(255,255,255,.18)
+        );
 
-    border-bottom:1px solid rgba(130,225,255,.38);
+    border-bottom:1px solid rgba(255,255,255,.85);
 
-    box-shadow:
-        0 8px 35px rgba(0,130,255,.20),
-        inset 0 -1px rgba(255,255,255,.08);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    position:relative;
+    z-index:10;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:14px;
+    gap:12px;
 }
 
 .logo{
-    width:78px;
-    height:78px;
+    width:58px;
+    height:58px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:23px;
+    border-radius:18px;
 
-    font-family:Inter,sans-serif;
-    font-size:43px;
+    color:white;
+    font-size:36px;
     font-weight:900;
 
-    color:#fff;
-
     background:
-        linear-gradient(145deg,#35d8ff,#087be8);
+        linear-gradient(
+            145deg,
+            #59e5ff,
+            #159be9 55%,
+            #0877e8
+        );
 
-    border:2px solid rgba(255,255,255,.48);
+    border:2px solid rgba(255,255,255,.9);
 
     box-shadow:
-        0 0 15px #00bfff,
-        0 0 35px rgba(0,145,255,.65),
-        inset 0 0 20px rgba(255,255,255,.28);
+        0 8px 25px rgba(0,130,220,.35),
+        inset 0 2px 8px rgba(255,255,255,.75);
 }
 
-.brandText h1{
-    font-family:Inter,sans-serif;
-    font-size:34px;
-    line-height:1;
+.brand-text h1{
+    color:#073f67;
+    font-size:28px;
     font-weight:900;
     letter-spacing:-1px;
 }
 
-.brandText p{
-    margin-top:8px;
-    font-family:Inter,sans-serif;
-    font-size:17px;
-    font-weight:600;
-    color:#9edfff;
+.brand-text p{
+    margin-top:4px;
+    color:#12618b;
+    font-size:14px;
+    font-weight:700;
 }
 
-/* Profile right */
+.points{
+    min-width:108px;
+    height:44px;
 
-.profileTop{
-    display:flex;
-    align-items:center;
-    gap:8px;
-
-    padding:7px 9px;
-
-    border-radius:35px;
-
-    background:
-        linear-gradient(135deg,
-        rgba(255,255,255,.18),
-        rgba(0,159,255,.14));
-
-    border:1px solid rgba(168,238,255,.55);
-
-    box-shadow:
-        inset 0 0 15px rgba(255,255,255,.08),
-        0 0 18px rgba(0,174,255,.25);
-}
-
-.avatar{
-    width:53px;
-    height:53px;
-
-    border-radius:50%;
+    padding:0 13px;
 
     display:flex;
     align-items:center;
     justify-content:center;
-
-    background:
-        radial-gradient(circle at 35% 30%,#7deaff,#0879d5 65%,#03487d);
-
-    border:2px solid rgba(255,255,255,.55);
-
-    font-family:Inter,sans-serif;
-    font-size:22px;
-    font-weight:800;
-
-    box-shadow:0 0 16px rgba(0,200,255,.65);
-}
-
-.userName{
-    display:none;
-}
-
-.points{
-    padding:11px 17px;
+    gap:5px;
 
     border-radius:25px;
 
-    font-family:Inter,sans-serif;
-    font-size:18px;
-    font-weight:800;
+    color:#07537c;
+    font-size:15px;
+    font-weight:900;
 
-    white-space:nowrap;
+    background:rgba(255,255,255,.62);
 
-    background:rgba(3,72,116,.72);
-    border:1px solid rgba(176,240,255,.58);
+    border:1px solid rgba(255,255,255,.95);
 
     box-shadow:
-        inset 0 0 12px rgba(255,255,255,.07),
-        0 0 13px rgba(0,180,255,.25);
-}
+        0 6px 20px rgba(0,110,170,.12),
+        inset 0 1px 7px rgba(255,255,255,.9);
 
-.points span{
-    color:#bdf5ff;
+    backdrop-filter:blur(15px);
 }
 
 /* =========================
@@ -226,85 +197,86 @@ body{
 ========================= */
 
 .content{
+    padding:17px 16px 105px;
     position:relative;
     z-index:2;
+}
 
-    padding:28px 26px 130px;
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
 }
 
 /* =========================
-   GLASS CARD
+   LIQUID GLASS CARD
 ========================= */
 
-.glass{
+.card{
     position:relative;
+    overflow:hidden;
 
-    border-radius:32px;
+    border-radius:28px;
+
+    border:1.5px solid rgba(255,255,255,.95);
 
     background:
         linear-gradient(
             135deg,
-            rgba(81,181,220,.24),
-            rgba(2,51,87,.74) 45%,
-            rgba(0,35,66,.86)
+            rgba(255,255,255,.62),
+            rgba(205,247,255,.43),
+            rgba(255,255,255,.34)
         );
 
-    border:2px solid rgba(145,232,255,.52);
-
     box-shadow:
-        inset 0 0 35px rgba(126,223,255,.08),
-        0 0 22px rgba(0,155,255,.18),
-        0 15px 35px rgba(0,0,0,.20);
+        0 14px 38px rgba(0,105,175,.16),
+        inset 0 1px 1px rgba(255,255,255,.95),
+        inset 0 -12px 30px rgba(0,170,220,.08);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
-
-    overflow:hidden;
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 }
 
-/* Liquid reflections */
-
-.glass::before{
+.card::before{
     content:"";
+
     position:absolute;
 
-    width:180px;
-    height:180px;
+    width:190px;
+    height:90px;
 
-    top:-90px;
+    top:-35px;
     right:-50px;
 
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(153,241,255,.30),
-            rgba(0,145,255,.06) 50%,
-            transparent 70%
-        );
+    background:rgba(255,255,255,.55);
 
-    filter:blur(5px);
+    filter:blur(20px);
+
+    pointer-events:none;
 }
 
-.glass::after{
+.card::after{
     content:"";
+
     position:absolute;
 
-    width:130px;
-    height:130px;
+    width:140px;
+    height:65px;
 
-    left:-60px;
-    bottom:-65px;
+    left:-50px;
+    bottom:-25px;
 
     border-radius:50%;
 
-    background:
-        radial-gradient(
-            circle,
-            rgba(74,218,255,.22),
-            transparent 70%
-        );
+    background:rgba(45,206,245,.22);
+
+    filter:blur(18px);
+
+    pointer-events:none;
 }
 
 /* =========================
@@ -312,21 +284,16 @@ body{
 ========================= */
 
 .balance{
-    min-height:535px;
-
-    padding:48px 25px;
-
+    min-height:190px;
+    padding:25px 20px;
     text-align:center;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
 }
 
-.walletIcon{
-    width:120px;
-    height:120px;
+.balance-icon{
+    width:65px;
+    height:65px;
+
+    margin:0 auto 13px;
 
     display:flex;
     align-items:center;
@@ -334,251 +301,223 @@ body{
 
     border-radius:50%;
 
-    margin-bottom:27px;
-
-    font-size:53px;
-
-    background:
-        radial-gradient(circle at 35% 25%,
-        rgba(255,255,255,.62),
-        rgba(52,161,211,.25) 55%,
-        rgba(0,55,91,.72));
-
-    border:2px solid rgba(226,250,255,.68);
-
-    box-shadow:
-        0 0 25px rgba(0,180,255,.35),
-        inset 0 0 22px rgba(255,255,255,.18);
-}
-
-.balanceTitle{
-    font-size:34px;
-    font-weight:800;
-    line-height:1.2;
-
-    text-shadow:
-        0 0 12px rgba(255,255,255,.20);
-}
-
-.minimum{
-    margin-top:8px;
-
-    font-size:22px;
-    font-weight:600;
-
-    color:#7edcff;
-}
-
-.amount{
-    margin-top:15px;
-
-    font-family:Inter,sans-serif;
-    font-size:58px;
-    font-weight:900;
-    letter-spacing:-2px;
-
-    color:#ffffff;
-
-    text-shadow:
-        0 0 10px rgba(255,255,255,.35),
-        0 0 30px rgba(0,178,255,.38);
-}
-
-.rate{
-    margin-top:20px;
-
-    padding:12px 25px;
-
-    border-radius:30px;
-
-    font-size:20px;
-    font-weight:800;
+    font-size:28px;
 
     background:
         linear-gradient(
-            120deg,
-            rgba(255,255,255,.16),
-            rgba(33,151,207,.20)
+            145deg,
+            rgba(255,255,255,.9),
+            rgba(164,228,244,.65)
         );
 
-    border:1px solid rgba(189,239,255,.55);
+    border:1px solid rgba(255,255,255,.95);
 
     box-shadow:
-        inset 0 0 13px rgba(255,255,255,.08),
-        0 0 15px rgba(0,180,255,.16);
+        0 8px 22px rgba(0,115,175,.16),
+        inset 0 1px 8px rgba(255,255,255,.95);
+}
+
+.balance-title{
+    color:#0a5881;
+    font-size:19px;
+    font-weight:900;
+}
+
+.minimum{
+    margin-top:3px;
+    color:#4a91aa;
+    font-size:13px;
+    font-weight:600;
+}
+
+.amount{
+    margin-top:7px;
+
+    color:#075083;
+
+    font-size:40px;
+    line-height:1;
+
+    font-weight:900;
+
+    letter-spacing:-1.5px;
+}
+
+.rate{
+    display:inline-block;
+
+    margin-top:12px;
+
+    padding:8px 16px;
+
+    border-radius:22px;
+
+    color:#075b87;
+
+    font-size:13px;
+    font-weight:900;
+
+    background:rgba(255,255,255,.58);
+
+    border:1px solid rgba(255,255,255,.9);
+
+    box-shadow:inset 0 1px 6px rgba(255,255,255,.8);
 }
 
 /* =========================
-   AD CARDS
+   ACTION CARDS
 ========================= */
 
-.adCard{
-    margin-top:28px;
-    padding:32px 26px 27px;
+.action-card{
+    margin-top:13px;
+    padding:18px;
 }
 
-.adHeader{
+.action-top{
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    gap:13px;
 }
 
-.adTitle{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
+.action-icon{
+    width:54px;
+    height:54px;
 
-.adIcon{
-    width:80px;
-    height:80px;
+    flex-shrink:0;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:23px;
+    border-radius:17px;
 
-    font-family:Inter,sans-serif;
-    font-size:35px;
+    color:#0785cf;
+    font-size:25px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(105,219,255,.27),
-            rgba(0,74,121,.48)
+            rgba(255,255,255,.8),
+            rgba(199,241,251,.58)
         );
 
-    border:1px solid rgba(174,239,255,.65);
+    border:1px solid rgba(255,255,255,.95);
 
     box-shadow:
-        inset 0 0 20px rgba(255,255,255,.09),
-        0 0 15px rgba(0,176,255,.18);
+        inset 0 1px 8px rgba(255,255,255,.95),
+        0 5px 15px rgba(0,125,190,.10);
 }
 
-.adTitle h2{
-    font-size:31px;
-    font-weight:800;
+.action-info{
+    flex:1;
+}
+
+.action-title{
+    color:#0a4d70;
+    font-size:20px;
+    font-weight:900;
+}
+
+.action-sub{
+    margin-top:4px;
+    color:#3683a1;
+    font-size:13px;
+    font-weight:600;
+}
+
+.reward{
+    float:right;
+    color:#0872ad;
+    font-size:13px;
+    font-weight:900;
 }
 
 .status{
-    padding:9px 19px;
+    padding:7px 13px;
 
-    border-radius:24px;
+    border-radius:20px;
 
-    font-size:19px;
-    font-weight:700;
+    color:#087b82;
 
-    color:#bffaff;
+    font-size:12px;
+    font-weight:900;
 
-    background:rgba(0,170,145,.18);
+    background:rgba(174,255,232,.35);
 
-    border:1px solid rgba(64,255,224,.48);
+    border:1px solid rgba(71,213,186,.65);
 }
 
-.status::before{
-    content:"●";
-    color:#27f59b;
-    margin-right:7px;
-}
-
-.adDescription{
-    margin:28px 0 23px;
-
-    font-size:21px;
-    font-weight:600;
-
-    color:#9ee2f6;
-}
-
-.mainButton{
+.main-btn{
     width:100%;
-    height:82px;
+    height:48px;
 
-    border:none;
-    border-radius:27px;
+    margin-top:15px;
 
-    color:white;
+    border-radius:22px;
 
-    font-family:'Baloo Da 2',sans-serif;
-    font-size:29px;
-    font-weight:800;
+    color:#fff;
+
+    font-size:16px;
+    font-weight:900;
 
     background:
         linear-gradient(
             100deg,
-            #05bdf2,
-            #087bea,
-            #355cf2
+            #0bb8ed,
+            #147bea
         );
 
-    border:2px solid rgba(124,237,255,.75);
+    border:1px solid rgba(255,255,255,.75);
 
     box-shadow:
-        0 0 18px rgba(0,196,255,.42),
-        0 0 35px rgba(0,91,255,.25),
-        inset 0 0 15px rgba(255,255,255,.20);
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.mainButton:active{
-    transform:scale(.97);
-}
-
-/* =========================
-   DOUBLE AD
-========================= */
-
-.double{
-    margin-top:28px;
-    padding-bottom:30px;
+        0 7px 20px rgba(0,125,235,.28),
+        inset 0 1px 8px rgba(255,255,255,.35);
 }
 
 /* =========================
    BOTTOM NAV
 ========================= */
 
-.bottomNav{
+.bottom-nav{
     position:fixed;
 
     z-index:100;
 
-    left:16px;
-    right:16px;
-    bottom:15px;
+    left:50%;
+    bottom:10px;
 
-    height:93px;
+    transform:translateX(-50%);
+
+    width:min(calc(100% - 24px),405px);
+
+    height:76px;
+
+    padding:6px;
 
     display:grid;
     grid-template-columns:repeat(4,1fr);
 
-    padding:7px;
+    border-radius:28px;
 
-    border-radius:35px;
+    background:rgba(224,250,255,.76);
 
-    background:
-        linear-gradient(
-            120deg,
-            rgba(5,65,103,.92),
-            rgba(5,118,169,.72),
-            rgba(2,54,93,.94)
-        );
-
-    border:2px solid rgba(145,234,255,.52);
+    border:1.5px solid rgba(255,255,255,.95);
 
     box-shadow:
-        0 0 30px rgba(0,146,255,.28),
-        0 10px 35px rgba(0,0,0,.38);
+        0 12px 35px rgba(0,100,170,.22),
+        inset 0 1px 8px rgba(255,255,255,.9);
 
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
 }
 
-.navItem{
-    border-radius:27px;
+.nav-btn{
+    border:0;
+    background:transparent;
+
+    color:#145c83;
+
+    border-radius:22px;
 
     display:flex;
     flex-direction:column;
@@ -587,112 +526,511 @@ body{
 
     gap:3px;
 
-    color:#aee8fa;
-
-    font-size:17px;
-    font-weight:700;
-
-    cursor:pointer;
-
-    transition:.2s;
+    font-size:12px;
+    font-weight:800;
 }
 
-.navItem .navIcon{
-    font-family:Inter,sans-serif;
-    font-size:31px;
+.nav-icon{
+    font-size:24px;
     line-height:1;
 }
 
-.navItem.active{
+.nav-btn.active{
     color:white;
 
     background:
         linear-gradient(
             145deg,
-            #18baf3,
-            #1269ed
+            #17b5f0,
+            #087bea
         );
 
     box-shadow:
-        0 0 18px rgba(0,190,255,.65),
-        inset 0 0 14px rgba(255,255,255,.15);
+        0 6px 18px rgba(0,130,235,.32),
+        inset 0 1px 7px rgba(255,255,255,.35);
 }
 
-.navItem:active{
-    transform:scale(.94);
+/* =========================
+   VIDEO PAGE
+========================= */
+
+.video-header{
+    padding:17px;
+}
+
+.video-header h2{
+    font-size:21px;
+    font-weight:900;
+}
+
+.video-header p{
+    margin-top:3px;
+    color:#4c89a3;
+    font-size:12px;
+}
+
+.video-item{
+    margin-top:10px;
+
+    padding:9px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    border-radius:18px;
+
+    background:rgba(247,254,255,.48);
+
+    border:1px solid rgba(255,255,255,.75);
+}
+
+.thumbnail{
+    width:74px;
+    height:54px;
+
+    flex-shrink:0;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:13px;
+
+    color:white;
+    font-size:23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0875c6,
+            #11cbea
+        );
+}
+
+.video-info{
+    flex:1;
+}
+
+.video-info strong{
+    display:block;
+    color:#07507b;
+    font-size:13px;
+}
+
+.video-info small{
+    color:#57869e;
+    font-size:10px;
+}
+
+.watch-btn{
+    padding:8px 12px;
+
+    border-radius:18px;
+
+    color:white;
+
+    background:#087fea;
+
+    font-size:11px;
+    font-weight:900;
+}
+
+/* =========================
+   PROFILE
+========================= */
+
+.profile-card{
+    padding:22px;
+    text-align:center;
+}
+
+.avatar{
+    width:78px;
+    height:78px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    color:white;
+
+    font-size:30px;
+    font-weight:900;
+
+    background:
+        linear-gradient(
+            145deg,
+            #5de0ff,
+            #087ee8
+        );
+
+    border:3px solid rgba(255,255,255,.9);
+
+    box-shadow:
+        0 7px 25px rgba(0,125,220,.3);
+}
+
+.profile-card h2{
+    margin-top:10px;
+    color:#07527d;
+    font-size:22px;
+}
+
+.profile-card p{
+    color:#3d86a2;
+    font-size:13px;
+}
+
+.info-row{
+    text-align:left;
+
+    padding:12px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.7);
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-row span{
+    display:block;
+    color:#6096aa;
+    font-size:11px;
+}
+
+.info-row strong{
+    color:#07527d;
+    font-size:14px;
+}
+
+/* =========================
+   WALLET
+========================= */
+
+.wallet-card{
+    padding:24px;
+    text-align:center;
+}
+
+.wallet-card h2{
+    font-size:18px;
+}
+
+.wallet-points{
+    margin-top:5px;
+    color:#0870b2;
+    font-size:32px;
+    font-weight:900;
+}
+
+.methods{
+    margin-top:15px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+
+    gap:9px;
+}
+
+.method{
+    padding:12px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.58);
+
+    border:1px solid rgba(255,255,255,.85);
+
+    color:#075d87;
+
+    font-weight:900;
+}
+
+.method.selected{
+    color:white;
+
+    background:
+        linear-gradient(
+            100deg,
+            #ed61ad,
+            #e73791
+        );
+}
+
+.input{
+    width:100%;
+    height:45px;
+
+    margin-top:9px;
+
+    padding:0 14px;
+
+    outline:none;
+
+    border-radius:16px;
+
+    border:1px solid rgba(255,255,255,.9);
+
+    background:rgba(255,255,255,.62);
+
+    color:#07547e;
+
+    font-size:14px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-card{
+    padding:16px;
+}
+
+.admin-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.admin-title h2{
+    font-size:19px;
+}
+
+.admin-badge{
+    padding:5px 9px;
+
+    border-radius:12px;
+
+    color:#0872ad;
+
+    background:rgba(255,255,255,.55);
+
+    font-size:10px;
+    font-weight:900;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+
+    margin-top:12px;
+}
+
+.stat{
+    padding:10px 4px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.5);
+
+    border:1px solid rgba(255,255,255,.75);
+}
+
+.stat small{
+    display:block;
+    color:#5d8da1;
+    font-size:9px;
+}
+
+.stat strong{
+    color:#0875b9;
+    font-size:17px;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player-box{
+    position:relative;
+
+    height:235px;
+
+    overflow:hidden;
+
+    border-radius:25px;
+
+    background:
+        radial-gradient(circle at 50% 35%,#12a8e9,transparent 25%),
+        linear-gradient(
+            145deg,
+            #062e50,
+            #087bc4,
+            #021f3b
+        );
+
+    border:1px solid rgba(255,255,255,.7);
+}
+
+.player-play{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:68px;
+    height:68px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    color:white;
+    font-size:29px;
+
+    background:rgba(0,125,225,.72);
+
+    border:2px solid rgba(255,255,255,.85);
+}
+
+.close-btn{
+    position:absolute;
+
+    right:10px;
+    top:10px;
+
+    width:36px;
+    height:36px;
+
+    border-radius:50%;
+
+    color:white;
+    font-size:23px;
+
+    background:rgba(255,255,255,.18);
+
+    border:1px solid rgba(255,255,255,.65);
+}
+
+.progress{
+    position:absolute;
+
+    left:12px;
+    right:12px;
+    bottom:28px;
+
+    height:4px;
+
+    border-radius:4px;
+
+    background:rgba(255,255,255,.35);
+}
+
+.progress span{
+    display:block;
+
+    width:55%;
+    height:100%;
+
+    border-radius:4px;
+
+    background:white;
+}
+
+.player-time{
+    position:absolute;
+
+    left:12px;
+    bottom:9px;
+
+    color:white;
+
+    font-size:10px;
+}
+
+.player-title{
+    margin:9px 2px;
+
+    color:#07527d;
+
+    font-size:17px;
+    font-weight:900;
+}
+
+.ad-box{
+    padding:25px;
+
+    text-align:center;
+}
+
+.ad-circle{
+    width:72px;
+    height:72px;
+
+    margin:auto;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            145deg,
+            #14c2f2,
+            #087bea
+        );
+
+    border:2px solid rgba(255,255,255,.9);
+
+    font-size:16px;
+    font-weight:900;
+}
+
+.ad-box h3{
+    margin-top:10px;
+    font-size:18px;
+}
+
+.ad-number{
+    margin-top:8px;
+
+    color:#087bea;
+
+    font-size:30px;
+    font-weight:900;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media(max-width:390px){
+@media(max-width:360px){
 
-    .topbar{
-        padding-left:17px;
-        padding-right:17px;
-    }
-
-    .logo{
-        width:64px;
-        height:64px;
-        font-size:35px;
-    }
-
-    .brandText h1{
-        font-size:27px;
-    }
-
-    .brandText p{
-        font-size:14px;
-    }
-
-    .avatar{
-        width:43px;
-        height:43px;
+    .brand-text h1{
+        font-size:24px;
     }
 
     .points{
-        font-size:15px;
-        padding:9px 11px;
+        min-width:90px;
+        font-size:13px;
     }
 
     .content{
-        padding-left:18px;
-        padding-right:18px;
-    }
-
-    .balance{
-        min-height:470px;
-    }
-
-    .balanceTitle{
-        font-size:29px;
+        padding-left:11px;
+        padding-right:11px;
     }
 
     .amount{
-        font-size:48px;
-    }
-
-    .adTitle h2{
-        font-size:27px;
-    }
-
-    .adIcon{
-        width:67px;
-        height:67px;
-    }
-
-    .mainButton{
-        height:72px;
-        font-size:25px;
-    }
-
-    .navItem{
-        font-size:14px;
+        font-size:34px;
     }
 }
-
 </style>
 </head>
 
@@ -700,166 +1038,765 @@ body{
 
 <div class="app">
 
-    <!-- TOP HEADER -->
-    <header class="topbar">
+<div class="container">
 
-        <div class="brand">
+<!-- =========================
+     HEADER
+========================= -->
 
-            <div class="logo">ϟ</div>
+<header class="header">
 
-            <div class="brandText">
-                <h1>FXO EARN</h1>
-                <p>@user</p>
+    <div class="brand">
+
+        <div class="logo">ϟ</div>
+
+        <div class="brand-text">
+            <h1>FXO EARN</h1>
+            <p>Earn &amp; Watch</p>
+        </div>
+
+    </div>
+
+    <div class="points">
+        ✨ <span id="topPoints">520</span> Pts
+    </div>
+
+</header>
+
+
+<main class="content">
+
+
+<!-- =========================
+     HOME
+========================= -->
+
+<section class="page active" id="home">
+
+    <div class="card balance">
+
+        <div class="balance-icon">
+            💳
+        </div>
+
+        <div class="balance-title">
+            বর্তমান মোট জমা টাকা
+        </div>
+
+        <div class="minimum">
+            ন্যূনতম উইথড্র ৳১০০০
+        </div>
+
+        <div class="amount">
+            ৳ <span id="money">5.20</span> BDT
+        </div>
+
+        <div class="rate">
+            ● ১০০ পয়েন্ট = ৳ ১ টাকা
+        </div>
+
+    </div>
+
+
+    <!-- SINGLE AD -->
+
+    <div class="card action-card">
+
+        <div class="action-top">
+
+            <div class="action-icon">
+                ▶
+            </div>
+
+            <div class="action-info">
+
+                <div class="action-title">
+                    সিঙ্গেল অ্যাড
+                </div>
+
+                <div class="action-sub">
+                    অ্যাড দেখলে +৫০ পয়েন্ট পাবেন
+                </div>
+
+            </div>
+
+            <div class="status">
+                রেডি
             </div>
 
         </div>
 
-        <div class="profileTop">
+        <button class="main-btn" onclick="singleAd()">
+            ▶ &nbsp; অ্যাড দেখুন
+        </button>
 
-            <div class="avatar">U</div>
+    </div>
 
-            <div class="points">
-                ✧ <span id="topPoints">0</span> Pts
+
+    <!-- TRIPLE AD -->
+
+    <div class="card action-card">
+
+        <div class="action-top">
+
+            <div class="action-icon">
+                ▱
+            </div>
+
+            <div class="action-info">
+
+                <div class="action-title">
+                    ৩টি অ্যাড মোড
+                </div>
+
+                <div class="action-sub">
+                    ৩টি অ্যাড সম্পূর্ণ করলে +২০০ পয়েন্ট
+                </div>
+
+            </div>
+
+            <div class="status">
+                ধাপ: <span id="tripleStep">0</span>/3
             </div>
 
         </div>
 
-    </header>
+        <button class="main-btn" onclick="tripleAd()">
+            ⚡ &nbsp; ট্রিপল অ্যাড শুরু করুন
+        </button>
+
+    </div>
+
+</section>
 
 
-    <!-- CONTENT -->
-    <main class="content">
+<!-- =========================
+     VIDEOS
+========================= -->
 
-        <!-- BALANCE CARD -->
-        <section class="glass balance">
+<section class="page" id="videos">
 
-            <div class="walletIcon">▱</div>
+    <div class="card video-header">
 
-            <div class="balanceTitle">
-                বর্তমান মোট জমা টাকা
+        <h2>🎬 ভিডিও</h2>
+
+        <p>
+            ভিডিও দেখতে প্রয়োজনীয় বিজ্ঞাপন সম্পূর্ণ করুন।
+        </p>
+
+
+        <div class="video-item">
+
+            <div class="thumbnail">
+                ▶
             </div>
 
-            <div class="minimum">
-                ন্যূনতম উইথড্র ৳১০০০
-            </div>
+            <div class="video-info">
 
-            <div class="amount">
-                ৳ <span id="balance">0.00</span> BDT
-            </div>
+                <strong>
+                    Naruto Episode 1
+                </strong>
 
-            <div class="rate">
-                • ১০০ পয়েন্ট = ৳ ১ টাকা
-            </div>
-
-        </section>
-
-
-        <!-- SINGLE AD -->
-        <section class="glass adCard">
-
-            <div class="adHeader">
-
-                <div class="adTitle">
-
-                    <div class="adIcon">▶</div>
-
-                    <h2>সিঙ্গেল অ্যাড</h2>
-
-                </div>
-
-                <div class="status">
-                    রেডি
-                </div>
+                <small>
+                    3 Ads required
+                </small>
 
             </div>
 
-            <div class="adDescription">
-                অ্যাড দেখলে +৫০ পয়েন্ট পাবেন
-            </div>
-
-            <button class="mainButton" onclick="watchAd()">
-                ▶ &nbsp; অ্যাড দেখুন
+            <button class="watch-btn"
+                onclick="openPlayer('Naruto Episode 1')">
+                Watch
             </button>
 
-        </section>
+        </div>
 
 
-        <!-- DOUBLE AD -->
-        <section class="glass adCard double">
+        <div class="video-item">
 
-            <div class="adHeader">
+            <div class="thumbnail">
+                ▶
+            </div>
 
-                <div class="adTitle">
+            <div class="video-info">
 
-                    <div class="adIcon">▱</div>
+                <strong>
+                    Solo Leveling
+                </strong>
 
-                    <h2>৩টি অ্যাড মোড</h2>
-
-                </div>
-
-                <div class="status">
-                    ধাপ: 0/3
-                </div>
+                <small>
+                    3 Ads required
+                </small>
 
             </div>
 
-            <div class="adDescription">
-                ৩টি অ্যাড সম্পূর্ণ করলে +২০০ পয়েন্ট
-            </div>
-
-            <button class="mainButton" onclick="startDoubleAd()">
-                ⚡ &nbsp; ট্রিপল অ্যাড শুরু করুন
+            <button class="watch-btn"
+                onclick="openPlayer('Solo Leveling')">
+                Watch
             </button>
 
-        </section>
-
-    </main>
-
-
-    <!-- BOTTOM NAV -->
-    <nav class="bottomNav">
-
-        <div class="navItem active" onclick="setActive(this)">
-            <div class="navIcon">▷</div>
-            <div>অ্যাড আয়</div>
         </div>
 
-        <div class="navItem" onclick="setActive(this)">
-            <div class="navIcon">▣</div>
-            <div>ভিডিও</div>
+
+        <div class="video-item">
+
+            <div class="thumbnail">
+                ▶
+            </div>
+
+            <div class="video-info">
+
+                <strong>
+                    The Boys S1E1
+                </strong>
+
+                <small>
+                    2 Ads required
+                </small>
+
+            </div>
+
+            <button class="watch-btn"
+                onclick="openPlayer('The Boys S1E1')">
+                Watch
+            </button>
+
         </div>
 
-        <div class="navItem" onclick="setActive(this)">
-            <div class="navIcon">♙</div>
-            <div>প্রোফাইল</div>
+
+        <div class="video-item">
+
+            <div class="thumbnail">
+                ▶
+            </div>
+
+            <div class="video-info">
+
+                <strong>
+                    Demon Slayer
+                </strong>
+
+                <small>
+                    3 Ads required
+                </small>
+
+            </div>
+
+            <button class="watch-btn"
+                onclick="openPlayer('Demon Slayer')">
+                Watch
+            </button>
+
         </div>
 
-        <div class="navItem" onclick="setActive(this)">
-            <div class="navIcon">▱</div>
-            <div>ওয়ালেট</div>
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PROFILE
+========================= -->
+
+<section class="page" id="profile">
+
+    <div class="card profile-card">
+
+        <div class="avatar">
+            R
         </div>
 
-    </nav>
+        <h2>
+            Rafsan Ahmed
+        </h2>
 
+        <p>
+            @rafsan123
+        </p>
+
+
+        <div class="info-row">
+            <span>নাম</span>
+            <strong>Rafsan Ahmed</strong>
+        </div>
+
+        <div class="info-row">
+            <span>টেলিগ্রাম আইডি</span>
+            <strong>123456789</strong>
+        </div>
+
+        <div class="info-row">
+            <span>ইউজারনেম</span>
+            <strong>@rafsan123</strong>
+        </div>
+
+    </div>
+
+
+    <div class="card action-card">
+
+        <div class="action-title">
+            🔗 রেফারেল লিংক
+        </div>
+
+        <div class="action-sub">
+            বন্ধুর সাথে শেয়ার করে কমিশন পান
+        </div>
+
+        <input
+            class="input"
+            id="refLink"
+            value="https://t.me/FXOBot?start=123456"
+            readonly
+        >
+
+        <button
+            class="main-btn"
+            onclick="copyReferral()">
+            📋 কপি করুন
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     WALLET
+========================= -->
+
+<section class="page" id="wallet">
+
+    <div class="card wallet-card">
+
+        <h2>
+            ওয়ালেট
+        </h2>
+
+        <div class="wallet-points">
+            <span id="walletPoints">520</span> PTS
+        </div>
+
+        <div class="action-sub">
+            ১০০ পয়েন্ট = ৳১ টাকা
+        </div>
+
+    </div>
+
+
+    <div class="card action-card">
+
+        <div class="action-title">
+            টাকা উত্তোলন
+        </div>
+
+        <div class="action-sub">
+            ন্যূনতম ৳১০০০
+        </div>
+
+
+        <div class="methods">
+
+            <button
+                class="method selected"
+                onclick="selectMethod(this)">
+                bKash
+            </button>
+
+            <button
+                class="method"
+                onclick="selectMethod(this)">
+                Nagad
+            </button>
+
+        </div>
+
+
+        <input
+            class="input"
+            type="text"
+            placeholder="017XXXXXXXX"
+        >
+
+        <input
+            class="input"
+            type="number"
+            placeholder="পরিমাণ (৳)"
+        >
+
+        <button
+            class="main-btn"
+            onclick="withdrawRequest()">
+            রিকোয়েস্ট পাঠান
+        </button>
+
+    </div>
+
+
+    <div class="card action-card">
+
+        <div class="action-title">
+            ⏱ আপনার উইথড্র হিস্ট্রি
+        </div>
+
+        <div class="action-sub">
+            কোনো পেমেন্ট হিস্ট্রি পাওয়া যায়নি।
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<section class="page" id="admin">
+
+    <div class="card admin-card">
+
+        <div class="admin-title">
+
+            <h2>
+                🔒 এডমিন প্যানেল
+            </h2>
+
+            <div class="admin-badge">
+                Master Admin
+            </div>
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <small>মোট ইউজার</small>
+                <strong>1248</strong>
+            </div>
+
+            <div class="stat">
+                <small>অনলাইন</small>
+                <strong>362</strong>
+            </div>
+
+            <div class="stat">
+                <small>ভিডিও</small>
+                <strong>18</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card action-card">
+
+        <div class="action-title">
+            🎥 ভিডিও ম্যানেজমেন্ট
+        </div>
+
+        <div class="action-sub">
+            নতুন ভিডিও পোস্ট করুন
+        </div>
+
+        <button class="main-btn">
+            ＋ ভিডিও আপলোড করুন
+        </button>
+
+    </div>
+
+
+    <div class="card action-card">
+
+        <div class="action-title">
+            📂 আপলোড করা ভিডিও
+        </div>
+
+
+        <div class="video-item">
+
+            <div class="thumbnail">
+                ▶
+            </div>
+
+            <div class="video-info">
+                <strong>Naruto Episode 1</strong>
+                <small>3 Ads</small>
+            </div>
+
+            <span>🗑️</span>
+
+        </div>
+
+
+        <div class="video-item">
+
+            <div class="thumbnail">
+                ▶
+            </div>
+
+            <div class="video-info">
+                <strong>Solo Leveling</strong>
+                <small>3 Ads</small>
+            </div>
+
+            <span>🗑️</span>
+
+        </div>
+
+
+        <div class="video-item">
+
+            <div class="thumbnail">
+                ▶
+            </div>
+
+            <div class="video-info">
+                <strong>Demon Slayer</strong>
+                <small>2 Ads</small>
+            </div>
+
+            <span>🗑️</span>
+
+        </div>
+
+    </div>
+
+
+    <div class="card action-card">
+
+        <div class="action-title">
+            💳 পেন্ডিং উইথড্র রিকোয়েস্ট
+        </div>
+
+        <div class="video-item">
+
+            <div class="avatar"
+                style="width:42px;height:42px;font-size:16px;">
+                R
+            </div>
+
+            <div class="video-info">
+                <strong>Rafsan Ahmed</strong>
+                <small>৳1000 - bKash</small>
+            </div>
+
+            <span style="color:#e5a300;font-weight:900;">
+                Pending
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     VIDEO PLAYER
+========================= -->
+
+<section class="page" id="player">
+
+    <div class="player-box">
+
+        <button
+            class="close-btn"
+            onclick="showPage('videos')">
+            ×
+        </button>
+
+        <div class="player-play">
+            ▶
+        </div>
+
+        <div class="progress">
+            <span></span>
+        </div>
+
+        <div class="player-time">
+            12:45 / 22:30
+        </div>
+
+    </div>
+
+
+    <div
+        class="player-title"
+        id="playerTitle">
+        Naruto Episode 1
+    </div>
+
+
+    <div class="card ad-box">
+
+        <div class="ad-circle">
+            ADS
+        </div>
+
+        <h3>
+            পরবর্তী বিজ্ঞাপন
+        </h3>
+
+        <div>
+            (1 / 3)
+        </div>
+
+        <div class="ad-number">
+            10
+        </div>
+
+        <div>
+            সেকেন্ড
+        </div>
+
+        <p style="margin-top:12px;color:#54869c;">
+            অনুগ্রহ করে অপেক্ষা করুন...
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================
+     BOTTOM NAVIGATION
+========================= -->
+
+<nav class="bottom-nav">
+
+    <button
+        class="nav-btn active"
+        data-page="home"
+        onclick="showPage('home')">
+
+        <span class="nav-icon">▶</span>
+        <span>অ্যাড আয়</span>
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        data-page="videos"
+        onclick="showPage('videos')">
+
+        <span class="nav-icon">▣</span>
+        <span>ভিডিও</span>
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        data-page="profile"
+        onclick="showPage('profile')">
+
+        <span class="nav-icon">♙</span>
+        <span>প্রোফাইল</span>
+
+    </button>
+
+
+    <button
+        class="nav-btn"
+        data-page="wallet"
+        onclick="showPage('wallet')">
+
+        <span class="nav-icon">▱</span>
+        <span>ওয়ালেট</span>
+
+    </button>
+
+</nav>
+
+</div>
 </div>
 
 
 <script>
 
 /* =========================
-   POINT SYSTEM
+   FXO APP DATA
 ========================= */
 
-let points = 0;
+let points = 520;
+
+let tripleStep = 0;
+
+
+/* =========================
+   UPDATE BALANCE
+========================= */
 
 function updateBalance(){
 
-    document.getElementById("topPoints").innerText = points;
+    document.getElementById("topPoints").innerText =
+        points;
 
-    let taka = points / 100;
+    document.getElementById("walletPoints").innerText =
+        points;
 
-    document.getElementById("balance").innerText =
-        taka.toFixed(2);
+    document.getElementById("money").innerText =
+        (points / 100).toFixed(2);
+
+}
+
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showPage(page){
+
+    document
+        .querySelectorAll(".page")
+        .forEach(function(item){
+
+            item.classList.remove("active");
+
+        });
+
+
+    const selected =
+        document.getElementById(page);
+
+    if(selected){
+
+        selected.classList.add("active");
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-btn")
+        .forEach(function(button){
+
+            button.classList.remove("active");
+
+        });
+
+
+    const navButton =
+        document.querySelector(
+            '.nav-btn[data-page="' + page + '"]'
+        );
+
+
+    if(navButton){
+
+        navButton.classList.add("active");
+
+    }
+
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
 
@@ -868,43 +1805,51 @@ function updateBalance(){
    SINGLE AD
 ========================= */
 
-function watchAd(){
+function singleAd(){
 
-    /*
-       এখানে পরে তোমার AdGram /
-       বিজ্ঞাপনের JavaScript বসবে।
-    */
+    points += 50;
 
-    alert("Ad system connected হলে এখানে বিজ্ঞাপন চালু হবে।");
+    updateBalance();
+
+    alert(
+        "অ্যাড সম্পূর্ণ হয়েছে!\n\n+৫০ পয়েন্ট যোগ হয়েছে।"
+    );
 
 }
 
 
 /* =========================
-   TRIPLE AD
+   TRIPLE ADS
 ========================= */
 
-let doubleStep = 0;
+function tripleAd(){
 
-function startDoubleAd(){
+    tripleStep++;
 
-    doubleStep++;
+    document.getElementById("tripleStep").innerText =
+        tripleStep;
 
-    if(doubleStep >= 3){
+
+    if(tripleStep >= 3){
 
         points += 200;
 
-        doubleStep = 0;
+        tripleStep = 0;
+
+        document.getElementById("tripleStep").innerText =
+            "0";
 
         updateBalance();
 
-        alert("অভিনন্দন! +200 Points যোগ হয়েছে।");
+        alert(
+            "৩টি অ্যাড সম্পূর্ণ হয়েছে!\n\n+২০০ পয়েন্ট যোগ হয়েছে।"
+        );
 
     }else{
 
         alert(
             "অ্যাড " +
-            doubleStep +
+            tripleStep +
             "/3 সম্পূর্ণ হয়েছে।"
         );
 
@@ -914,25 +1859,94 @@ function startDoubleAd(){
 
 
 /* =========================
-   NAVIGATION
+   VIDEO PLAYER
 ========================= */
 
-function setActive(element){
+function openPlayer(name){
 
-    document
-        .querySelectorAll(".navItem")
-        .forEach(item => {
+    document.getElementById("playerTitle").innerText =
+        name;
 
-            item.classList.remove("active");
-
-        });
-
-    element.classList.add("active");
+    showPage("player");
 
 }
 
 
-/* INITIAL */
+/* =========================
+   REFERRAL COPY
+========================= */
+
+function copyReferral(){
+
+    const input =
+        document.getElementById("refLink");
+
+    input.select();
+
+    input.setSelectionRange(
+        0,
+        99999
+    );
+
+
+    navigator.clipboard
+        .writeText(input.value)
+        .then(function(){
+
+            alert(
+                "Referral link কপি হয়েছে!"
+            );
+
+        })
+        .catch(function(){
+
+            document.execCommand("copy");
+
+            alert(
+                "Referral link কপি হয়েছে!"
+            );
+
+        });
+
+}
+
+
+/* =========================
+   PAYMENT METHOD
+========================= */
+
+function selectMethod(button){
+
+    document
+        .querySelectorAll(".method")
+        .forEach(function(item){
+
+            item.classList.remove("selected");
+
+        });
+
+    button.classList.add("selected");
+
+}
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+function withdrawRequest(){
+
+    alert(
+        "উইথড্র রিকোয়েস্ট পাঠানোর জন্য backend/database এবং payment verification সংযুক্ত করতে হবে।"
+    );
+
+}
+
+
+/* =========================
+   INITIALIZE
+========================= */
+
 updateBalance();
 
 </script>
