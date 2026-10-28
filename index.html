@@ -17,21 +17,8 @@
 <style>
 
 /* =========================================================
-   FXO LIQUID WATER GLASS
+   FXO LIQUID GLASS CORE
 ========================================================= */
-
-:root{
-    --blue:#0891e8;
-    --blue2:#38bdf8;
-    --blue3:#0ea5e9;
-    --deep:#075985;
-    --text:#075985;
-    --glass:rgba(255,255,255,.30);
-    --glass-strong:rgba(255,255,255,.46);
-    --glass-soft:rgba(255,255,255,.20);
-    --line:rgba(255,255,255,.55);
-    --shadow:rgba(0,105,180,.20);
-}
 
 *{
     box-sizing:border-box;
@@ -39,610 +26,191 @@
 }
 
 html{
-    min-height:100%;
-    background:#67d7ff;
+    scroll-behavior:smooth;
 }
 
 body{
     margin:0;
     min-height:100vh;
-    color:var(--text);
     font-family:
+        Inter,
         system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
 
-    user-select:none;
-    overflow-x:hidden;
+    color:#082f49;
 
     background:
-        radial-gradient(
-            circle at 12% 8%,
-            rgba(255,255,255,.95) 0 4%,
-            transparent 18%
-        ),
-        radial-gradient(
-            circle at 90% 12%,
-            rgba(255,255,255,.55),
-            transparent 25%
-        ),
-        radial-gradient(
-            circle at 25% 70%,
-            rgba(255,255,255,.32),
-            transparent 30%
-        ),
-        radial-gradient(
-            circle at 85% 80%,
-            rgba(125,211,252,.75),
-            transparent 30%
-        ),
+        radial-gradient(circle at 10% 5%,rgba(255,255,255,.95) 0,transparent 25%),
+        radial-gradient(circle at 90% 15%,rgba(125,211,252,.75) 0,transparent 30%),
+        radial-gradient(circle at 15% 80%,rgba(56,189,248,.35) 0,transparent 30%),
+        radial-gradient(circle at 90% 90%,rgba(14,165,233,.30) 0,transparent 35%),
         linear-gradient(
-            145deg,
+            135deg,
             #e0f7ff 0%,
-            #7dd3fc 28%,
-            #38bdf8 55%,
-            #bae6fd 78%,
-            #e0f2fe 100%
+            #baeaff 35%,
+            #d9f8ff 65%,
+            #93ddf8 100%
         );
+
+    background-attachment:fixed;
+    overflow-x:hidden;
+    user-select:none;
 }
 
-/* Water light layer */
+/* Water movement */
 
 body::before{
     content:"";
     position:fixed;
     inset:-25%;
-    pointer-events:none;
     z-index:-3;
 
     background:
         radial-gradient(
-            ellipse at 30% 20%,
-            rgba(255,255,255,.58),
-            transparent 22%
+            ellipse at 30% 30%,
+            rgba(255,255,255,.55),
+            transparent 35%
         ),
         radial-gradient(
-            ellipse at 75% 35%,
-            rgba(255,255,255,.32),
-            transparent 25%
-        ),
-        radial-gradient(
-            ellipse at 40% 80%,
-            rgba(255,255,255,.28),
-            transparent 25%
+            ellipse at 70% 60%,
+            rgba(255,255,255,.35),
+            transparent 30%
         );
 
     filter:blur(35px);
-    animation:waterMove 13s ease-in-out infinite alternate;
+    animation:waterMove 14s ease-in-out infinite alternate;
 }
 
 body::after{
     content:"";
     position:fixed;
     inset:0;
-    pointer-events:none;
     z-index:-2;
+    pointer-events:none;
 
     background:
-        radial-gradient(
-            circle at 10% 20%,
-            rgba(255,255,255,.35) 0 2px,
-            transparent 3px
-        ),
-        radial-gradient(
-            circle at 85% 25%,
-            rgba(255,255,255,.30) 0 3px,
-            transparent 4px
-        ),
-        radial-gradient(
-            circle at 20% 80%,
-            rgba(255,255,255,.25) 0 4px,
-            transparent 5px
-        ),
-        radial-gradient(
-            circle at 75% 75%,
-            rgba(255,255,255,.28) 0 2px,
-            transparent 3px
+        linear-gradient(
+            115deg,
+            transparent 0%,
+            rgba(255,255,255,.22) 42%,
+            transparent 50%
         );
 
-    background-size:190px 190px,250px 250px,310px 310px,220px 220px;
-    opacity:.7;
+    background-size:250% 250%;
+    animation:waterShine 10s linear infinite;
 }
 
 @keyframes waterMove{
-    from{
-        transform:translate3d(-2%, -2%,0) scale(1);
+    0%{
+        transform:translate3d(-3%, -2%,0) scale(1);
     }
-    to{
-        transform:translate3d(3%, 2%,0) scale(1.08);
+    100%{
+        transform:translate3d(4%,3%,0) scale(1.08);
     }
 }
 
-/* =========================================================
-   APP FRAME
-========================================================= */
-
-#app{
-    position:relative;
-    min-height:100vh;
-}
-
-body > div.flex.flex-col{
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.16),
-            rgba(255,255,255,.04)
-        );
-
-    border-color:rgba(255,255,255,.38)!important;
-    box-shadow:
-        0 0 60px rgba(0,95,170,.18),
-        inset 0 0 30px rgba(255,255,255,.08);
+@keyframes waterShine{
+    0%{
+        background-position:180% 0;
+    }
+    100%{
+        background-position:-80% 100%;
+    }
 }
 
 /* =========================================================
    GLASS
 ========================================================= */
 
-.liquid-glass,
-.liquid-card{
+.liquid-glass{
     position:relative;
     overflow:hidden;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.48),
-            rgba(255,255,255,.20)
-        );
-
-    backdrop-filter:
-        blur(24px)
-        saturate(160%);
-
-    -webkit-backdrop-filter:
-        blur(24px)
-        saturate(160%);
-
-    border:1px solid rgba(255,255,255,.62);
-
-    box-shadow:
-        0 12px 35px rgba(0,100,170,.16),
-        inset 0 1px 1px rgba(255,255,255,.88),
-        inset 0 -1px 2px rgba(0,100,180,.08);
-}
-
-/* glass shine */
-
-.liquid-glass::before,
-.liquid-card::before{
-    content:"";
-    position:absolute;
-    left:-20%;
-    top:-60%;
-    width:140%;
-    height:80%;
-
-    background:
-        linear-gradient(
-            180deg,
-            rgba(255,255,255,.55),
-            rgba(255,255,255,0)
-        );
-
-    transform:rotate(-5deg);
-    pointer-events:none;
-    opacity:.65;
-}
-
-/* subtle liquid edge */
-
-.liquid-glass::after,
-.liquid-card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-
-    border-radius:inherit;
-    pointer-events:none;
-
-    box-shadow:
-        inset 0 0 0 1px rgba(255,255,255,.12),
-        inset 0 0 18px rgba(255,255,255,.08);
-}
-
-/* =========================================================
-   GLASS SHAPES
-========================================================= */
-
-.glass-panel{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.58),
-            rgba(255,255,255,.22)
-        );
-
-    backdrop-filter:blur(28px) saturate(180%);
-    -webkit-backdrop-filter:blur(28px) saturate(180%);
-
-    border:1px solid rgba(255,255,255,.65);
-
-    box-shadow:
-        0 20px 50px rgba(0,90,160,.18),
-        inset 0 1px rgba(255,255,255,.9),
-        inset 0 -1px rgba(0,80,150,.08);
-}
-
-.glass-input{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.62),
-            rgba(255,255,255,.32)
-        )!important;
-
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-
-    border:1px solid rgba(255,255,255,.75)!important;
-
-    box-shadow:
-        inset 0 2px 5px rgba(0,100,170,.08),
-        0 4px 14px rgba(0,100,170,.08);
-}
-
-.glass-input:focus{
-    border-color:rgba(14,165,233,.75)!important;
-
-    box-shadow:
-        0 0 0 3px rgba(56,189,248,.16),
-        inset 0 2px 5px rgba(0,100,170,.08);
-}
-
-/* =========================================================
-   TEXT
-========================================================= */
-
-.text-blue-900{
-    color:#075985!important;
-}
-
-.text-blue-800{
-    color:#075985!important;
-}
-
-.text-blue-700{
-    color:#0369a1!important;
-}
-
-.text-blue-600{
-    color:#0284c7!important;
-}
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-header,
-.header-glass{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.42),
-            rgba(255,255,255,.18)
-        )!important;
-
-    backdrop-filter:blur(28px) saturate(170%);
-    -webkit-backdrop-filter:blur(28px) saturate(170%);
-
-    border-bottom-color:rgba(255,255,255,.55)!important;
-
-    box-shadow:
-        0 8px 30px rgba(0,80,150,.14),
-        inset 0 1px rgba(255,255,255,.7);
-}
-
-/* =========================================================
-   LOGO
-========================================================= */
-
-.logo-glass{
-    position:relative;
-
-    background:
-        linear-gradient(
-            145deg,
-            rgba(255,255,255,.65),
-            rgba(14,165,233,.65)
+            rgba(255,255,255,.64),
+            rgba(255,255,255,.28)
         );
 
     border:1px solid rgba(255,255,255,.72);
 
-    box-shadow:
-        0 8px 24px rgba(0,120,210,.25),
-        inset 0 1px rgba(255,255,255,.9);
-}
-
-/* =========================================================
-   BUTTONS
-========================================================= */
-
-button{
-    font-family:inherit;
-    cursor:pointer;
-    transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        filter .18s ease;
-}
-
-button:active{
-    transform:scale(.96);
-}
-
-.glass-button{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(56,189,248,.92),
-            rgba(14,165,233,.82)
-        );
-
-    color:white;
-
-    border:1px solid rgba(255,255,255,.58);
-
-    box-shadow:
-        0 8px 22px rgba(0,120,220,.24),
-        inset 0 1px rgba(255,255,255,.55);
-}
-
-.glass-button:hover{
-    filter:brightness(1.05);
-    box-shadow:
-        0 10px 28px rgba(0,120,220,.32),
-        inset 0 1px rgba(255,255,255,.7);
-}
-
-/* =========================================================
-   BALANCE CARD
-========================================================= */
-
-.balance-card{
-    background:
-        radial-gradient(
-            circle at 85% 70%,
-            rgba(255,255,255,.55),
-            transparent 22%
-        ),
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.55),
-            rgba(125,211,252,.20)
-        );
-
-    backdrop-filter:blur(30px) saturate(180%);
-    -webkit-backdrop-filter:blur(30px) saturate(180%);
-
-    border:1px solid rgba(255,255,255,.70);
-
-    box-shadow:
-        0 18px 40px rgba(0,100,180,.18),
-        inset 0 1px 2px rgba(255,255,255,.9);
-}
-
-/* Water reflection inside balance */
-
-.balance-card .water-shine{
-    position:absolute;
-    width:130px;
-    height:130px;
-    right:-15px;
-    bottom:-25px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.45),
-            rgba(56,189,248,.12) 45%,
-            transparent 70%
-        );
-
-    filter:blur(3px);
-}
-
-/* =========================================================
-   ACTIVE NAV
-========================================================= */
-
-.nav-active{
-    background:
-        linear-gradient(
-            145deg,
-            rgba(56,189,248,.95),
-            rgba(14,165,233,.78)
-        )!important;
-
-    color:white!important;
-
-    border:1px solid rgba(255,255,255,.65)!important;
-
-    box-shadow:
-        0 7px 20px rgba(0,125,220,.30),
-        inset 0 1px rgba(255,255,255,.65);
-}
-
-/* =========================================================
-   BOTTOM NAV
-========================================================= */
-
-#nav-container{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.55),
-            rgba(255,255,255,.22)
-        )!important;
-
     backdrop-filter:
-        blur(30px)
-        saturate(180%);
+        blur(24px)
+        saturate(165%);
 
     -webkit-backdrop-filter:
-        blur(30px)
-        saturate(180%);
-
-    border-top-color:rgba(255,255,255,.68)!important;
+        blur(24px)
+        saturate(165%);
 
     box-shadow:
-        0 -10px 35px rgba(0,80,150,.18),
-        inset 0 1px rgba(255,255,255,.85);
+        inset 0 1px 1px rgba(255,255,255,.95),
+        inset 0 -1px 1px rgba(14,116,144,.08),
+        0 18px 45px rgba(8,47,73,.10);
+
+    isolation:isolate;
 }
 
-#nav-container button{
-    border:1px solid transparent;
-}
+.liquid-glass::before{
+    content:"";
+    position:absolute;
+    left:-30%;
+    top:-60%;
+    width:160%;
+    height:100%;
 
-#nav-container button:not(.nav-active):hover{
-    background:rgba(255,255,255,.24);
-}
-
-/* =========================================================
-   INPUTS
-========================================================= */
-
-input,
-select{
-    color:#075985!important;
-}
-
-input::placeholder{
-    color:rgba(3,105,161,.55)!important;
-}
-
-input,
-select{
     background:
         linear-gradient(
-            135deg,
-            rgba(255,255,255,.58),
-            rgba(255,255,255,.28)
-        )!important;
+            110deg,
+            transparent 30%,
+            rgba(255,255,255,.45) 45%,
+            transparent 58%
+        );
 
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-
-    border-color:rgba(255,255,255,.68)!important;
+    transform:rotate(-4deg);
+    pointer-events:none;
 }
 
-/* =========================================================
-   VIDEO THUMBNAILS
-========================================================= */
+.liquid-glass::after{
+    content:"";
+    position:absolute;
+    left:10%;
+    right:10%;
+    top:0;
+    height:1px;
 
-.video-thumb{
-    aspect-ratio:16/9;
-    object-fit:cover;
+    background:rgba(255,255,255,.95);
+    opacity:.8;
 
-    border-radius:18px;
-
-    border:1px solid rgba(255,255,255,.55);
-
-    box-shadow:
-        0 8px 22px rgba(0,80,150,.18),
-        inset 0 1px rgba(255,255,255,.5);
+    pointer-events:none;
 }
 
-/* =========================================================
-   VIDEO CARDS
-========================================================= */
-
-.video-glass-card{
+.liquid-card{
     position:relative;
 
     background:
         linear-gradient(
             135deg,
-            rgba(255,255,255,.50),
-            rgba(255,255,255,.22)
+            rgba(255,255,255,.66),
+            rgba(255,255,255,.30)
         );
 
-    backdrop-filter:blur(22px) saturate(170%);
-    -webkit-backdrop-filter:blur(22px) saturate(170%);
+    border:1px solid rgba(255,255,255,.65);
 
-    border:1px solid rgba(255,255,255,.68);
+    backdrop-filter:
+        blur(20px)
+        saturate(160%);
 
-    border-radius:24px;
-
-    box-shadow:
-        0 12px 30px rgba(0,90,160,.15),
-        inset 0 1px rgba(255,255,255,.8);
-}
-
-/* =========================================================
-   SMALL GLASS BADGE
-========================================================= */
-
-.glass-badge{
-    background:rgba(255,255,255,.45)!important;
-
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-
-    border:1px solid rgba(255,255,255,.6)!important;
+    -webkit-backdrop-filter:
+        blur(20px)
+        saturate(160%);
 
     box-shadow:
-        inset 0 1px rgba(255,255,255,.75),
-        0 4px 12px rgba(0,90,160,.08);
-}
-
-/* =========================================================
-   ADMIN
-========================================================= */
-
-.admin-glass{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.52),
-            rgba(255,255,255,.22)
-        );
-
-    backdrop-filter:blur(28px);
-    -webkit-backdrop-filter:blur(28px);
-
-    border:1px solid rgba(255,255,255,.68);
-
-    box-shadow:
-        0 15px 40px rgba(0,80,150,.17),
-        inset 0 1px rgba(255,255,255,.85);
-}
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.glass-modal{
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.60),
-            rgba(255,255,255,.22)
-        );
-
-    backdrop-filter:blur(30px) saturate(180%);
-    -webkit-backdrop-filter:blur(30px) saturate(180%);
-
-    border:1px solid rgba(255,255,255,.7);
-
-    box-shadow:
-        0 25px 70px rgba(0,60,120,.28),
-        inset 0 1px rgba(255,255,255,.9);
+        inset 0 1px rgba(255,255,255,.8),
+        0 12px 30px rgba(8,47,73,.08);
 }
 
 /* =========================================================
@@ -658,70 +226,501 @@ select{
     background:
         radial-gradient(
             circle at 30% 25%,
-            rgba(255,255,255,.80),
-            rgba(255,255,255,.20) 30%,
-            rgba(56,189,248,.10) 60%,
-            transparent 72%
+            rgba(255,255,255,.8),
+            rgba(255,255,255,.08) 55%,
+            transparent 70%
         );
 
-    border:1px solid rgba(255,255,255,.42);
-
-    box-shadow:
-        inset 4px 4px 10px rgba(255,255,255,.32),
-        0 5px 25px rgba(0,120,200,.10);
+    border:1px solid rgba(255,255,255,.45);
 
     filter:blur(.2px);
+    animation:floatBubble 9s ease-in-out infinite;
 }
 
-.b1{
-    width:75px;
-    height:75px;
-    left:-20px;
-    top:22%;
+.bubble1{
+    width:90px;
+    height:90px;
+    left:-30px;
+    top:28%;
 }
 
-.b2{
-    width:38px;
-    height:38px;
-    right:8%;
-    top:42%;
+.bubble2{
+    width:55px;
+    height:55px;
+    right:-15px;
+    top:50%;
+    animation-delay:2s;
 }
 
-.b3{
-    width:95px;
-    height:95px;
-    right:-35px;
-    bottom:16%;
-}
-
-.b4{
-    width:25px;
-    height:25px;
+.bubble3{
+    width:35px;
+    height:35px;
     left:12%;
-    bottom:28%;
+    bottom:18%;
+    animation-delay:4s;
+}
+
+@keyframes floatBubble{
+    0%,100%{
+        transform:translateY(0) scale(1);
+    }
+    50%{
+        transform:translateY(-25px) scale(1.08);
+    }
 }
 
 /* =========================================================
-   UPLOAD PROGRESS
+   APP
 ========================================================= */
 
-.upload-progress{
-    transition:width .25s ease;
+.app-shell{
+    width:100%;
+    max-width:500px;
+    min-height:100vh;
+    margin:auto;
+
+    position:relative;
+
+    border-left:1px solid rgba(255,255,255,.55);
+    border-right:1px solid rgba(255,255,255,.55);
+
+    box-shadow:
+        0 0 80px rgba(14,116,144,.15);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.app-header{
+    position:sticky;
+    top:0;
+    z-index:40;
+
+    padding:12px 14px;
+
+    background:rgba(255,255,255,.34);
+
+    backdrop-filter:
+        blur(28px)
+        saturate(180%);
+
+    -webkit-backdrop-filter:
+        blur(28px)
+        saturate(180%);
+
+    border-bottom:1px solid rgba(255,255,255,.62);
+
+    box-shadow:
+        0 10px 35px rgba(8,47,73,.08);
+}
+
+.logo-glass{
+    width:47px;
+    height:47px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:17px;
+
+    color:white;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(14,165,233,.95),
+            rgba(37,99,235,.78)
+        );
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.9),
+        0 8px 25px rgba(14,165,233,.30);
+}
+
+.avatar{
+    width:42px;
+    height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    background:
+        linear-gradient(
+            135deg,
+            #38bdf8,
+            #2563eb
+        );
+
+    border:2px solid rgba(255,255,255,.85);
+
+    box-shadow:
+        0 5px 18px rgba(14,116,144,.22);
+}
+
+.coin-pill{
+    padding:8px 11px;
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    border-radius:999px;
+
+    background:
+        rgba(255,255,255,.58);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    backdrop-filter:blur(15px);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.9),
+        0 5px 20px rgba(8,47,73,.08);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.glass-button{
+    position:relative;
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.55);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,165,233,.95),
+            rgba(37,99,235,.90)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.55),
+        0 9px 25px rgba(14,116,144,.20);
+
+    transition:.2s;
+}
+
+.glass-button:active{
+    transform:scale(.97);
+}
+
+.glass-button::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:70%;
+    height:100%;
+
     background:
         linear-gradient(
             90deg,
-            #0ea5e9,
-            #38bdf8,
-            #7dd3fc
-        )!important;
+            transparent,
+            rgba(255,255,255,.45),
+            transparent
+        );
 
-    box-shadow:
-        0 0 12px rgba(14,165,233,.5);
+    transform:skewX(-20deg);
+    transition:.5s;
+}
+
+.glass-button:hover::before{
+    left:130%;
 }
 
 /* =========================================================
-   SCROLLBAR
+   INPUT
 ========================================================= */
+
+.glass-input{
+    width:100%;
+
+    background:
+        rgba(255,255,255,.50);
+
+    border:1px solid rgba(255,255,255,.78);
+
+    color:#082f49;
+
+    border-radius:15px;
+
+    padding:13px;
+
+    outline:none;
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.9),
+        inset 0 -5px 15px rgba(14,116,144,.03);
+}
+
+.glass-input:focus{
+    border-color:rgba(14,165,233,.65);
+
+    box-shadow:
+        0 0 0 3px rgba(14,165,233,.10),
+        inset 0 1px rgba(255,255,255,.9);
+}
+
+/* =========================================================
+   VIDEO
+========================================================= */
+
+.video-card{
+    position:relative;
+    overflow:hidden;
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.68),
+            rgba(255,255,255,.30)
+        );
+
+    border:1px solid rgba(255,255,255,.72);
+
+    backdrop-filter:
+        blur(22px)
+        saturate(165%);
+
+    -webkit-backdrop-filter:
+        blur(22px)
+        saturate(165%);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.95),
+        0 15px 35px rgba(8,47,73,.10);
+}
+
+.video-thumb{
+    aspect-ratio:16/9;
+    width:100%;
+    object-fit:cover;
+    display:block;
+}
+
+.video-placeholder{
+    aspect-ratio:16/9;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(255,255,255,.35),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #38bdf8,
+            #2563eb
+        );
+}
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.bottom-nav{
+    position:fixed;
+
+    left:50%;
+    bottom:10px;
+
+    transform:translateX(-50%);
+
+    width:calc(100% - 18px);
+    max-width:482px;
+
+    padding:7px;
+
+    display:grid;
+
+    gap:5px;
+
+    background:
+        rgba(255,255,255,.48);
+
+    border:
+        1px solid rgba(255,255,255,.78);
+
+    border-radius:24px;
+
+    backdrop-filter:
+        blur(30px)
+        saturate(180%);
+
+    -webkit-backdrop-filter:
+        blur(30px)
+        saturate(180%);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.95),
+        0 15px 45px rgba(8,47,73,.18);
+
+    z-index:80;
+}
+
+.nav-item{
+    border-radius:17px;
+
+    padding:8px 3px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+
+    color:#075985;
+
+    transition:.2s;
+}
+
+.nav-item.active{
+    color:white;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(14,165,233,.94),
+            rgba(37,99,235,.88)
+        );
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.5),
+        0 6px 18px rgba(14,116,144,.18);
+}
+
+/* =========================================================
+   WALLET METHOD
+========================================================= */
+
+.method-button{
+    padding:13px;
+
+    border-radius:17px;
+
+    font-weight:800;
+
+    border:1px solid rgba(255,255,255,.72);
+
+    background:rgba(255,255,255,.45);
+
+    color:#075985;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.8),
+        0 7px 20px rgba(8,47,73,.06);
+
+    transition:.2s;
+}
+
+.method-button.bkash-active{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(236,72,153,.88),
+            rgba(219,39,119,.82)
+        );
+
+    color:white;
+}
+
+.method-button.nagad-active{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(249,115,22,.92),
+            rgba(234,88,12,.85)
+        );
+
+    color:white;
+}
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+.admin-card{
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.47);
+
+    border:1px solid rgba(255,255,255,.72);
+
+    backdrop-filter:blur(20px);
+
+    -webkit-backdrop-filter:blur(20px);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.85),
+        0 10px 30px rgba(8,47,73,.08);
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.glass-modal{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.76),
+            rgba(224,247,255,.58)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.85);
+
+    backdrop-filter:
+        blur(30px)
+        saturate(170%);
+
+    -webkit-backdrop-filter:
+        blur(30px)
+        saturate(170%);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.95),
+        0 30px 80px rgba(8,47,73,.25);
+}
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+.glow-blue{
+    box-shadow:
+        0 0 35px rgba(14,165,233,.20),
+        inset 0 1px rgba(255,255,255,.9);
+}
+
+.admin-strictly-hidden{
+    display:none!important;
+}
+
+.upload-progress{
+    transition:width .2s ease;
+}
+
+input,
+select,
+button{
+    font-family:inherit;
+}
 
 ::-webkit-scrollbar{
     width:4px;
@@ -736,1080 +735,1010 @@ select{
     border-radius:20px;
 }
 
-/* =========================================================
-   ADMIN HIDDEN
-========================================================= */
-
-.admin-strictly-hidden{
-    display:none!important;
-}
-
-/* =========================================================
-   SAFE MOBILE
-========================================================= */
-
-@media(max-width:430px){
-
-    body > div.flex.flex-col{
-        border-left:0!important;
-        border-right:0!important;
-    }
-
-}
-
 </style>
 </head>
 
-<body class="flex flex-col min-h-screen max-w-md mx-auto relative border-x border-white/40 shadow-2xl">
+<body>
 
 <!-- WATER BUBBLES -->
-<div class="water-bubble b1"></div>
-<div class="water-bubble b2"></div>
-<div class="water-bubble b3"></div>
-<div class="water-bubble b4"></div>
+<div class="water-bubble bubble1"></div>
+<div class="water-bubble bubble2"></div>
+<div class="water-bubble bubble3"></div>
 
+<div class="app-shell">
 
-<!-- =====================================================
+<!-- =======================================================
      HEADER
-===================================================== -->
+======================================================= -->
 
-<div class="p-4 liquid-glass flex items-center justify-between sticky top-0 z-30 border-b border-white/50">
+<header class="app-header">
 
-    <div
-        class="flex items-center space-x-3 cursor-pointer select-none"
-        onclick="handleAdminTripleClick()"
-    >
+<div class="flex items-center justify-between gap-3">
 
-        <div class="logo-glass p-2.5 rounded-2xl text-white">
-            <i
-                data-lucide="zap"
-                class="w-6 h-6 fill-current"
-            ></i>
-        </div>
+<div
+class="flex items-center gap-3 min-w-0 cursor-pointer"
+onclick="handleAdminTripleClick()">
 
-        <div>
+<div class="logo-glass shrink-0">
 
-            <h1
-                id="app-title-display"
-                class="font-black text-xl tracking-wider text-white drop-shadow-md"
-            >
-                FXO EARN
-            </h1>
-
-            <p
-                id="user-display-name"
-                class="text-xs text-white/90 font-semibold drop-shadow"
-            >
-                @loading...
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div
-        class="glass-badge px-3.5 py-1.5 rounded-full flex items-center space-x-2 shadow-inner"
-    >
-
-        <i
-            data-lucide="sparkles"
-            class="w-4 h-4 text-sky-600"
-        ></i>
-
-        <span
-            id="coins-display"
-            class="font-extrabold text-sky-900"
-        >
-            0 Pts
-        </span>
-
-    </div>
+<i
+data-lucide="zap"
+class="w-6 h-6"
+style="fill:white">
+</i>
 
 </div>
 
+<div class="min-w-0">
 
-<!-- =====================================================
+<h1
+id="app-title-display"
+class="font-black text-xl tracking-wider text-sky-950 truncate">
+FXO EARN
+</h1>
+
+<div class="flex items-center gap-2">
+
+<img
+id="header-avatar"
+class="avatar"
+style="width:24px;height:24px;border-width:1px"
+src=""
+alt="">
+
+<p
+id="user-display-name"
+class="text-xs text-sky-700 font-bold truncate">
+@loading...
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="coin-pill shrink-0">
+
+<i
+data-lucide="sparkles"
+class="w-4 h-4 text-sky-600">
+</i>
+
+<span
+id="coins-display"
+class="font-black text-sky-950 text-sm">
+0 Pts
+</span>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- =======================================================
      MAIN
-===================================================== -->
+======================================================= -->
 
-<div class="p-4 flex-1 pb-28">
+<main class="p-4 pb-32">
 
 
-<!-- =====================================================
+<!-- =======================================================
      HOME
-===================================================== -->
+======================================================= -->
 
-<div id="tab-home" class="space-y-5">
-
-
-    <!-- BALANCE -->
-
-    <div
-        class="relative overflow-hidden balance-card rounded-3xl p-6 text-center shadow-xl"
-    >
-
-        <div class="water-shine"></div>
-
-        <div
-            class="absolute -right-10 -bottom-10 w-36 h-36 bg-sky-300/30 rounded-full blur-3xl"
-        ></div>
-
-        <p class="text-sky-800 text-sm font-semibold relative z-10">
-            বর্তমান মোট জমা টাকা
-        </p>
-
-        <h2
-            id="taka-display"
-            class="text-4xl font-black text-sky-900 my-3 drop-shadow-md relative z-10"
-        >
-            ৳ 0.00 BDT
-        </h2>
-
-        <div
-            class="inline-block glass-badge rounded-full px-4 py-1 text-xs text-sky-800 font-bold relative z-10"
-        >
-            ১০০ পয়েন্ট = ৳ ১ টাকা
-        </div>
-
-        <p class="text-[11px] text-sky-700 mt-2 relative z-10">
-            ন্যূনতম উইথড্র ৳১০০০
-        </p>
-
-    </div>
+<section
+id="tab-home"
+class="space-y-5">
 
 
-    <!-- SYSTEM 1 -->
+<!-- BALANCE -->
 
-    <div class="liquid-glass rounded-2xl p-4 space-y-3">
+<div
+class="liquid-glass rounded-[28px] p-6 text-center glow-blue">
 
-        <div class="flex justify-between items-center">
+<div
+class="absolute -right-10 -bottom-10 w-44 h-44 rounded-full bg-sky-300/25 blur-3xl">
+</div>
 
-            <span
-                class="font-bold text-sm text-sky-900 flex items-center gap-1.5"
-            >
+<div
+class="absolute -left-10 -top-10 w-36 h-36 rounded-full bg-white/35 blur-3xl">
+</div>
 
-                <i
-                    data-lucide="play-circle"
-                    class="w-4 h-4 text-sky-600"
-                ></i>
+<div class="relative">
 
-                সিঙ্গেল অ্যাড
+<div class="flex justify-center mb-3">
 
-            </span>
+<div
+class="w-14 h-14 rounded-full flex items-center justify-center bg-white/45 border border-white/70 shadow-lg">
 
-            <span
-                id="sys1-status"
-                class="glass-badge text-[11px] px-2.5 py-1 rounded-full text-sky-800 font-bold"
-            >
-                রেডি
-            </span>
+<i
+data-lucide="wallet"
+class="w-7 h-7 text-sky-600">
+</i>
 
-        </div>
+</div>
 
-        <p class="text-[11px] text-sky-700">
-            একটি বিজ্ঞাপন দেখুন এবং পয়েন্ট অর্জন করুন
-        </p>
+</div>
 
-        <button
-            id="btn-sys1"
-            onclick="handleSystem1Ad()"
-            class="glass-button w-full py-4 font-black rounded-xl"
-        >
-            অ্যাড দেখুন (+৫০ Pts)
-        </button>
+<p class="text-sky-700 text-sm font-bold">
+বর্তমান মোট জমা টাকা
+</p>
 
-    </div>
+<p class="text-[11px] text-sky-600 mt-1">
+ন্যূনতম উইথড্র ৳১০০০
+</p>
 
+<h2
+id="taka-display"
+class="text-4xl font-black text-sky-950 my-3">
+৳ 0.00 BDT
+</h2>
 
-    <!-- SYSTEM 2 -->
+<div
+class="inline-flex items-center gap-1 bg-white/45 border border-white/70 rounded-full px-4 py-1.5 text-xs text-sky-800 font-black">
 
-    <div class="liquid-glass rounded-2xl p-4 space-y-3">
+<i
+data-lucide="coins"
+class="w-3.5 h-3.5">
+</i>
 
-        <div class="flex justify-between items-center">
+১০০ পয়েন্ট = ৳ ১ টাকা
 
-            <span
-                class="font-bold text-sm text-sky-900 flex items-center gap-1.5"
-            >
+</div>
 
-                <i
-                    data-lucide="layers"
-                    class="w-4 h-4 text-sky-600"
-                ></i>
-
-                ৩টি অ্যাড মোড
-
-            </span>
-
-            <span
-                id="sys2-counter"
-                class="glass-badge text-[11px] px-2.5 py-1 rounded-full text-sky-800 font-bold"
-            >
-                ধাপ: ০/৩
-            </span>
-
-        </div>
-
-        <p class="text-[11px] text-sky-700">
-            ৩টি বিজ্ঞাপন সম্পূর্ণ করলে ২০০ পয়েন্ট
-        </p>
-
-        <button
-            id="btn-sys2"
-            onclick="handleSystem2Ad()"
-            class="glass-button w-full py-4 font-black rounded-xl"
-        >
-            ট্রিপল অ্যাড শুরু করুন
-        </button>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- SYSTEM 1 -->
+
+<div class="liquid-glass rounded-[23px] p-4">
+
+<div class="flex justify-between items-center mb-3">
+
+<span
+class="font-black text-sm text-sky-950 flex items-center gap-2">
+
+<span
+class="w-9 h-9 rounded-xl bg-white/50 border border-white/70 flex items-center justify-center">
+
+<i
+data-lucide="play-circle"
+class="w-5 h-5 text-sky-600">
+</i>
+
+</span>
+
+সিঙ্গেল অ্যাড
+
+</span>
+
+<span
+id="sys1-status"
+class="text-[10px] bg-white/55 px-3 py-1.5 rounded-full text-sky-800 border border-white/70 font-black">
+রেডি
+</span>
+
+</div>
+
+<p class="text-[11px] text-sky-600 mb-3">
+অ্যাড দেখলে +৫০ পয়েন্ট পাবেন
+</p>
+
+<button
+id="btn-sys1"
+onclick="handleSystem1Ad()"
+class="glass-button w-full py-4 text-white font-black rounded-2xl">
+অ্যাড দেখুন
+</button>
+
+</div>
+
+
+<!-- SYSTEM 2 -->
+
+<div class="liquid-glass rounded-[23px] p-4">
+
+<div class="flex justify-between items-center mb-3">
+
+<span
+class="font-black text-sm text-sky-950 flex items-center gap-2">
+
+<span
+class="w-9 h-9 rounded-xl bg-white/50 border border-white/70 flex items-center justify-center">
+
+<i
+data-lucide="layers"
+class="w-5 h-5 text-blue-600">
+</i>
+
+</span>
+
+৩টি অ্যাড মোড
+
+</span>
+
+<span
+id="sys2-counter"
+class="text-[10px] bg-white/55 px-3 py-1.5 rounded-full text-sky-800 border border-white/70 font-black">
+ধাপ: ০/৩
+</span>
+
+</div>
+
+<p class="text-[11px] text-sky-600 mb-3">
+৩টি অ্যাড সম্পূর্ণ করলে +২০০ পয়েন্ট
+</p>
+
+<button
+id="btn-sys2"
+onclick="handleSystem2Ad()"
+class="glass-button w-full py-4 text-white font-black rounded-2xl">
+ট্রিপল অ্যাড শুরু করুন
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
      VIDEOS
-===================================================== -->
+======================================================= -->
 
-<div id="tab-videos" class="space-y-4 hidden">
+<section
+id="tab-videos"
+class="space-y-4 hidden">
 
+<div class="liquid-glass rounded-[23px] p-5">
 
-    <div class="liquid-glass rounded-2xl p-5">
+<div class="flex items-center gap-3">
 
-        <h3
-            class="font-bold text-lg text-sky-900 flex items-center gap-2"
-        >
+<div
+class="w-11 h-11 rounded-2xl bg-white/50 border border-white/70 flex items-center justify-center">
 
-            <div class="glass-badge p-2 rounded-xl">
-                <i
-                    data-lucide="clapperboard"
-                    class="w-5 h-5 text-sky-600"
-                ></i>
-            </div>
-
-            ভিডিও
-
-        </h3>
-
-        <p class="text-xs text-sky-700 mt-2">
-            ভিডিও দেখতে প্রয়োজনীয় বিজ্ঞাপন সম্পূর্ণ করুন।
-        </p>
-
-    </div>
-
-
-    <div id="video-list" class="space-y-4">
-
-        <div class="liquid-glass rounded-2xl p-5 text-center">
-
-            <p class="text-sm text-sky-600">
-                ভিডিও লোড হচ্ছে...
-            </p>
-
-        </div>
-
-    </div>
+<i
+data-lucide="clapperboard"
+class="w-6 h-6 text-sky-600">
+</i>
 
 </div>
 
+<div>
 
-<!-- =====================================================
+<h3 class="font-black text-lg text-sky-950">
+ভিডিও
+</h3>
+
+<p class="text-xs text-sky-600 mt-0.5">
+Ads সম্পূর্ণ করে ভিডিও দেখুন
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div
+id="video-list"
+class="space-y-4">
+
+<div class="liquid-glass rounded-2xl p-5 text-center">
+
+<p class="text-sm text-sky-600">
+ভিডিও লোড হচ্ছে...
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
      PROFILE
-===================================================== -->
+======================================================= -->
 
-<div id="tab-profile" class="space-y-4 hidden">
-
-
-    <div class="liquid-glass rounded-2xl p-5 space-y-4">
-
-        <h3
-            class="font-bold text-lg text-sky-900 flex items-center space-x-2"
-        >
-
-            <div class="glass-badge p-2 rounded-xl">
-                <i
-                    data-lucide="user"
-                    class="w-5 h-5 text-sky-600"
-                ></i>
-            </div>
-
-            <span>ইউজার প্রোফাইল</span>
-
-        </h3>
+<section
+id="tab-profile"
+class="space-y-4 hidden">
 
 
-        <div class="space-y-3 text-sm text-sky-800">
+<div class="liquid-glass rounded-[25px] p-6 text-center">
 
-            <div class="flex justify-between border-b border-white/50 pb-2">
+<img
+id="profile-avatar"
+class="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white/80 shadow-xl"
+src=""
+alt="Profile">
 
-                <span class="text-sky-600">
-                    ইউজার নাম:
-                </span>
+<h3
+id="profile-name"
+class="font-black text-xl text-sky-950 mt-4">
+-
+</h3>
 
-                <span
-                    id="profile-name"
-                    class="font-bold text-sky-900"
-                >
-                    -
-                </span>
+<p
+id="profile-username"
+class="text-sm text-sky-600 mt-1">
+@username
+</p>
 
-            </div>
+<div
+class="mt-5 p-3 rounded-2xl bg-white/40 border border-white/70">
 
+<p class="text-[10px] text-sky-600 font-bold">
+TELEGRAM ID
+</p>
 
-            <div class="flex justify-between border-b border-white/50 pb-2">
+<p
+id="profile-id"
+class="font-black text-sky-950 font-mono mt-1">
+-
+</p>
 
-                <span class="text-sky-600">
-                    টেলিগ্রাম আইডি:
-                </span>
-
-                <span
-                    id="profile-id"
-                    class="font-mono text-sky-900 font-bold"
-                >
-                    -
-                </span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div class="liquid-glass rounded-2xl p-5 space-y-3">
-
-        <h4
-            class="font-bold text-sm text-sky-900 flex items-center gap-2"
-        >
-
-            <div class="glass-badge p-1.5 rounded-lg">
-                <i
-                    data-lucide="share-2"
-                    class="w-4 h-4 text-sky-600"
-                ></i>
-            </div>
-
-            বন্ধুদের রেফার লিংক
-
-        </h4>
-
-        <p class="text-xs text-sky-700">
-            লিংক শেয়ার করে বন্ধুদের জয়েন করালেই পাবেন ১০% কমিশন বোনাস!
-        </p>
-
-
-        <div
-            class="p-2.5 bg-white/30 rounded-xl border border-white/60 flex items-center justify-between shadow-inner"
-        >
-
-            <span
-                id="ref-link-display"
-                class="text-xs text-sky-900 truncate mr-2 font-mono"
-            >
-                Loading...
-            </span>
-
-            <button
-                onclick="copyRefLink()"
-                class="glass-button px-3 py-1.5 rounded-lg text-xs font-bold shrink-0"
-            >
-                কপি
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- =====================================================
+<div class="liquid-glass rounded-[23px] p-5 space-y-3">
+
+<h4
+class="font-black text-sm text-sky-950 flex items-center gap-2">
+
+<i
+data-lucide="share-2"
+class="w-5 h-5 text-sky-600">
+</i>
+
+বন্ধুদের রেফার লিংক
+
+</h4>
+
+<p class="text-xs text-sky-700">
+বন্ধুকে রেফার করলে ১০% কমিশন বোনাস!
+</p>
+
+<div
+class="p-2 bg-white/45 rounded-2xl border border-white/70 flex items-center gap-2">
+
+<span
+id="ref-link-display"
+class="text-xs text-sky-900 truncate flex-1 font-mono">
+Loading...
+</span>
+
+<button
+onclick="copyRefLink()"
+class="glass-button text-white px-4 py-2 rounded-xl text-xs font-black">
+কপি
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
      WALLET
-===================================================== -->
+======================================================= -->
 
-<div id="tab-wallet" class="space-y-5 hidden">
-
-
-    <div
-        class="liquid-glass rounded-2xl p-5 shadow-lg space-y-4"
-    >
-
-        <h3
-            class="font-bold text-lg text-sky-900 flex items-center space-x-2"
-        >
-
-            <div class="glass-badge p-2 rounded-xl">
-                <i
-                    data-lucide="wallet"
-                    class="w-5 h-5 text-sky-600"
-                ></i>
-            </div>
-
-            <span>
-                টাকা উত্তোলন
-            </span>
-
-        </h3>
-
-        <p class="text-xs text-sky-700">
-            ন্যূনতম উইথড্র ৳১০০০
-        </p>
+<section
+id="tab-wallet"
+class="space-y-5 hidden">
 
 
-        <form
-            onsubmit="handleWithdraw(event)"
-            class="space-y-4"
-        >
+<div class="liquid-glass rounded-[25px] p-5">
 
+<div class="flex items-center gap-3 mb-5">
 
-            <div>
+<div
+class="w-11 h-11 rounded-2xl bg-white/50 border border-white/70 flex items-center justify-center">
 
-                <label
-                    class="block text-xs text-sky-700 font-bold mb-2"
-                >
-                    মেথড নির্বাচন করুন
-                </label>
+<i
+data-lucide="wallet"
+class="w-6 h-6 text-sky-600">
+</i>
 
+</div>
 
-                <div class="grid grid-cols-2 gap-3">
+<div>
 
-                    <button
-                        type="button"
-                        id="m-bkash"
-                        onclick="setMethod('bkash')"
-                        class="py-3 rounded-xl border text-sm font-bold bg-pink-100/70 border-white/70 text-pink-700 shadow-sm backdrop-blur"
-                    >
-                        বিকাশ (bKash)
-                    </button>
+<h3 class="font-black text-lg text-sky-950">
+টাকা উত্তোলন
+</h3>
 
+<p class="text-[11px] text-sky-600">
+ন্যূনতম ৳১০০০
+</p>
 
-                    <button
-                        type="button"
-                        id="m-nagad"
-                        onclick="setMethod('nagad')"
-                        class="py-3 rounded-xl border text-sm font-bold bg-white/35 border-white/70 text-sky-700 shadow-sm backdrop-blur"
-                    >
-                        নগদ (Nagad)
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <div>
-
-                <label
-                    class="block text-xs text-sky-700 font-bold mb-1"
-                >
-                    মোবাইল নম্বর
-                </label>
-
-                <input
-                    type="text"
-                    id="acc-number"
-                    placeholder="017XXXXXXXX"
-                    class="glass-input w-full rounded-xl p-3 text-sm focus:outline-none"
-                    required
-                >
-
-            </div>
-
-
-            <div>
-
-                <label
-                    class="block text-xs text-sky-700 font-bold mb-1"
-                >
-                    পরিমাণ
-                </label>
-
-                <input
-                    type="number"
-                    id="withdraw-amount"
-                    placeholder="1000"
-                    min="1000"
-                    class="glass-input w-full rounded-xl p-3 text-sm focus:outline-none"
-                    required
-                >
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="glass-button w-full py-4 font-bold rounded-xl"
-            >
-                উইথড্র রিকোয়েস্ট পাঠান
-            </button>
-
-        </form>
-
-    </div>
-
-
-    <div class="liquid-glass rounded-2xl p-4 space-y-3">
-
-        <h4
-            class="text-xs font-bold text-sky-900 flex items-center gap-1.5"
-        >
-
-            <i
-                data-lucide="history"
-                class="w-4 h-4 text-sky-600"
-            ></i>
-
-            আপনার উইথড্র হিস্ট্রি
-
-        </h4>
-
-
-        <div
-            id="user-payout-history"
-            class="space-y-2 text-xs max-h-36 overflow-y-auto"
-        >
-
-            <p class="text-sky-600 text-[11px]">
-                কোনো পেমেন্ট হিস্ট্রি পাওয়া যায়নি।
-            </p>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- =====================================================
+<form
+onsubmit="handleWithdraw(event)"
+class="space-y-4">
+
+
+<div>
+
+<label
+class="block text-xs text-sky-700 font-black mb-2">
+পেমেন্ট মেথড
+</label>
+
+<div class="grid grid-cols-2 gap-3">
+
+<button
+type="button"
+id="m-bkash"
+onclick="setMethod('bkash')"
+class="method-button bkash-active">
+
+বিকাশ
+
+</button>
+
+<button
+type="button"
+id="m-nagad"
+onclick="setMethod('nagad')"
+class="method-button">
+
+নগদ
+
+</button>
+
+</div>
+
+</div>
+
+
+<div>
+
+<label
+class="block text-xs text-sky-700 font-black mb-2">
+মোবাইল নম্বর
+</label>
+
+<input
+type="text"
+id="acc-number"
+placeholder="017XXXXXXXX"
+class="glass-input"
+required>
+
+</div>
+
+
+<div>
+
+<label
+class="block text-xs text-sky-700 font-black mb-2">
+পরিমাণ
+</label>
+
+<div class="relative">
+
+<span
+class="absolute left-4 top-1/2 -translate-y-1/2 font-black text-sky-600">
+৳
+</span>
+
+<input
+type="number"
+id="withdraw-amount"
+placeholder="1000"
+min="1000"
+class="glass-input pl-10"
+required>
+
+</div>
+
+</div>
+
+
+<button
+type="submit"
+class="glass-button w-full py-4 text-white font-black rounded-2xl">
+উইথড্র রিকোয়েস্ট পাঠান
+</button>
+
+</form>
+
+</div>
+
+
+<div class="liquid-glass rounded-[23px] p-5">
+
+<h4
+class="text-sm font-black text-sky-950 flex items-center gap-2 mb-3">
+
+<i
+data-lucide="history"
+class="w-5 h-5 text-sky-600">
+</i>
+
+উইথড্র হিস্ট্রি
+
+</h4>
+
+<div
+id="user-payout-history"
+class="space-y-2 max-h-48 overflow-y-auto">
+
+<p class="text-xs text-sky-600">
+কোনো পেমেন্ট হিস্ট্রি পাওয়া যায়নি।
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
      ADMIN
-===================================================== -->
+======================================================= -->
+
+<section
+id="tab-admin"
+class="space-y-5 admin-strictly-hidden">
+
+
+<div class="liquid-glass rounded-[25px] p-5">
+
+<div class="flex items-center justify-between pb-4 border-b border-white/60">
+
+<div class="flex items-center gap-3">
 
 <div
-    id="tab-admin"
-    class="space-y-5 admin-strictly-hidden"
->
+class="w-11 h-11 rounded-2xl bg-white/50 border border-white/70 flex items-center justify-center">
 
+<i
+data-lucide="shield"
+class="w-6 h-6 text-blue-600">
+</i>
 
-    <div
-        class="liquid-glass rounded-2xl p-5 space-y-5 border-white/70"
-    >
+</div>
 
-        <div
-            class="flex items-center justify-between border-b border-white/50 pb-3"
-        >
+<div>
 
-            <h3
-                class="font-bold text-lg text-sky-900 flex items-center space-x-2"
-            >
+<h3 class="font-black text-lg text-sky-950">
+এডমিন
+</h3>
 
-                <div class="glass-badge p-2 rounded-xl">
-                    <i
-                        data-lucide="shield-alert"
-                        class="w-5 h-5 text-sky-600"
-                    ></i>
-                </div>
+<p class="text-[10px] text-sky-600">
+Master Control
+</p>
 
-                <span>এডমিন কন্ট্রোল</span>
+</div>
 
-            </h3>
+</div>
 
+<span
+class="text-[10px] bg-white/55 text-sky-800 px-3 py-1.5 rounded-full border border-white/70 font-black">
+ADMIN
+</span>
 
-            <span
-                class="glass-badge text-xs text-sky-800 px-2.5 py-1 rounded-full font-bold"
-            >
-                Master Admin
-            </span>
+</div>
 
-        </div>
 
+<div class="grid grid-cols-2 gap-3 mt-5">
 
-        <div class="grid grid-cols-2 gap-3">
+<div class="admin-card p-4 rounded-2xl text-center">
 
-            <div
-                class="liquid-card p-3 rounded-xl text-center shadow-sm"
-            >
+<p class="text-[10px] text-sky-600 font-bold">
+মোট ইউজার
+</p>
 
-                <p class="text-[11px] text-sky-700 font-semibold">
-                    মোট ইউজার
-                </p>
+<h4
+id="admin-total-users"
+class="text-3xl font-black text-sky-950">
+0
+</h4>
 
-                <h4
-                    id="admin-total-users"
-                    class="text-2xl font-black text-sky-900"
-                >
-                    0
-                </h4>
+</div>
 
-            </div>
+<div class="admin-card p-4 rounded-2xl text-center">
 
+<p class="text-[10px] text-sky-600 font-bold">
+অনলাইনে একটিভ
+</p>
 
-            <div
-                class="liquid-card p-3 rounded-xl text-center shadow-sm"
-            >
+<h4
+id="admin-active-users"
+class="text-3xl font-black text-emerald-600">
+0
+</h4>
 
-                <p class="text-[11px] text-sky-700 font-semibold">
-                    অনলাইনে একটিভ
-                </p>
-
-                <h4
-                    id="admin-active-users"
-                    class="text-2xl font-black text-emerald-600"
-                >
-                    0
-                </h4>
-
-            </div>
-
-        </div>
-
-
-        <!-- VIDEO MANAGEMENT -->
-
-        <div
-            class="liquid-card p-4 rounded-2xl space-y-4"
-        >
-
-            <h4
-                class="text-sm font-bold text-sky-900 flex items-center gap-2"
-            >
-
-                <div class="glass-badge p-1.5 rounded-lg">
-
-                    <i
-                        data-lucide="video"
-                        class="w-5 h-5 text-sky-600"
-                    ></i>
-
-                </div>
-
-                ভিডিও ম্যানেজমেন্ট
-
-            </h4>
-
-
-            <p class="text-xs text-sky-700">
-                Gallery থেকে ভিডিও নির্বাচন করলে ভিডিওটি Telegram Channel-এ Upload হবে।
-            </p>
-
-
-            <div>
-
-                <label class="text-xs text-sky-700 font-bold">
-                    ভিডিওর নাম
-                </label>
-
-                <input
-                    type="text"
-                    id="video-title"
-                    placeholder="যেমন: Naruto Episode 1"
-                    class="glass-input w-full mt-2 rounded-xl p-3 text-sm"
-                >
-
-            </div>
-
-
-            <div>
-
-                <label class="text-xs text-sky-700 font-bold">
-                    Gallery থেকে ভিডিও
-                </label>
-
-                <input
-                    type="file"
-                    id="video-file"
-                    accept="video/*"
-                    class="glass-input w-full mt-2 rounded-xl p-3 text-sm"
-                >
-
-                <p
-                    id="video-file-name"
-                    class="text-[11px] text-sky-600 mt-1"
-                >
-                    কোনো ভিডিও নির্বাচন করা হয়নি
-                </p>
-
-                <p
-                    class="text-[10px] text-red-600 mt-1 font-semibold"
-                >
-                    Direct Telegram Upload: সর্বোচ্চ 20MB
-                </p>
-
-            </div>
-
-
-            <div>
-
-                <label class="text-xs text-sky-700 font-bold">
-                    Thumbnail URL (Optional)
-                </label>
-
-                <input
-                    type="url"
-                    id="video-thumbnail"
-                    placeholder="https://example.com/image.jpg"
-                    class="glass-input w-full mt-2 rounded-xl p-3 text-sm"
-                >
-
-            </div>
-
-
-            <div>
-
-                <label class="text-xs text-sky-700 font-bold">
-                    ভিডিও চালুর আগে কতটি Ads দেখাবে?
-                </label>
-
-                <select
-                    id="video-ads-count"
-                    class="glass-input w-full mt-2 rounded-xl p-3 text-sm font-bold"
-                >
-
-                    <option value="1">1 Ad</option>
-                    <option value="2">2 Ads</option>
-                    <option value="3" selected>3 Ads</option>
-                    <option value="4">4 Ads</option>
-                    <option value="5">5 Ads</option>
-
-                </select>
-
-            </div>
-
-
-            <div
-                id="video-upload-area"
-                class="hidden"
-            >
-
-                <div
-                    class="flex justify-between text-xs font-bold text-sky-700 mb-1"
-                >
-
-                    <span id="upload-status-text">
-                        Telegram-এ Upload হচ্ছে...
-                    </span>
-
-                    <span id="video-upload-percent">
-                        0%
-                    </span>
-
-                </div>
-
-
-                <div
-                    class="w-full h-2 bg-white/40 rounded-full overflow-hidden"
-                >
-
-                    <div
-                        id="video-upload-progress"
-                        class="h-full upload-progress"
-                        style="width:0%"
-                    ></div>
-
-                </div>
-
-            </div>
-
-
-            <button
-                onclick="addVideo()"
-                id="add-video-btn"
-                class="glass-button w-full py-4 font-black rounded-xl"
-            >
-                + ভিডিও প্রকাশ করুন
-            </button>
-
-
-            <div>
-
-                <h4
-                    class="text-sm font-bold text-sky-900 mb-2"
-                >
-                    প্রকাশিত ভিডিও
-                </h4>
-
-                <div
-                    id="admin-video-list"
-                    class="space-y-2"
-                >
-
-                    <p class="text-xs text-sky-600">
-                        কোনো ভিডিও নেই।
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- PAYOUT -->
-
-        <div
-            class="liquid-card p-4 rounded-2xl space-y-3 border-amber-200"
-        >
-
-            <h4
-                class="text-xs font-bold text-amber-800 flex items-center gap-1.5"
-            >
-
-                <i
-                    data-lucide="credit-card"
-                    class="w-4 h-4"
-                ></i>
-
-                পেন্ডিং উইথড্র রিকোয়েস্ট
-
-            </h4>
-
-
-            <div
-                id="admin-payout-list"
-                class="space-y-2 max-h-44 overflow-y-auto"
-            >
-
-                <p class="text-[11px] text-sky-700">
-                    কোনো পেন্ডিং উইথড্র রিকোয়েস্ট নেই।
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- APP CUSTOMIZATION -->
-
-        <div
-            class="liquid-card p-4 rounded-2xl space-y-3"
-        >
-
-            <h4
-                class="text-xs font-bold text-sky-900 flex items-center gap-1.5"
-            >
-
-                <i
-                    data-lucide="sliders"
-                    class="w-4 h-4 text-sky-600"
-                ></i>
-
-                অ্যাপ কাস্টমাইজেশন
-
-            </h4>
-
-
-            <div class="space-y-2">
-
-                <label
-                    class="text-[11px] text-sky-700 font-bold"
-                >
-                    অ্যাপের নাম পরিবর্তন:
-                </label>
-
-
-                <div class="flex space-x-2">
-
-                    <input
-                        type="text"
-                        id="admin-app-name-input"
-                        placeholder="নতুন নাম"
-                        class="glass-input flex-1 rounded-xl p-2 text-xs"
-                    >
-
-                    <button
-                        onclick="changeAppName()"
-                        class="glass-button px-3 py-2 rounded-xl text-xs font-bold"
-                    >
-                        সেভ
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- USER MANAGEMENT -->
-
-        <div
-            class="liquid-card p-4 rounded-2xl space-y-3"
-        >
-
-            <h4
-                class="text-xs font-bold text-sky-900 flex items-center gap-1.5"
-            >
-
-                <i
-                    data-lucide="users"
-                    class="w-4 h-4 text-sky-600"
-                ></i>
-
-                ইউজার আইডি ম্যানেজমেন্ট
-
-            </h4>
-
-
-            <div class="flex space-x-2">
-
-                <input
-                    type="text"
-                    id="kick-user-id"
-                    placeholder="ইউজার আইডি দিন"
-                    class="glass-input flex-1 rounded-xl p-2 text-xs"
-                >
-
-                <button
-                    onclick="kickUser()"
-                    class="bg-red-500/85 text-white px-3 py-2 rounded-xl text-xs font-bold shadow-lg border border-white/40"
-                >
-                    ব্যান / কিক
-                </button>
-
-            </div>
-
-
-            <div
-                id="admin-user-grid"
-                class="space-y-2 max-h-40 overflow-y-auto pr-1"
-            ></div>
-
-        </div>
-
-
-        <!-- ANTICHEAT -->
-
-        <div
-            class="liquid-card p-4 rounded-2xl space-y-3 border-red-200"
-        >
-
-            <h4
-                class="text-xs font-bold text-red-700 flex items-center gap-1.5"
-            >
-
-                <i
-                    data-lucide="shield-alert"
-                    class="w-4 h-4"
-                ></i>
-
-                অনিয়ম ও অটো এন্টি-চিট
-
-            </h4>
-
-
-            <div
-                id="admin-fraud-box"
-                class="bg-white/30 border border-white/50 p-2.5 rounded-xl text-[11px] text-red-600 max-h-32 overflow-y-auto shadow-inner"
-            >
-                সিস্টেম নিরাপদ আছে। কোনো ফেক ক্লিক বা স্প্যাম মেলেনি।
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 </div>
 
 
-<!-- =====================================================
+<!-- VIDEO MANAGEMENT -->
+
+<div class="liquid-glass rounded-[25px] p-5 space-y-4">
+
+<h4 class="font-black text-sky-950 flex items-center gap-2">
+
+<i
+data-lucide="video"
+class="w-5 h-5 text-sky-600">
+</i>
+
+ভিডিও ম্যানেজমেন্ট
+
+</h4>
+
+<p class="text-xs text-sky-700">
+Gallery থেকে ভিডিও দিলে Telegram Channel-এ Upload হবে।
+</p>
+
+
+<div>
+
+<label class="text-xs text-sky-700 font-black">
+ভিডিওর নাম
+</label>
+
+<input
+type="text"
+id="video-title"
+placeholder="যেমন: Naruto Episode 1"
+class="glass-input mt-2">
+
+</div>
+
+
+<div>
+
+<label class="text-xs text-sky-700 font-black">
+Gallery থেকে ভিডিও
+</label>
+
+<input
+type="file"
+id="video-file"
+accept="video/*"
+class="glass-input mt-2">
+
+<p
+id="video-file-name"
+class="text-[10px] text-sky-600 mt-2">
+কোনো ভিডিও নির্বাচন করা হয়নি
+</p>
+
+<p class="text-[10px] text-red-600 font-bold mt-1">
+Direct Telegram Upload: সর্বোচ্চ 20MB
+</p>
+
+</div>
+
+
+<div>
+
+<label class="text-xs text-sky-700 font-black">
+Thumbnail URL (Optional)
+</label>
+
+<input
+type="url"
+id="video-thumbnail"
+placeholder="https://example.com/image.jpg"
+class="glass-input mt-2">
+
+</div>
+
+
+<div>
+
+<label class="text-xs text-sky-700 font-black">
+ভিডিও চালুর আগে Ads
+</label>
+
+<select
+id="video-ads-count"
+class="glass-input mt-2 font-black">
+
+<option value="1">1 Ad</option>
+<option value="2">2 Ads</option>
+<option value="3" selected>3 Ads</option>
+<option value="4">4 Ads</option>
+<option value="5">5 Ads</option>
+
+</select>
+
+</div>
+
+
+<div
+id="video-upload-area"
+class="hidden admin-card rounded-2xl p-4">
+
+<div class="flex justify-between text-xs font-black text-sky-700 mb-2">
+
+<span id="upload-status-text">
+Telegram-এ Upload হচ্ছে...
+</span>
+
+<span id="video-upload-percent">
+0%
+</span>
+
+</div>
+
+<div class="w-full h-2 bg-white/60 rounded-full overflow-hidden">
+
+<div
+id="video-upload-progress"
+class="h-full bg-gradient-to-r from-sky-400 to-blue-600 upload-progress"
+style="width:0%">
+</div>
+
+</div>
+
+</div>
+
+
+<button
+onclick="addVideo()"
+id="add-video-btn"
+class="glass-button w-full py-4 text-white font-black rounded-2xl">
+
++ ভিডিও প্রকাশ করুন
+
+</button>
+
+
+<div>
+
+<h4 class="text-sm font-black text-sky-950 mb-3">
+প্রকাশিত ভিডিও
+</h4>
+
+<div
+id="admin-video-list"
+class="space-y-2">
+
+<p class="text-xs text-sky-600">
+কোনো ভিডিও নেই।
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PAYOUT -->
+
+<div class="liquid-glass rounded-[25px] p-5">
+
+<h4
+class="font-black text-orange-700 flex items-center gap-2 mb-3">
+
+<i
+data-lucide="credit-card"
+class="w-5 h-5">
+</i>
+
+পেন্ডিং উইথড্র
+
+</h4>
+
+<div
+id="admin-payout-list"
+class="space-y-2 max-h-48 overflow-y-auto">
+
+<p class="text-xs text-sky-700">
+কোনো পেন্ডিং উইথড্র নেই।
+</p>
+
+</div>
+
+</div>
+
+
+<!-- CUSTOMIZATION -->
+
+<div class="liquid-glass rounded-[25px] p-5 space-y-3">
+
+<h4
+class="font-black text-sky-950 flex items-center gap-2">
+
+<i
+data-lucide="sliders"
+class="w-5 h-5 text-sky-600">
+</i>
+
+অ্যাপ কাস্টমাইজেশন
+
+</h4>
+
+<div class="flex gap-2">
+
+<input
+type="text"
+id="admin-app-name-input"
+placeholder="নতুন অ্যাপ নাম"
+class="glass-input flex-1">
+
+<button
+onclick="changeAppName()"
+class="glass-button text-white px-4 rounded-xl font-black text-xs">
+সেভ
+</button>
+
+</div>
+
+</div>
+
+
+<!-- USER MANAGEMENT -->
+
+<div class="liquid-glass rounded-[25px] p-5 space-y-3">
+
+<h4
+class="font-black text-sky-950 flex items-center gap-2">
+
+<i
+data-lucide="users"
+class="w-5 h-5 text-sky-600">
+</i>
+
+ইউজার ম্যানেজমেন্ট
+
+</h4>
+
+<div class="flex gap-2">
+
+<input
+type="text"
+id="kick-user-id"
+placeholder="ইউজার আইডি"
+class="glass-input flex-1">
+
+<button
+onclick="kickUser()"
+class="bg-red-500/90 text-white px-4 rounded-xl font-black text-xs">
+ব্যান
+</button>
+
+</div>
+
+<div
+id="admin-user-grid"
+class="space-y-2 max-h-44 overflow-y-auto">
+</div>
+
+</div>
+
+
+<!-- ANTICHEAT -->
+
+<div class="liquid-glass rounded-[25px] p-5">
+
+<h4
+class="font-black text-red-700 flex items-center gap-2 mb-3">
+
+<i
+data-lucide="shield-alert"
+class="w-5 h-5">
+</i>
+
+Anti-Cheat
+
+</h4>
+
+<div
+id="admin-fraud-box"
+class="bg-white/40 border border-red-200 p-3 rounded-2xl text-xs text-red-600">
+সিস্টেম নিরাপদ আছে।
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =======================================================
      BOTTOM NAV
-===================================================== -->
+======================================================= -->
 
-<div
-    id="nav-container"
-    class="fixed bottom-0 left-0 right-0 max-w-md mx-auto liquid-glass p-2 grid grid-cols-4 gap-1 z-30 border-t border-white/60 shadow-2xl"
->
+<nav
+id="nav-container"
+class="bottom-nav"
+style="grid-template-columns:repeat(4,1fr)">
 
+<button
+onclick="switchTab('home')"
+id="nav-home"
+class="nav-item active">
 
-    <button
-        onclick="switchTab('home')"
-        id="nav-home"
-        class="nav-active py-2.5 rounded-xl flex flex-col items-center space-y-1"
-    >
+<i data-lucide="play" class="w-5 h-5"></i>
 
-        <i
-            data-lucide="home"
-            class="w-5 h-5"
-        ></i>
+<span class="text-[10px] font-black">
+অ্যাড আয়
+</span>
 
-        <span class="text-xs font-semibold">
-            Home
-        </span>
-
-    </button>
+</button>
 
 
-    <button
-        onclick="switchTab('videos')"
-        id="nav-videos"
-        class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-800"
-    >
+<button
+onclick="switchTab('videos')"
+id="nav-videos"
+class="nav-item">
 
-        <i
-            data-lucide="clapperboard"
-            class="w-5 h-5"
-        ></i>
+<i data-lucide="clapperboard" class="w-5 h-5"></i>
 
-        <span class="text-xs font-semibold">
-            Videos
-        </span>
+<span class="text-[10px] font-black">
+ভিডিও
+</span>
 
-    </button>
+</button>
 
 
-    <button
-        onclick="switchTab('profile')"
-        id="nav-profile"
-        class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-800"
-    >
+<button
+onclick="switchTab('profile')"
+id="nav-profile"
+class="nav-item">
 
-        <i
-            data-lucide="user"
-            class="w-5 h-5"
-        ></i>
+<i data-lucide="user" class="w-5 h-5"></i>
 
-        <span class="text-xs font-semibold">
-            Profile
-        </span>
+<span class="text-[10px] font-black">
+প্রোফাইল
+</span>
 
-    </button>
+</button>
 
 
-    <button
-        onclick="switchTab('wallet')"
-        id="nav-wallet"
-        class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-800"
-    >
+<button
+onclick="switchTab('wallet')"
+id="nav-wallet"
+class="nav-item">
 
-        <i
-            data-lucide="wallet"
-            class="w-5 h-5"
-        ></i>
+<i data-lucide="wallet" class="w-5 h-5"></i>
 
-        <span class="text-xs font-semibold">
-            Wallet
-        </span>
+<span class="text-[10px] font-black">
+ওয়ালেট
+</span>
 
-    </button>
+</button>
 
 
-    <button
-        onclick="switchTab('admin')"
-        id="nav-admin"
-        class="py-2.5 rounded-xl flex flex-col items-center space-y-1 text-red-600 admin-strictly-hidden"
-    >
+<button
+onclick="switchTab('admin')"
+id="nav-admin"
+class="nav-item admin-strictly-hidden">
 
-        <i
-            data-lucide="shield"
-            class="w-5 h-5"
-        ></i>
+<i data-lucide="shield" class="w-5 h-5"></i>
 
-        <span class="text-xs font-semibold">
-            Admin
-        </span>
+<span class="text-[10px] font-black">
+এডমিন
+</span>
 
-    </button>
+</button>
+
+</nav>
 
 </div>
 
@@ -1821,13 +1750,13 @@ select{
 ========================================================= */
 
 const firebaseConfig={
-    apiKey:"AIzaSyDEkBXNnYqwlNnDuuvUOhleZg-MV0NsZ3JM",
-    authDomain:"fxok-ef3a8.firebaseapp.com",
-    projectId:"fxok-ef3a8",
-    storageBucket:"fxok-ef3a8.firebasestorage.app",
-    messagingSenderId:"1082694486552",
-    appId:"1:1082694486552:web:6f1d77877cd63c2858516d",
-    measurementId:"G-C5E0MTFZFH"
+apiKey:"AIzaSyDEkBXNnYqwlNnDuuvUOhleZg-MV0NsZ3JM",
+authDomain:"fxok-ef3a8.firebaseapp.com",
+projectId:"fxok-ef3a8",
+storageBucket:"fxok-ef3a8.firebasestorage.app",
+messagingSenderId:"1082694486552",
+appId:"1:1082694486552:web:6f1d77877cd63c2858516d",
+measurementId:"G-C5E0MTFZFH"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -1836,7 +1765,7 @@ const db=firebase.firestore();
 
 
 /* =========================================================
-   TELEGRAM VIDEO SETTINGS
+   TELEGRAM
 ========================================================= */
 
 const TELEGRAM_BOT_TOKEN=
@@ -1856,18 +1785,20 @@ const ADSGRAM_BLOCK_ID="int-55995";
 
 
 /* =========================================================
-   APP STATE
+   STATE
 ========================================================= */
 
 let userCoins=0;
 
 let telegramUser={
-    id:"demo_user_123",
-    first_name:"Demo",
-    username:"user"
+id:"demo_user_123",
+first_name:"Demo",
+username:"user",
+photo_url:""
 };
 
 let selectedMethod="bkash";
+
 let lastAdTime=0;
 
 let logoClickCount=0;
@@ -1878,210 +1809,285 @@ const CUSTOM_REF_BASE=
 
 
 /* =========================================================
-   ICONS
-========================================================= */
-
-lucide.createIcons();
-
-
-/* =========================================================
    INIT
 ========================================================= */
 
 window.addEventListener("DOMContentLoaded",async()=>{
 
-    if(window.Telegram?.WebApp){
+lucide.createIcons();
 
-        window.Telegram.WebApp.ready();
-        window.Telegram.WebApp.expand();
+if(window.Telegram?.WebApp){
 
-        if(window.Telegram.WebApp.initDataUnsafe?.user){
+window.Telegram.WebApp.ready();
+window.Telegram.WebApp.expand();
 
-            telegramUser=
-                window.Telegram.WebApp.initDataUnsafe.user;
+if(window.Telegram.WebApp.initDataUnsafe?.user){
 
-        }
+telegramUser=
+window.Telegram.WebApp.initDataUnsafe.user;
 
-    }
+}
 
-
-    document.getElementById("user-display-name").innerText=
-        `@${telegramUser.username||telegramUser.first_name}`;
+}
 
 
-    document.getElementById("profile-name").innerText=
-        telegramUser.first_name||"User";
+/* USER NAME */
+
+const username=
+telegramUser.username||
+telegramUser.first_name||
+"User";
+
+document.getElementById(
+"user-display-name"
+).innerText=
+`@${username}`;
 
 
-    document.getElementById("profile-id").innerText=
-        telegramUser.id;
+/* PROFILE */
+
+document.getElementById(
+"profile-name"
+).innerText=
+telegramUser.first_name||"User";
+
+document.getElementById(
+"profile-username"
+).innerText=
+telegramUser.username
+?`@${telegramUser.username}`
+:"Telegram User";
+
+document.getElementById(
+"profile-id"
+).innerText=
+telegramUser.id;
 
 
-    const myRefLink=
-        `${CUSTOM_REF_BASE}?start=${telegramUser.id}`;
+/* PROFILE PHOTO */
+
+setUserAvatar(
+telegramUser.photo_url
+);
 
 
-    document.getElementById("ref-link-display").innerText=
-        myRefLink;
+/* REF */
+
+const myRefLink=
+`${CUSTOM_REF_BASE}?start=${telegramUser.id}`;
+
+document.getElementById(
+"ref-link-display"
+).innerText=
+myRefLink;
 
 
-    try{
+try{
 
-        const userRef=
-            db.collection("users")
-            .doc(String(telegramUser.id));
+const userRef=
+db.collection("users")
+.doc(String(telegramUser.id));
 
+const docSnap=
+await userRef.get();
 
-        const docSnap=
-            await userRef.get();
+if(docSnap.exists){
 
+const data=docSnap.data();
 
-        if(docSnap.exists){
+if(data.isBanned){
 
-            const data=docSnap.data();
+document.body.innerHTML=`
 
+<div
+class="min-h-screen flex items-center justify-center p-6">
 
-            if(data.isBanned){
+<div class="liquid-glass rounded-3xl p-8 text-center">
 
-                document.body.innerHTML=`
+<div
+class="w-16 h-16 mx-auto rounded-full bg-red-500/15 flex items-center justify-center">
 
-                    <div
-                        class="min-h-screen flex items-center justify-center p-8"
-                    >
+<i
+data-lucide="ban"
+class="w-8 h-8 text-red-600">
+</i>
 
-                        <div
-                            class="liquid-glass rounded-3xl p-8 text-center"
-                        >
+</div>
 
-                            <div class="text-red-500 text-5xl mb-4">
-                                🚫
-                            </div>
+<h2
+class="text-xl font-black text-red-700 mt-4">
+Access Denied
+</h2>
 
-                            <div class="text-red-600 font-black text-xl">
-                                Access Denied
-                            </div>
+<p
+class="text-sm text-sky-700 mt-2">
+You are banned by Admin.
+</p>
 
-                            <p class="text-sky-700 text-sm mt-2">
-                                You are banned by Admin.
-                            </p>
+</div>
 
-                        </div>
+</div>`;
 
-                    </div>
+lucide.createIcons();
 
-                `;
+return;
 
-                return;
+}
 
-            }
+userCoins=data.coins||0;
 
+await userRef.update({
 
-            userCoins=data.coins||0;
+lastActive:
+firebase.firestore.FieldValue.serverTimestamp()
 
+});
 
-            await userRef.update({
+}else{
 
-                lastActive:
-                    firebase.firestore.FieldValue.serverTimestamp()
+await userRef.set({
 
-            });
+id:String(telegramUser.id),
 
+name:
+telegramUser.first_name||"User",
 
-        }else{
+username:
+telegramUser.username||"",
 
-            await userRef.set({
+photoUrl:
+telegramUser.photo_url||"",
 
-                id:String(telegramUser.id),
+coins:0,
 
-                name:
-                    telegramUser.first_name||"User",
+isBanned:false,
 
-                coins:0,
+lastActive:
+firebase.firestore.FieldValue.serverTimestamp()
 
-                isBanned:false,
+});
 
-                lastActive:
-                    firebase.firestore.FieldValue.serverTimestamp()
+}
 
-            });
+updateUI();
 
-        }
+loadUserHistory();
 
+loadVideos();
 
-        updateUI();
+}catch(error){
 
-        loadUserHistory();
+console.error(error);
 
-        loadVideos();
+alert(
+"Firebase সংযোগে সমস্যা হয়েছে।"
+);
 
-
-    }catch(error){
-
-        console.error(error);
-
-        alert("Firebase সংযোগে সমস্যা হয়েছে।");
-
-    }
+}
 
 });
 
 
 /* =========================================================
-   ADMIN
+   AVATAR
+========================================================= */
+
+function setUserAvatar(url){
+
+const fallback=
+"data:image/svg+xml;charset=UTF-8,"+
+encodeURIComponent(`
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+<defs>
+<linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#38bdf8"/>
+<stop offset="1" stop-color="#2563eb"/>
+</linearGradient>
+</defs>
+<rect width="200" height="200" rx="100" fill="url(#g)"/>
+<circle cx="100" cy="78" r="35" fill="white" opacity=".9"/>
+<path d="M35 185c10-45 38-67 65-67s55 22 65 67"
+fill="white" opacity=".9"/>
+</svg>`);
+
+const avatar=
+url||fallback;
+
+document.getElementById(
+"header-avatar"
+).src=avatar;
+
+document.getElementById(
+"profile-avatar"
+).src=avatar;
+
+}
+
+
+/* =========================================================
+   ADMIN TRIPLE CLICK
 ========================================================= */
 
 function handleAdminTripleClick(){
 
-    logoClickCount++;
+logoClickCount++;
 
-    clearTimeout(logoClickTimer);
+clearTimeout(logoClickTimer);
 
-    logoClickTimer=setTimeout(()=>{
+logoClickTimer=setTimeout(()=>{
 
-        logoClickCount=0;
+logoClickCount=0;
 
-    },800);
+},800);
 
+if(logoClickCount===3){
 
-    if(logoClickCount===3){
+logoClickCount=0;
 
-        logoClickCount=0;
+const password=
+prompt(
+"এডমিন সিক্রেট পাসওয়ার্ড দিন:"
+);
 
+if(password==="kayes1234"){
 
-        const password=
-            prompt("এডমিন সিক্রেট পাসওয়ার্ড দিন:");
+alert(
+"এডমিন প্যানেল আনলক হয়েছে!"
+);
 
+const nav=
+document.getElementById(
+"nav-container"
+);
 
-        if(password==="kayes1234"){
+nav.style.gridTemplateColumns=
+"repeat(5,1fr)";
 
-            alert("এডমিন প্যানেল আনলক হয়েছে!");
+document.getElementById(
+"nav-admin"
+).classList.remove(
+"admin-strictly-hidden"
+);
 
+document.getElementById(
+"tab-admin"
+).classList.remove(
+"admin-strictly-hidden"
+);
 
-            document.getElementById("nav-container").className=
-                "fixed bottom-0 left-0 right-0 max-w-md mx-auto liquid-glass p-2 grid grid-cols-5 gap-1 z-30 border-t border-white/60 shadow-2xl";
+switchTab("admin");
 
+loadAdminDashboard();
 
-            document.getElementById("nav-admin")
-                .classList.remove("admin-strictly-hidden");
+}else if(password!==null){
 
+alert(
+"ভুল পাসওয়ার্ড!"
+);
 
-            document.getElementById("tab-admin")
-                .classList.remove("admin-strictly-hidden");
+}
 
-
-            switchTab("admin");
-
-
-            loadAdminDashboard();
-
-
-        }else if(password!==null){
-
-            alert("ভুল পাসওয়ার্ড!");
-
-        }
-
-    }
+}
 
 }
 
@@ -2092,12 +2098,15 @@ function handleAdminTripleClick(){
 
 function updateUI(){
 
-    document.getElementById("coins-display").innerText=
-        `${userCoins} Pts`;
+document.getElementById(
+"coins-display"
+).innerText=
+`${userCoins} Pts`;
 
-
-    document.getElementById("taka-display").innerText=
-        `৳ ${(userCoins/100).toFixed(2)} BDT`;
+document.getElementById(
+"taka-display"
+).innerText=
+`৳ ${(userCoins/100).toFixed(2)} BDT`;
 
 }
 
@@ -2108,75 +2117,70 @@ function updateUI(){
 
 function handleSystem1Ad(){
 
-    const now=Date.now();
+const now=Date.now();
 
+if(now-lastAdTime<10000){
 
-    if(now-lastAdTime<10000){
+return alert(
+"অনুগ্রহ করে কিছু সময় অপেক্ষা করুন!"
+);
 
-        return alert(
-            "অনুগ্রহ করে কিছু সময় অপেক্ষা করুন!"
-        );
+}
 
-    }
+lastAdTime=now;
 
+const btn=
+document.getElementById(
+"btn-sys1"
+);
 
-    lastAdTime=now;
+const status=
+document.getElementById(
+"sys1-status"
+);
 
+btn.disabled=true;
 
-    const btn=
-        document.getElementById("btn-sys1");
+showAd(()=>{
 
-    const status=
-        document.getElementById("sys1-status");
+userCoins+=50;
 
+updateUI();
 
-    btn.disabled=true;
+syncCoins();
 
+let timeLeft=15;
 
-    showAd(()=>{
+status.innerText=
+`বিরতি: ${timeLeft}সেঃ`;
 
-        userCoins+=50;
+const timer=
+setInterval(()=>{
 
-        updateUI();
+timeLeft--;
 
-        syncCoins();
+status.innerText=
+`বিরতি: ${timeLeft}সেঃ`;
 
+if(timeLeft<=0){
 
-        let timeLeft=15;
+clearInterval(timer);
 
+status.innerText="রেডি";
 
-        status.innerText=
-            `বিরতি: ${timeLeft}সেঃ`;
+btn.disabled=false;
 
+}
 
-        const timer=setInterval(()=>{
+},1000);
 
-            timeLeft--;
+},()=>{
 
-            status.innerText=
-                `বিরতি: ${timeLeft}সেঃ`;
+btn.disabled=false;
 
+status.innerText="বাতিল";
 
-            if(timeLeft<=0){
-
-                clearInterval(timer);
-
-                status.innerText="রেডি";
-
-                btn.disabled=false;
-
-            }
-
-        },1000);
-
-
-    },()=>{
-
-        btn.disabled=false;
-
-        status.innerText="বাতিল";
-
-    });
+});
 
 }
 
@@ -2187,99 +2191,91 @@ function handleSystem1Ad(){
 
 function handleSystem2Ad(){
 
-    const btn=
-        document.getElementById("btn-sys2");
+const btn=
+document.getElementById(
+"btn-sys2"
+);
 
-    const counter=
-        document.getElementById("sys2-counter");
+const counter=
+document.getElementById(
+"sys2-counter"
+);
 
+btn.disabled=true;
 
-    btn.disabled=true;
+function runAdSequence(step){
 
+if(step>3){
 
-    function runAdSequence(step){
+userCoins+=200;
 
-        if(step>3){
+updateUI();
 
-            userCoins+=200;
+syncCoins();
 
-            updateUI();
+counter.innerText=
+"সম্পন্ন!";
 
-            syncCoins();
+setTimeout(()=>{
 
+counter.innerText=
+"ধাপ: ০/৩";
 
-            counter.innerText="সম্পন্ন!";
+btn.disabled=false;
 
+},5000);
 
-            setTimeout(()=>{
+return;
 
-                counter.innerText="ধাপ: ০/৩";
+}
 
-                btn.disabled=false;
+counter.innerText=
+`অ্যাড ${step}/৩...`;
 
-            },5000);
+showAd(()=>{
 
+if(step<3){
 
-            return;
+let wait=30;
 
-        }
+counter.innerText=
+`বিরতি ${wait}সেঃ (${step}/৩)`;
 
+let t=
+setInterval(()=>{
 
-        counter.innerText=
-            `অ্যাড ${step}/৩...`;
+wait--;
 
+counter.innerText=
+`বিরতি ${wait}সেঃ (${step}/৩)`;
 
-        showAd(()=>{
+if(wait<=0){
 
+clearInterval(t);
 
-            if(step<3){
+runAdSequence(step+1);
 
-                let wait=30;
+}
 
+},1000);
 
-                counter.innerText=
-                    `বিরতি ${wait}সেঃ (${step}/৩)`;
+}else{
 
+runAdSequence(4);
 
-                let t=setInterval(()=>{
+}
 
-                    wait--;
+},()=>{
 
+btn.disabled=false;
 
-                    counter.innerText=
-                        `বিরতি ${wait}সেঃ (${step}/৩)`;
+counter.innerText="বাতিল";
 
+});
 
-                    if(wait<=0){
+}
 
-                        clearInterval(t);
-
-                        runAdSequence(step+1);
-
-                    }
-
-                },1000);
-
-
-            }else{
-
-                runAdSequence(4);
-
-            }
-
-
-        },()=>{
-
-            btn.disabled=false;
-
-            counter.innerText="বাতিল";
-
-        });
-
-    }
-
-
-    runAdSequence(1);
+runAdSequence(1);
 
 }
 
@@ -2290,23 +2286,35 @@ function handleSystem2Ad(){
 
 function showAd(onSuccess,onError){
 
-    if(window.Adsgram){
+if(window.Adsgram){
 
-        const AdController=
-            window.Adsgram.init({
-                blockId:ADSGRAM_BLOCK_ID
-            });
+try{
 
+const controller=
+window.Adsgram.init({
+blockId:ADSGRAM_BLOCK_ID
+});
 
-        AdController.show()
-            .then(onSuccess)
-            .catch(onError);
+controller.show()
+.then(onSuccess)
+.catch(onError);
 
-    }else{
+}catch(error){
 
-        setTimeout(onSuccess,2000);
+console.error(error);
 
-    }
+onError();
+
+}
+
+}else{
+
+setTimeout(
+onSuccess,
+2000
+);
+
+}
 
 }
 
@@ -2317,21 +2325,21 @@ function showAd(onSuccess,onError){
 
 async function syncCoins(){
 
-    try{
+try{
 
-        await db.collection("users")
-            .doc(String(telegramUser.id))
-            .update({
+await db.collection("users")
+.doc(String(telegramUser.id))
+.update({
 
-                coins:userCoins
+coins:userCoins
 
-            });
+});
 
-    }catch(error){
+}catch(error){
 
-        console.error(error);
+console.error(error);
 
-    }
+}
 
 }
 
@@ -2342,81 +2350,73 @@ async function syncCoins(){
 
 async function handleWithdraw(e){
 
-    e.preventDefault();
+e.preventDefault();
 
+const acc=
+document.getElementById(
+"acc-number"
+).value.trim();
 
-    const acc=
-        document.getElementById("acc-number")
-        .value.trim();
+const amount=
+parseFloat(
+document.getElementById(
+"withdraw-amount"
+).value
+);
 
+const currentTaka=
+userCoins/100;
 
-    const amount=
-        parseFloat(
-            document.getElementById("withdraw-amount").value
-        );
+if(amount<1000){
 
+return alert(
+"উইথড্র করার জন্য সর্বনিম্ন ১০০০ টাকা প্রয়োজন!"
+);
 
-    const currentTaka=
-        userCoins/100;
+}
 
+if(amount>currentTaka){
 
-    if(amount<1000){
+return alert(
+"আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালেন্স নেই!"
+);
 
-        return alert(
-            "উইথড্র করার জন্য সর্বনিম্ন ১০০০ টাকা প্রয়োজন!"
-        );
+}
 
-    }
+userCoins-=amount*100;
 
+updateUI();
 
-    if(amount>currentTaka){
+await syncCoins();
 
-        return alert(
-            "আপনার অ্যাকাউন্টে পর্যাপ্ত ব্যালেন্স নেই!"
-        );
+await db.collection(
+"withdrawals"
+).add({
 
-    }
+userId:
+String(telegramUser.id),
 
+userName:
+telegramUser.first_name||"User",
 
-    userCoins-=amount*100;
+method:selectedMethod,
 
-    updateUI();
+accountNumber:acc,
 
-    syncCoins();
+amountTaka:amount,
 
+status:"pending",
 
-    await db.collection("withdrawals").add({
+requestedAt:
+firebase.firestore.FieldValue.serverTimestamp()
 
-        userId:
-            String(telegramUser.id),
+});
 
-        userName:
-            telegramUser.first_name||"User",
+alert(
+"উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!"
+);
 
-        method:
-            selectedMethod,
-
-        accountNumber:
-            acc,
-
-        amountTaka:
-            amount,
-
-        status:
-            "pending",
-
-        requestedAt:
-            firebase.firestore.FieldValue.serverTimestamp()
-
-    });
-
-
-    alert(
-        "উইথড্র রিকোয়েস্ট সফলভাবে জমা হয়েছে!"
-    );
-
-
-    loadUserHistory();
+loadUserHistory();
 
 }
 
@@ -2427,101 +2427,124 @@ async function handleWithdraw(e){
 
 async function loadUserHistory(){
 
-    const container=
-        document.getElementById("user-payout-history");
+const container=
+document.getElementById(
+"user-payout-history"
+);
 
+try{
 
-    try{
+const snap=
+await db.collection(
+"withdrawals"
+)
+.where(
+"userId",
+"==",
+String(telegramUser.id)
+)
+.get();
 
-        const snap=
-            await db.collection("withdrawals")
-            .where(
-                "userId",
-                "==",
-                String(telegramUser.id)
-            )
-            .get();
+if(snap.empty){
 
+container.innerHTML=`
+<p class="text-xs text-sky-600">
+কোনো পেমেন্ট হিস্ট্রি পাওয়া যায়নি।
+</p>`;
 
-        if(snap.empty)return;
+return;
 
+}
 
-        container.innerHTML="";
+container.innerHTML="";
 
+snap.forEach(doc=>{
 
-        snap.forEach(doc=>{
+const w=doc.data();
 
-            const w=doc.data();
+const isPaid=
+w.status==="paid";
 
-            const isPaid=
-                w.status==="paid";
+container.innerHTML+=`
 
+<div
+class="admin-card p-3 rounded-2xl flex justify-between items-center">
 
-            container.innerHTML+=`
+<div>
 
-                <div
-                    class="bg-white/30 backdrop-blur-xl p-2.5 rounded-xl border border-white/60 flex justify-between items-center shadow-sm"
-                >
+<p
+class="font-black text-sky-950">
+৳${w.amountTaka}
+</p>
 
-                    <div>
+<p
+class="text-[10px] text-sky-600">
+${String(w.method).toUpperCase()}
+-
+${escapeHtml(w.accountNumber)}
+</p>
 
-                        <p class="font-bold text-sky-900">
-                            ৳${w.amountTaka}
-                            (${String(w.method).toUpperCase()})
-                        </p>
+</div>
 
-                        <p class="text-[10px] text-sky-600 font-semibold">
-                            ${escapeHtml(w.accountNumber)}
-                        </p>
+<span
+class="px-3 py-1 text-[9px] rounded-full font-black ${
+isPaid
+?"bg-emerald-100 text-emerald-700"
+:"bg-orange-100 text-orange-700"
+}">
 
-                    </div>
+${isPaid?"PAID":"PENDING"}
 
+</span>
 
-                    <span
-                        class="glass-badge px-2 py-0.5 text-[10px] rounded-full font-bold ${
-                            isPaid
-                            ?"text-emerald-700"
-                            :"text-amber-700"
-                        }"
-                    >
-                        ${isPaid?"PAID":"PENDING"}
-                    </span>
+</div>
 
-                </div>
+`;
 
-            `;
+});
 
-        });
+}catch(error){
 
+console.error(error);
 
-    }catch(error){
-
-        console.error(error);
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   PAYMENT
+   METHOD
 ========================================================= */
 
 function setMethod(m){
 
-    selectedMethod=m;
+selectedMethod=m;
 
+const bkash=
+document.getElementById("m-bkash");
 
-    document.getElementById("m-bkash").className=
-        m==="bkash"
-        ?"py-3 rounded-xl border text-sm font-bold bg-pink-100/70 border-white/70 text-pink-700 shadow-sm backdrop-blur"
-        :"py-3 rounded-xl border text-sm font-bold bg-white/35 border-white/70 text-sky-700 shadow-sm backdrop-blur";
+const nagad=
+document.getElementById("m-nagad");
 
+bkash.className=
+"method-button";
 
-    document.getElementById("m-nagad").className=
-        m==="nagad"
-        ?"py-3 rounded-xl border text-sm font-bold bg-orange-100/70 border-white/70 text-orange-700 shadow-sm backdrop-blur"
-        :"py-3 rounded-xl border text-sm font-bold bg-white/35 border-white/70 text-sky-700 shadow-sm backdrop-blur";
+nagad.className=
+"method-button";
+
+if(m==="bkash"){
+
+bkash.classList.add(
+"bkash-active"
+);
+
+}else{
+
+nagad.classList.add(
+"nagad-active"
+);
+
+}
 
 }
 
@@ -2532,79 +2555,81 @@ function setMethod(m){
 
 function switchTab(tab){
 
-    [
-        "home",
-        "videos",
-        "profile",
-        "wallet",
-        "admin"
-    ].forEach(t=>{
+[
+"home",
+"videos",
+"profile",
+"wallet",
+"admin"
+].forEach(t=>{
 
-        const el=
-            document.getElementById(`tab-${t}`);
+const el=
+document.getElementById(
+`tab-${t}`
+);
 
-        const nav=
-            document.getElementById(`nav-${t}`);
+const nav=
+document.getElementById(
+`nav-${t}`
+);
 
+if(el&&
+!el.classList.contains(
+"admin-strictly-hidden"
+)){
 
-        if(
-            el &&
-            !el.classList.contains("admin-strictly-hidden")
-        ){
+el.classList.add("hidden");
 
-            el.classList.add("hidden");
+}
 
-        }
+if(nav&&
+!nav.classList.contains(
+"admin-strictly-hidden"
+)){
 
+nav.classList.remove("active");
 
-        if(
-            nav &&
-            !nav.classList.contains("admin-strictly-hidden")
-        ){
+}
 
-            nav.className=
-                "py-2.5 rounded-xl flex flex-col items-center space-y-1 text-sky-800";
+});
 
-        }
+const targetTab=
+document.getElementById(
+`tab-${tab}`
+);
 
-    });
+const targetNav=
+document.getElementById(
+`nav-${tab}`
+);
 
+if(targetTab){
 
-    const targetTab=
-        document.getElementById(`tab-${tab}`);
+targetTab.classList.remove(
+"hidden"
+);
 
+}
 
-    const targetNav=
-        document.getElementById(`nav-${tab}`);
+if(targetNav){
 
+targetNav.classList.add(
+"active"
+);
 
-    if(targetTab){
+}
 
-        targetTab.classList.remove("hidden");
+if(tab==="videos"){
 
-    }
+loadVideos();
 
+}
 
-    if(targetNav){
+if(tab==="admin"){
 
-        targetNav.className=
-            "nav-active py-2.5 rounded-xl flex flex-col items-center space-y-1";
+loadAdminDashboard();
 
-    }
-
-
-    if(tab==="videos"){
-
-        loadVideos();
-
-    }
-
-
-    if(tab==="admin"){
-
-        loadAdminDashboard();
-
-    }
+}
 
 }
 
@@ -2615,158 +2640,152 @@ function switchTab(tab){
 
 async function loadAdminDashboard(){
 
-    const gridEl=
-        document.getElementById("admin-user-grid");
+const gridEl=
+document.getElementById(
+"admin-user-grid"
+);
 
+const payoutEl=
+document.getElementById(
+"admin-payout-list"
+);
 
-    const payoutEl=
-        document.getElementById("admin-payout-list");
+gridEl.innerHTML="";
+payoutEl.innerHTML="";
 
+try{
 
-    gridEl.innerHTML="";
+const snapshot=
+await db.collection(
+"users"
+).get();
 
-    payoutEl.innerHTML="";
+let total=
+snapshot.size;
 
+let active=0;
 
-    try{
+const now=
+new Date();
 
-        const snapshot=
-            await db.collection("users").get();
+snapshot.forEach(doc=>{
 
+const u=doc.data();
 
-        let total=snapshot.size;
+if(
+u.lastActive &&
+(now-u.lastActive.toDate())<
+600000
+){
 
-        let active=0;
+active++;
 
+}
 
-        const now=new Date();
+gridEl.innerHTML+=`
 
+<div
+class="admin-card p-3 rounded-2xl flex justify-between items-center">
 
-        snapshot.forEach(doc=>{
+<div>
 
-            const u=doc.data();
+<p
+class="font-black text-sky-950 text-xs">
+${escapeHtml(u.name)}
+</p>
 
+<p
+class="text-[9px] text-sky-600 font-mono">
+ID: ${escapeHtml(u.id)}
+</p>
 
-            if(
-                u.lastActive &&
-                (now-u.lastActive.toDate())<600000
-            ){
+</div>
 
-                active++;
+<span
+class="text-sky-700 font-black text-xs">
+${u.coins||0} Pts
+</span>
 
-            }
+</div>
 
+`;
 
-            gridEl.innerHTML+=`
+});
 
-                <div
-                    class="bg-white/30 backdrop-blur-xl border border-white/60 p-2.5 rounded-xl flex justify-between items-center shadow-sm"
-                >
+const wSnap=
+await db.collection(
+"withdrawals"
+)
+.where(
+"status",
+"==",
+"pending"
+)
+.get();
 
-                    <div>
+if(wSnap.empty){
 
-                        <p class="font-bold text-sky-900 text-xs">
-                            ${escapeHtml(u.name)}
-                        </p>
+payoutEl.innerHTML=`
+<p class="text-xs text-sky-700">
+কোনো পেন্ডিং উইথড্র নেই।
+</p>`;
 
-                        <p class="text-[10px] text-sky-600 font-mono">
-                            ID: ${escapeHtml(u.id)}
-                        </p>
+}else{
 
-                    </div>
+wSnap.forEach(doc=>{
 
-                    <span class="text-sky-700 font-bold text-xs">
-                        ${u.coins||0} Pts
-                    </span>
+const w=doc.data();
 
-                </div>
+payoutEl.innerHTML+=`
 
-            `;
+<div
+class="admin-card p-3 rounded-2xl flex justify-between items-center">
 
-        });
+<div>
 
+<p
+class="font-black text-sky-950 text-xs">
+৳${w.amountTaka}
+-
+${String(w.method).toUpperCase()}
+</p>
 
-        const wSnap=
-            await db.collection("withdrawals")
-            .where("status","==","pending")
-            .get();
+<p
+class="text-[9px] text-sky-700">
+${escapeHtml(w.accountNumber)}
+</p>
 
+</div>
 
-        if(wSnap.empty){
+<button
+onclick="markAsPaid('${doc.id}')"
+class="bg-emerald-500 text-white px-3 py-2 rounded-xl text-[9px] font-black">
+PAID
+</button>
 
-            payoutEl.innerHTML=`
+</div>
 
-                <p class="text-[11px] text-sky-700">
-                    কোনো পেন্ডিং উইথড্র নেই।
-                </p>
+`;
 
-            `;
+});
 
-        }else{
+}
 
-            wSnap.forEach(doc=>{
+document.getElementById(
+"admin-total-users"
+).innerText=total;
 
-                const w=doc.data();
+document.getElementById(
+"admin-active-users"
+).innerText=active;
 
+loadAdminVideos();
 
-                payoutEl.innerHTML+=`
+}catch(error){
 
-                    <div
-                        class="bg-white/35 backdrop-blur-xl p-2.5 rounded-xl border border-white/60 flex justify-between items-center shadow-sm"
-                    >
+console.error(error);
 
-                        <div>
-
-                            <p class="font-bold text-sky-900 text-xs">
-                                ৳${w.amountTaka}
-                                -
-                                ${String(w.method).toUpperCase()}
-                            </p>
-
-                            <p class="text-[10px] text-sky-700">
-                                নম্বর:
-                                ${escapeHtml(w.accountNumber)}
-                                (ID:
-                                ${escapeHtml(w.userId)})
-                            </p>
-
-                        </div>
-
-
-                        <button
-                            onclick="markAsPaid('${doc.id}')"
-                            class="bg-emerald-500/90 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold shadow border border-white/40"
-                        >
-                            PAID
-                        </button>
-
-                    </div>
-
-                `;
-
-            });
-
-        }
-
-
-        document.getElementById(
-            "admin-total-users"
-        ).innerText=total;
-
-
-        document.getElementById(
-            "admin-active-users"
-        ).innerText=active;
-
-
-        loadAdminVideos();
-
-
-    }catch(error){
-
-        console.error(error);
-
-    }
+}
 
 }
 
@@ -2777,19 +2796,19 @@ async function loadAdminDashboard(){
 
 async function markAsPaid(docId){
 
-    await db.collection("withdrawals")
-        .doc(docId)
-        .update({
-            status:"paid"
-        });
+await db.collection(
+"withdrawals"
+)
+.doc(docId)
+.update({
+status:"paid"
+});
 
+alert(
+"পেমেন্ট সফল হিসেবে চিহ্নিত করা হয়েছে!"
+);
 
-    alert(
-        "পেমেন্ট সফল হিসেবে চিহ্নিত করা হয়েছে!"
-    );
-
-
-    loadAdminDashboard();
+loadAdminDashboard();
 
 }
 
@@ -2800,23 +2819,24 @@ async function markAsPaid(docId){
 
 function copyRefLink(){
 
-    const myRefLink=
-        `${CUSTOM_REF_BASE}?start=${telegramUser.id}`;
+const link=
+`${CUSTOM_REF_BASE}?start=${telegramUser.id}`;
 
+navigator.clipboard.writeText(link)
+.then(()=>{
 
-    navigator.clipboard.writeText(myRefLink)
+alert(
+"রেফারেল লিংক কপি হয়েছে!"
+);
 
-        .then(()=>{
+})
+.catch(()=>{
 
-            alert("রেফারেল লিংক কপি হয়েছে!");
+alert(
+"লিংক কপি করা যায়নি!"
+);
 
-        })
-
-        .catch(()=>{
-
-            alert("লিংক কপি করা যায়নি!");
-
-        });
+});
 
 }
 
@@ -2827,71 +2847,69 @@ function copyRefLink(){
 
 function changeAppName(){
 
-    const newName=
-        document.getElementById("admin-app-name-input")
-        .value.trim();
+const newName=
+document.getElementById(
+"admin-app-name-input"
+).value.trim();
 
+if(newName){
 
-    if(newName){
+document.getElementById(
+"app-title-display"
+).innerText=
+newName;
 
-        document.getElementById(
-            "app-title-display"
-        ).innerText=newName;
+alert(
+"অ্যাপের নাম পরিবর্তন সফল হয়েছে!"
+);
 
-
-        alert(
-            "অ্যাপের নাম পরিবর্তন সফল হয়েছে!"
-        );
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   KICK USER
+   KICK
 ========================================================= */
 
 async function kickUser(){
 
-    const uid=
-        document.getElementById("kick-user-id")
-        .value.trim();
+const uid=
+document.getElementById(
+"kick-user-id"
+).value.trim();
 
+if(!uid){
 
-    if(!uid){
+return alert(
+"ইউজার আইডি দিন!"
+);
 
-        return alert(
-            "ইউজার আইডি দিন!"
-        );
+}
 
-    }
+try{
 
+await db.collection(
+"users"
+)
+.doc(uid)
+.update({
+isBanned:true
+});
 
-    try{
+alert(
+"ইউজার ব্যান করা হয়েছে!"
+);
 
-        await db.collection("users")
-            .doc(uid)
-            .update({
-                isBanned:true
-            });
+loadAdminDashboard();
 
+}catch(error){
 
-        alert(
-            "ইউজার ব্যান করা হয়েছে!"
-        );
+alert(
+"ইউজার পাওয়া যায়নি!"
+);
 
-
-        loadAdminDashboard();
-
-
-    }catch(err){
-
-        alert(
-            "ইউজার পাওয়া যায়নি!"
-        );
-
-    }
+}
 
 }
 
@@ -2900,117 +2918,116 @@ async function kickUser(){
    FILE SELECT
 ========================================================= */
 
-document
-    .getElementById("video-file")
-    .addEventListener(
-        "change",
-        function(){
+document.getElementById(
+"video-file"
+).addEventListener(
+"change",
+function(){
 
-            const file=this.files[0];
+const file=this.files[0];
 
+if(file){
 
-            if(file){
+document.getElementById(
+"video-file-name"
+).innerText=
+`নির্বাচিত: ${file.name}`;
 
-                document.getElementById(
-                    "video-file-name"
-                ).innerText=
-                    `নির্বাচিত: ${file.name}`;
+}else{
 
-            }else{
+document.getElementById(
+"video-file-name"
+).innerText=
+"কোনো ভিডিও নির্বাচন করা হয়নি";
 
-                document.getElementById(
-                    "video-file-name"
-                ).innerText=
-                    "কোনো ভিডিও নির্বাচন করা হয়নি";
+}
 
-            }
-
-        }
-    );
+});
 
 
 /* =========================================================
    TELEGRAM API
 ========================================================= */
 
-async function telegramApi(method,formData){
+async function telegramApi(
+method,
+formData
+){
 
-    const url=
-        `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/${method}`;
+const url=
+`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/${method}`;
 
+const response=
+await fetch(url,{
+method:"POST",
+body:formData
+});
 
-    const response=
-        await fetch(url,{
-            method:"POST",
-            body:formData
-        });
+const data=
+await response.json();
 
+if(!data.ok){
 
-    const data=
-        await response.json();
+throw new Error(
+data.description||
+"Telegram API Error"
+);
 
+}
 
-    if(!data.ok){
-
-        throw new Error(
-            data.description||"Telegram API Error"
-        );
-
-    }
-
-
-    return data.result;
+return data.result;
 
 }
 
 
 /* =========================================================
-   UPLOAD VIDEO
+   TELEGRAM VIDEO UPLOAD
 ========================================================= */
 
-async function uploadVideoToTelegram(file,title){
+async function uploadVideoToTelegram(
+file,
+title
+){
 
-    if(file.size>MAX_TELEGRAM_VIDEO_SIZE){
+if(
+file.size>
+MAX_TELEGRAM_VIDEO_SIZE
+){
 
-        throw new Error(
-            "এই direct Telegram version-এ সর্বোচ্চ 20MB ভিডিও দেওয়া যাবে।"
-        );
+throw new Error(
+"এই direct Telegram version-এ সর্বোচ্চ 20MB ভিডিও দেওয়া যাবে।"
+);
 
-    }
+}
 
+const formData=
+new FormData();
 
-    const formData=new FormData();
+formData.append(
+"chat_id",
+TELEGRAM_CHANNEL
+);
 
+formData.append(
+"video",
+file,
+file.name
+);
 
-    formData.append(
-        "chat_id",
-        TELEGRAM_CHANNEL
-    );
+formData.append(
+"caption",
+`🎬 ${title}\n\nFXO Video`
+);
 
+formData.append(
+"supports_streaming",
+"true"
+);
 
-    formData.append(
-        "video",
-        file,
-        file.name
-    );
-
-
-    formData.append(
-        "caption",
-        `🎬 ${title}\n\nFXO Video`
-    );
-
-
-    formData.append(
-        "supports_streaming",
-        "true"
-    );
-
-
-    return await telegramApi(
-        "sendVideo",
-        formData
-    );
+return await telegramApi(
+"sendVideo",
+formData
+);
 
 }
 
@@ -3021,260 +3038,234 @@ async function uploadVideoToTelegram(file,title){
 
 async function addVideo(){
 
-    const title=
-        document.getElementById("video-title")
-        .value.trim();
+const title=
+document.getElementById(
+"video-title"
+).value.trim();
 
+const videoFile=
+document.getElementById(
+"video-file"
+).files[0];
 
-    const videoFile=
-        document.getElementById("video-file")
-        .files[0];
+const thumbnailUrl=
+document.getElementById(
+"video-thumbnail"
+).value.trim();
 
+const adsRequired=
+parseInt(
+document.getElementById(
+"video-ads-count"
+).value
+);
 
-    const thumbnailUrl=
-        document.getElementById("video-thumbnail")
-        .value.trim();
+if(!title){
 
+return alert(
+"ভিডিওর নাম দিন!"
+);
 
-    const adsRequired=
-        parseInt(
-            document.getElementById("video-ads-count")
-            .value
-        );
+}
 
+if(!videoFile){
 
-    if(!title){
+return alert(
+"Gallery থেকে ভিডিও নির্বাচন করুন!"
+);
 
-        alert("ভিডিওর নাম দিন!");
+}
 
-        return;
+if(!videoFile.type.startsWith(
+"video/"
+)){
 
-    }
+return alert(
+"শুধু ভিডিও ফাইল নির্বাচন করুন!"
+);
 
+}
 
-    if(!videoFile){
+if(
+videoFile.size>
+MAX_TELEGRAM_VIDEO_SIZE
+){
 
-        alert(
-            "Gallery থেকে ভিডিও নির্বাচন করুন!"
-        );
+return alert(
+"ভিডিও 20MB-এর বেশি।"
+);
 
-        return;
+}
 
-    }
+const btn=
+document.getElementById(
+"add-video-btn"
+);
 
+const uploadArea=
+document.getElementById(
+"video-upload-area"
+);
 
-    if(!videoFile.type.startsWith("video/")){
+const progress=
+document.getElementById(
+"video-upload-progress"
+);
 
-        alert(
-            "শুধু ভিডিও ফাইল নির্বাচন করুন!"
-        );
+const percent=
+document.getElementById(
+"video-upload-percent"
+);
 
-        return;
+const status=
+document.getElementById(
+"upload-status-text"
+);
 
-    }
+btn.disabled=true;
 
+btn.innerText=
+"Telegram-এ Upload হচ্ছে...";
 
-    if(videoFile.size>MAX_TELEGRAM_VIDEO_SIZE){
+uploadArea.classList.remove(
+"hidden"
+);
 
-        alert(
-            "ভিডিও 20MB-এর বেশি।\n\n" +
-            "এই direct Telegram version-এ সর্বোচ্চ 20MB ভিডিও upload করা যাবে।"
-        );
+progress.style.width="0%";
 
-        return;
+percent.innerText=
+"Uploading...";
 
-    }
+try{
 
+status.innerText=
+"Telegram-এ ভিডিও পাঠানো হচ্ছে...";
 
-    const btn=
-        document.getElementById("add-video-btn");
+const message=
+await uploadVideoToTelegram(
+videoFile,
+title
+);
 
+progress.style.width=
+"100%";
 
-    const uploadArea=
-        document.getElementById("video-upload-area");
+percent.innerText=
+"100%";
 
+status.innerText=
+"Telegram Upload সম্পন্ন ✓";
 
-    const progress=
-        document.getElementById(
-            "video-upload-progress"
-        );
+const telegramVideo=
+message.video||{};
 
+const fileId=
+telegramVideo.file_id||"";
 
-    const percent=
-        document.getElementById(
-            "video-upload-percent"
-        );
+const uniqueId=
+telegramVideo.file_unique_id||"";
 
+const messageId=
+message.message_id||null;
 
-    const status=
-        document.getElementById(
-            "upload-status-text"
-        );
 
+await db.collection(
+"videos"
+).add({
 
-    btn.disabled=true;
+title:title,
 
-    btn.innerText=
-        "Telegram-এ Upload হচ্ছে...";
+thumbnailUrl:
+thumbnailUrl||"",
 
+adsRequired:
+adsRequired,
 
-    uploadArea.classList.remove("hidden");
+active:true,
 
-    progress.style.width="0%";
+telegramChannel:
+TELEGRAM_CHANNEL,
 
-    percent.innerText=
-        "প্রস্তুত হচ্ছে...";
+telegramMessageId:
+messageId,
 
+telegramFileId:
+fileId,
 
-    try{
+telegramFileUniqueId:
+uniqueId,
 
-        status.innerText=
-            "Telegram-এ ভিডিও পাঠানো হচ্ছে...";
+telegramFileName:
+videoFile.name,
 
+telegramFileSize:
+videoFile.size,
 
-        percent.innerText=
-            "Uploading...";
+mimeType:
+videoFile.type,
 
+createdAt:
+firebase.firestore.FieldValue.serverTimestamp(),
 
-        const message=
-            await uploadVideoToTelegram(
-                videoFile,
-                title
-            );
+addedBy:
+String(telegramUser.id)
 
+});
 
-        progress.style.width="100%";
 
-        percent.innerText="100%";
+alert(
+"ভিডিও Telegram Channel-এ Upload হয়েছে এবং FXO-তে প্রকাশ হয়েছে! 🎬"
+);
 
 
-        status.innerText=
-            "Telegram Upload সম্পন্ন হয়েছে ✓";
+/* CLEAR */
 
+document.getElementById(
+"video-title"
+).value="";
 
-        const telegramVideo=
-            message.video||{};
+document.getElementById(
+"video-file"
+).value="";
 
+document.getElementById(
+"video-thumbnail"
+).value="";
 
-        const fileId=
-            telegramVideo.file_id||"";
+document.getElementById(
+"video-file-name"
+).innerText=
+"কোনো ভিডিও নির্বাচন করা হয়নি";
 
+uploadArea.classList.add(
+"hidden"
+);
 
-        const uniqueId=
-            telegramVideo.file_unique_id||"";
+loadAdminVideos();
 
+loadVideos();
 
-        const messageId=
-            message.message_id||null;
+}catch(error){
 
+console.error(error);
 
-        await db.collection("videos").add({
+alert(
+"ভিডিও Upload করা যায়নি!\n\n"+
+error.message
+);
 
-            title:title,
+uploadArea.classList.add(
+"hidden"
+);
 
-            thumbnailUrl:
-                thumbnailUrl||"",
+}finally{
 
-            adsRequired:
-                adsRequired,
+btn.disabled=false;
 
-            active:true,
+btn.innerText=
+"+ ভিডিও প্রকাশ করুন";
 
-            telegramChannel:
-                TELEGRAM_CHANNEL,
-
-            telegramMessageId:
-                messageId,
-
-            telegramFileId:
-                fileId,
-
-            telegramFileUniqueId:
-                uniqueId,
-
-            telegramFileName:
-                videoFile.name,
-
-            telegramFileSize:
-                videoFile.size,
-
-            mimeType:
-                videoFile.type,
-
-            createdAt:
-                firebase.firestore.FieldValue.serverTimestamp(),
-
-            addedBy:
-                String(telegramUser.id)
-
-        });
-
-
-        alert(
-            "ভিডিও Telegram Channel-এ Upload হয়েছে এবং FXO-তে প্রকাশ হয়েছে! 🎬"
-        );
-
-
-        document.getElementById(
-            "video-title"
-        ).value="";
-
-
-        document.getElementById(
-            "video-file"
-        ).value="";
-
-
-        document.getElementById(
-            "video-thumbnail"
-        ).value="";
-
-
-        document.getElementById(
-            "video-file-name"
-        ).innerText=
-            "কোনো ভিডিও নির্বাচন করা হয়নি";
-
-
-        uploadArea.classList.add(
-            "hidden"
-        );
-
-
-        progress.style.width="0%";
-
-        percent.innerText="0%";
-
-
-        loadAdminVideos();
-
-        loadVideos();
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        alert(
-            "ভিডিও Upload করা যায়নি!\n\n"+
-            error.message
-        );
-
-
-        uploadArea.classList.add(
-            "hidden"
-        );
-
-
-    }finally{
-
-        btn.disabled=false;
-
-        btn.innerText=
-            "+ ভিডিও প্রকাশ করুন";
-
-    }
+}
 
 }
 
@@ -3285,391 +3276,339 @@ async function addVideo(){
 
 async function loadAdminVideos(){
 
-    const container=
-        document.getElementById(
-            "admin-video-list"
-        );
+const container=
+document.getElementById(
+"admin-video-list"
+);
 
+if(!container)return;
 
-    if(!container)return;
+container.innerHTML=`
+<p class="text-xs text-sky-600">
+ভিডিও লোড হচ্ছে...
+</p>`;
 
+try{
 
-    container.innerHTML=`
+const snap=
+await db.collection(
+"videos"
+)
+.where(
+"active",
+"==",
+true
+)
+.get();
 
-        <p class="text-xs text-sky-600">
-            ভিডিও লোড হচ্ছে...
-        </p>
+if(snap.empty){
 
-    `;
+container.innerHTML=`
+<p class="text-xs text-sky-600">
+কোনো ভিডিও নেই।
+</p>`;
 
+return;
 
-    try{
+}
 
-        const snap=
-            await db.collection("videos")
-            .where("active","==",true)
-            .get();
+const videos=[];
 
+snap.forEach(doc=>{
 
-        if(snap.empty){
+videos.push({
+id:doc.id,
+...doc.data()
+});
 
-            container.innerHTML=`
+});
 
-                <p class="text-xs text-sky-600">
-                    কোনো ভিডিও নেই।
-                </p>
+videos.sort((a,b)=>{
 
-            `;
+const aTime=
+a.createdAt?.toMillis?.()||0;
 
-            return;
+const bTime=
+b.createdAt?.toMillis?.()||0;
 
-        }
+return bTime-aTime;
 
+});
 
-        const videos=[];
+container.innerHTML="";
 
+videos.forEach(v=>{
 
-        snap.forEach(doc=>{
+container.innerHTML+=`
 
-            videos.push({
-                id:doc.id,
-                ...doc.data()
-            });
+<div
+class="admin-card p-3 rounded-2xl">
 
-        });
+<div class="flex justify-between gap-2">
 
+<div class="min-w-0">
 
-        videos.sort((a,b)=>{
+<p
+class="font-black text-sky-950 text-sm truncate">
+${escapeHtml(v.title)}
+</p>
 
-            const aTime=
-                a.createdAt?.toMillis?.()||0;
+<p
+class="text-[10px] text-sky-600 mt-1">
+${v.adsRequired||1} Ads লাগবে
+</p>
 
-            const bTime=
-                b.createdAt?.toMillis?.()||0;
+<p
+class="text-[9px] text-emerald-600 mt-1 font-bold">
+Telegram ✓
+</p>
 
-            return bTime-aTime;
+</div>
 
-        });
+<button
+onclick="deleteVideo('${v.id}')"
+class="bg-red-500 text-white px-3 py-2 rounded-xl text-[9px] font-black shrink-0">
+DELETE
+</button>
 
+</div>
 
-        container.innerHTML="";
+</div>
 
+`;
 
-        videos.forEach(v=>{
+});
 
-            container.innerHTML+=`
+}catch(error){
 
-                <div
-                    class="bg-white/30 backdrop-blur-xl border border-white/60 p-3 rounded-xl"
-                >
+console.error(error);
 
-                    <div class="flex justify-between gap-2">
-
-                        <div class="min-w-0">
-
-                            <p
-                                class="font-bold text-sky-900 text-sm truncate"
-                            >
-                                ${escapeHtml(v.title)}
-                            </p>
-
-                            <p
-                                class="text-[10px] text-sky-600 mt-1"
-                            >
-                                ${v.adsRequired||1} Ads লাগবে
-                            </p>
-
-                            <p
-                                class="text-[9px] text-emerald-600 mt-1"
-                            >
-                                Telegram ✓
-                            </p>
-
-                        </div>
-
-
-                        <button
-                            onclick="deleteVideo('${v.id}')"
-                            class="bg-red-500/85 text-white px-3 py-1 rounded-lg text-[10px] font-bold shrink-0 border border-white/40"
-                        >
-                            DELETE
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        container.innerHTML=`
-
-            <p class="text-xs text-red-600">
-                ভিডিও লোড করা যায়নি।
-            </p>
-
-        `;
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   USER VIDEO LIST
+   USER VIDEOS
 ========================================================= */
 
 async function loadVideos(){
 
-    const container=
-        document.getElementById(
-            "video-list"
-        );
+const container=
+document.getElementById(
+"video-list"
+);
 
+if(!container)return;
 
-    if(!container)return;
+container.innerHTML=`
 
+<div
+class="liquid-glass rounded-2xl p-5 text-center">
 
-    container.innerHTML=`
+<p class="text-sm text-sky-600">
+ভিডিও লোড হচ্ছে...
+</p>
 
-        <div class="liquid-glass rounded-2xl p-5 text-center">
+</div>`;
 
-            <p class="text-sm text-sky-600">
-                ভিডিও লোড হচ্ছে...
-            </p>
+try{
 
-        </div>
+const snap=
+await db.collection(
+"videos"
+)
+.where(
+"active",
+"==",
+true
+)
+.get();
 
-    `;
+if(snap.empty){
 
+container.innerHTML=`
 
-    try{
+<div
+class="liquid-glass rounded-2xl p-5 text-center">
 
-        const snap=
-            await db.collection("videos")
-            .where("active","==",true)
-            .get();
+<p class="text-sm text-sky-600">
+এখনো কোনো ভিডিও প্রকাশ করা হয়নি।
+</p>
 
+</div>`;
 
-        if(snap.empty){
+return;
 
-            container.innerHTML=`
+}
 
-                <div class="liquid-glass rounded-2xl p-5 text-center">
+const videos=[];
 
-                    <div class="glass-badge inline-flex p-3 rounded-2xl mb-3">
+snap.forEach(doc=>{
 
-                        <i
-                            data-lucide="video-off"
-                            class="w-6 h-6 text-sky-600"
-                        ></i>
+videos.push({
+id:doc.id,
+...doc.data()
+});
 
-                    </div>
+});
 
-                    <p class="text-sm text-sky-600">
-                        এখনো কোনো ভিডিও প্রকাশ করা হয়নি।
-                    </p>
+videos.sort((a,b)=>{
 
-                </div>
+const aTime=
+a.createdAt?.toMillis?.()||0;
 
-            `;
+const bTime=
+b.createdAt?.toMillis?.()||0;
 
-            lucide.createIcons();
+return bTime-aTime;
 
-            return;
+});
 
-        }
+container.innerHTML="";
 
+videos.forEach(v=>{
 
-        const videos=[];
+let thumbnail="";
 
+if(v.thumbnailUrl){
 
-        snap.forEach(doc=>{
+thumbnail=`
 
-            videos.push({
-                id:doc.id,
-                ...doc.data()
-            });
+<img
+src="${escapeHtml(v.thumbnailUrl)}"
+class="video-thumb rounded-t-[22px]"
+onerror="this.style.display='none'">
 
-        });
+`;
 
+}else{
 
-        videos.sort((a,b)=>{
+thumbnail=`
 
-            const aTime=
-                a.createdAt?.toMillis?.()||0;
+<div
+class="video-placeholder rounded-t-[22px]">
 
-            const bTime=
-                b.createdAt?.toMillis?.()||0;
+<div
+class="w-16 h-16 rounded-full bg-white/25 border border-white/50 flex items-center justify-center">
 
-            return bTime-aTime;
+<i
+data-lucide="play"
+class="w-8 h-8 text-white"
+style="fill:white">
+</i>
 
-        });
+</div>
 
+</div>
 
-        container.innerHTML="";
+`;
 
+}
 
-        videos.forEach(v=>{
+container.innerHTML+=`
 
-            let thumbnail;
+<div class="video-card">
 
+${thumbnail}
 
-            if(v.thumbnailUrl){
+<div class="p-4">
 
-                thumbnail=`
+<div class="flex justify-between gap-3">
 
-                    <img
-                        src="${escapeHtml(v.thumbnailUrl)}"
-                        class="video-thumb w-full rounded-xl"
-                        onerror="this.style.display='none'"
-                    >
+<div class="min-w-0">
 
-                `;
+<h3
+class="font-black text-sky-950 text-base truncate">
+${escapeHtml(v.title)}
+</h3>
 
-            }else{
+<p
+class="text-[11px] text-sky-600 mt-1">
+🔒 ${v.adsRequired||1}টি বিজ্ঞাপন সম্পূর্ণ করুন
+</p>
 
-                thumbnail=`
+</div>
 
-                    <div
-                        class="video-thumb w-full rounded-xl bg-gradient-to-br from-sky-500/80 to-blue-600/80 flex items-center justify-center"
-                    >
+<div
+class="shrink-0 w-9 h-9 rounded-xl bg-white/45 border border-white/70 flex items-center justify-center">
 
-                        <div
-                            class="bg-white/25 backdrop-blur-md p-4 rounded-full border border-white/60 shadow-xl"
-                        >
+<i
+data-lucide="lock-keyhole"
+class="w-4 h-4 text-sky-600">
+</i>
 
-                            <i
-                                data-lucide="play"
-                                class="w-9 h-9 text-white fill-white"
-                            ></i>
+</div>
 
-                        </div>
+</div>
 
-                    </div>
+<button
+onclick="watchVideo('${v.id}')"
+class="glass-button w-full mt-4 py-3 text-white font-black rounded-2xl">
 
-                `;
+▶ ভিডিও দেখুন
 
-            }
+</button>
 
+</div>
 
-            container.innerHTML+=`
+</div>
 
-                <div
-                    class="video-glass-card p-3 shadow-lg"
-                >
+`;
 
-                    ${thumbnail}
+});
 
+lucide.createIcons();
 
-                    <div class="pt-3">
+}catch(error){
 
-                        <div class="flex items-start justify-between gap-2">
+console.error(error);
 
-                            <div class="min-w-0">
+container.innerHTML=`
 
-                                <h3
-                                    class="font-bold text-sky-900 text-base truncate"
-                                >
-                                    ${escapeHtml(v.title)}
-                                </h3>
+<div class="liquid-glass rounded-2xl p-5">
 
-                                <p
-                                    class="text-xs text-sky-600 mt-1"
-                                >
-                                    🔒 ${v.adsRequired||1} টি বিজ্ঞাপন সম্পূর্ণ করুন
-                                </p>
+<p class="text-sm text-red-600">
+ভিডিও লোড করতে সমস্যা হয়েছে।
+</p>
 
-                            </div>
+</div>`;
 
-                            <span
-                                class="glass-badge text-[10px] px-2 py-1 rounded-full text-sky-700 shrink-0"
-                            >
-                                ${v.adsRequired||1} Ads
-                            </span>
-
-                        </div>
-
-
-                        <button
-                            onclick="watchVideo('${v.id}')"
-                            class="glass-button w-full mt-3 py-3 font-bold rounded-xl"
-                        >
-                            ▶ ভিডিও দেখুন
-                        </button>
-
-                    </div>
-
-                </div>
-
-            `;
-
-        });
-
-
-        lucide.createIcons();
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        container.innerHTML=`
-
-            <div class="liquid-glass rounded-2xl p-5">
-
-                <p class="text-sm text-red-600">
-                    ভিডিও লোড করতে সমস্যা হয়েছে।
-                </p>
-
-            </div>
-
-        `;
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   GET TELEGRAM FILE URL
+   TELEGRAM FILE URL
 ========================================================= */
 
-async function getTelegramFileUrl(fileId){
+async function getTelegramFileUrl(
+fileId
+){
 
-    const response=
-        await fetch(
-            `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getFile?file_id=${encodeURIComponent(fileId)}`
-        );
+const response=
+await fetch(
+`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getFile?file_id=${encodeURIComponent(fileId)}`
+);
 
+const data=
+await response.json();
 
-    const data=
-        await response.json();
+if(!data.ok){
 
+throw new Error(
+data.description||
+"Telegram file পাওয়া যায়নি"
+);
 
-    if(!data.ok){
+}
 
-        throw new Error(
-            data.description||
-            "Telegram file পাওয়া যায়নি"
-        );
+const filePath=
+data.result.file_path;
 
-    }
-
-
-    const filePath=
-        data.result.file_path;
-
-
-    return `https://api.telegram.org/file/bot${TELEGRAM_BOT_TOKEN}/${filePath}`;
+return
+`https://api.telegram.org/file/bot${TELEGRAM_BOT_TOKEN}/${filePath}`;
 
 }
 
@@ -3678,52 +3617,51 @@ async function getTelegramFileUrl(fileId){
    WATCH VIDEO
 ========================================================= */
 
-async function watchVideo(videoId){
+async function watchVideo(
+videoId
+){
 
-    try{
+try{
 
-        const doc=
-            await db.collection("videos")
-            .doc(videoId)
-            .get();
+const doc=
+await db.collection(
+"videos"
+)
+.doc(videoId)
+.get();
 
+if(!doc.exists){
 
-        if(!doc.exists){
+return alert(
+"ভিডিও পাওয়া যায়নি!"
+);
 
-            alert(
-                "ভিডিও পাওয়া যায়নি!"
-            );
+}
 
-            return;
+const video=
+doc.data();
 
-        }
+const adsRequired=
+Number(
+video.adsRequired||1
+);
 
+await runVideoAds(
+adsRequired,
+video.telegramFileId,
+video.title
+);
 
-        const video=doc.data();
+}catch(error){
 
+console.error(error);
 
-        const adsRequired=
-            Number(video.adsRequired||1);
+alert(
+"ভিডিও চালু করা যায়নি!\n"+
+error.message
+);
 
-
-        await runVideoAds(
-            adsRequired,
-            video.telegramFileId,
-            video.title
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        alert(
-            "ভিডিও চালু করা যায়নি!\n"+
-            error.message
-        );
-
-    }
+}
 
 }
 
@@ -3733,175 +3671,159 @@ async function watchVideo(videoId){
 ========================================================= */
 
 async function runVideoAds(
-    totalAds,
-    telegramFileId,
-    title
+totalAds,
+telegramFileId,
+title
 ){
 
-    for(
-        let i=1;
-        i<=totalAds;
-        i++
-    ){
+for(
+let i=1;
+i<=totalAds;
+i++
+){
 
-        if(i>1){
+if(i>1){
 
-            await videoAdTimer(10);
+await videoAdTimer(10);
 
-        }
+}
 
+const success=
+await showVideoAd();
 
-        const success=
-            await showVideoAd();
+if(!success){
 
+alert(
+"বিজ্ঞাপন সম্পূর্ণ হয়নি।\nভিডিও চালু করা যাবে না।"
+);
 
-        if(!success){
+return;
 
-            alert(
-                "বিজ্ঞাপন সম্পূর্ণ হয়নি।\nভিডিও চালু করা যাবে না।"
-            );
+}
 
-            return;
+}
 
-        }
+try{
 
-    }
+const videoUrl=
+await getTelegramFileUrl(
+telegramFileId
+);
 
+openVideoPlayer(
+videoUrl,
+title
+);
 
-    try{
+}catch(error){
 
-        const videoUrl=
-            await getTelegramFileUrl(
-                telegramFileId
-            );
+console.error(error);
 
+alert(
+"Telegram থেকে ভিডিও নেওয়া যায়নি।\n\n"+
+error.message
+);
 
-        openVideoPlayer(
-            videoUrl,
-            title
-        );
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        alert(
-            "Telegram থেকে ভিডিও নেওয়া যায়নি।\n\n"+
-            error.message
-        );
-
-    }
+}
 
 }
 
 
 /* =========================================================
-   VIDEO AD TIMER
+   VIDEO TIMER
 ========================================================= */
 
-function videoAdTimer(seconds){
+function videoAdTimer(
+seconds
+){
 
-    return new Promise(resolve=>{
+return new Promise(resolve=>{
 
-        let remaining=seconds;
+let remaining=seconds;
 
+const overlay=
+document.createElement("div");
 
-        const overlay=
-            document.createElement("div");
+overlay.id=
+"video-ad-timer";
 
+overlay.className=
+"fixed inset-0 z-[100] flex items-center justify-center p-5";
 
-        overlay.id=
-            "video-ad-timer";
+overlay.style.background=
+"rgba(3,20,35,.55)";
 
+overlay.style.backdropFilter=
+"blur(15px)";
 
-        overlay.className=
-            "fixed inset-0 z-[100] flex items-center justify-center bg-sky-950/55 backdrop-blur-xl p-5";
+overlay.innerHTML=`
 
+<div
+class="glass-modal rounded-[28px] p-7 text-center max-w-xs w-full">
 
-        overlay.innerHTML=`
+<div
+class="w-16 h-16 mx-auto rounded-full bg-white/45 border border-white/70 flex items-center justify-center">
 
-            <div
-                class="glass-modal rounded-3xl p-7 text-center max-w-xs w-full"
-            >
+<i
+data-lucide="timer"
+class="w-8 h-8 text-sky-600">
+</i>
 
-                <div
-                    class="glass-badge inline-flex p-3 rounded-full mb-3"
-                >
+</div>
 
-                    <i
-                        data-lucide="sparkles"
-                        class="w-6 h-6 text-sky-600"
-                    ></i>
+<div
+class="text-sky-950 font-black text-lg mt-4">
+পরবর্তী বিজ্ঞাপন
+</div>
 
-                </div>
+<div
+id="video-timer-number"
+class="text-6xl font-black text-sky-600 my-4">
+${remaining}
+</div>
 
+<p class="text-xs text-sky-700">
+অনুগ্রহ করে অপেক্ষা করুন...
+</p>
 
-                <div
-                    class="text-sky-800 font-bold text-lg"
-                >
-                    পরবর্তী বিজ্ঞাপন প্রস্তুত হচ্ছে
-                </div>
+</div>`;
 
+document.body.appendChild(
+overlay
+);
 
-                <div
-                    id="video-timer-number"
-                    class="text-5xl font-black text-sky-900 my-5"
-                >
-                    ${remaining}
-                </div>
+lucide.createIcons();
 
+const timer=
+setInterval(()=>{
 
-                <p class="text-xs text-sky-600">
-                    অনুগ্রহ করে অপেক্ষা করুন...
-                </p>
+remaining--;
 
-            </div>
+const number=
+document.getElementById(
+"video-timer-number"
+);
 
-        `;
+if(number){
 
+number.innerText=
+remaining;
 
-        document.body.appendChild(
-            overlay
-        );
+}
 
+if(remaining<=0){
 
-        lucide.createIcons();
+clearInterval(timer);
 
+overlay.remove();
 
-        const timer=setInterval(()=>{
+resolve();
 
-            remaining--;
+}
 
+},1000);
 
-            const number=
-                document.getElementById(
-                    "video-timer-number"
-                );
-
-
-            if(number){
-
-                number.innerText=
-                    remaining;
-
-            }
-
-
-            if(remaining<=0){
-
-                clearInterval(timer);
-
-                overlay.remove();
-
-                resolve();
-
-            }
-
-        },1000);
-
-    });
+});
 
 }
 
@@ -3912,53 +3834,54 @@ function videoAdTimer(seconds){
 
 function showVideoAd(){
 
-    return new Promise(resolve=>{
+return new Promise(resolve=>{
 
-        if(!window.Adsgram){
+if(!window.Adsgram){
 
-            alert(
-                "Adsgram এখন পাওয়া যাচ্ছে না। পরে আবার চেষ্টা করুন।"
-            );
+alert(
+"Adsgram এখন পাওয়া যাচ্ছে না।"
+);
 
-            resolve(false);
+resolve(false);
 
-            return;
+return;
 
-        }
+}
 
+try{
 
-        try{
+const controller=
+window.Adsgram.init({
+blockId:ADSGRAM_BLOCK_ID
+});
 
-            const controller=
-                window.Adsgram.init({
-                    blockId:ADSGRAM_BLOCK_ID
-                });
+controller.show()
 
+.then(()=>{
 
-            controller.show()
+/*
+ VIDEO ADS থেকে কোনো Points দেওয়া হবে না.
+*/
 
-                .then(()=>{
+resolve(true);
 
-                    resolve(true);
+})
 
-                })
+.catch(()=>{
 
-                .catch(()=>{
+resolve(false);
 
-                    resolve(false);
+});
 
-                });
+}catch(error){
 
+console.error(error);
 
-        }catch(error){
+resolve(false);
 
-            console.error(error);
+}
 
-            resolve(false);
-
-        }
-
-    });
+});
 
 }
 
@@ -3968,116 +3891,103 @@ function showVideoAd(){
 ========================================================= */
 
 function openVideoPlayer(
-    videoUrl,
-    title
+videoUrl,
+title
 ){
 
-    const old=
-        document.getElementById(
-            "video-player-modal"
-        );
+const old=
+document.getElementById(
+"video-player-modal"
+);
 
+if(old)old.remove();
 
-    if(old)old.remove();
+const modal=
+document.createElement("div");
 
+modal.id=
+"video-player-modal";
 
-    const modal=
-        document.createElement("div");
+modal.className=
+"fixed inset-0 z-[100] flex flex-col";
 
+modal.style.background=
+"rgba(2,12,22,.94)";
 
-    modal.id=
-        "video-player-modal";
+modal.innerHTML=`
 
+<div
+class="flex items-center gap-3 p-4"
+style="
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(20px);
+border-bottom:1px solid rgba(255,255,255,.12);
+">
 
-    modal.className=
-        "fixed inset-0 z-[100] bg-sky-950/90 backdrop-blur-2xl flex flex-col";
+<button
+onclick="closeVideoPlayer()"
+class="w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center">
 
+✕
 
-    modal.innerHTML=`
+</button>
 
-        <div
-            class="flex items-center justify-between p-4 bg-white/10 backdrop-blur-xl border-b border-white/20"
-        >
+<h3
+class="text-white font-black text-sm truncate">
+${escapeHtml(title)}
+</h3>
 
-            <h3
-                class="text-white font-bold text-sm truncate pr-3"
-            >
-                ${escapeHtml(title)}
-            </h3>
+</div>
 
+<div
+class="flex-1 flex items-center justify-center p-2">
 
-            <button
-                onclick="closeVideoPlayer()"
-                class="glass-badge text-sky-900 w-10 h-10 rounded-full flex items-center justify-center text-xl"
-            >
-                ✕
-            </button>
+<video
+src="${escapeHtml(videoUrl)}"
+controls
+autoplay
+playsinline
+class="w-full max-h-full rounded-2xl shadow-2xl">
+</video>
 
-        </div>
+</div>
 
+`;
 
-        <div
-            class="flex-1 flex items-center justify-center p-3"
-        >
-
-            <div
-                class="glass-modal rounded-3xl p-2 w-full max-w-2xl"
-            >
-
-                <video
-                    src="${escapeHtml(videoUrl)}"
-                    controls
-                    autoplay
-                    playsinline
-                    class="w-full max-h-[78vh] rounded-2xl"
-                ></video>
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    document.body.appendChild(
-        modal
-    );
+document.body.appendChild(
+modal
+);
 
 }
 
 
 /* =========================================================
-   CLOSE PLAYER
+   CLOSE VIDEO
 ========================================================= */
 
 function closeVideoPlayer(){
 
-    const modal=
-        document.getElementById(
-            "video-player-modal"
-        );
+const modal=
+document.getElementById(
+"video-player-modal"
+);
 
+if(modal){
 
-    if(modal){
+const video=
+modal.querySelector("video");
 
-        const video=
-            modal.querySelector(
-                "video"
-            );
+if(video){
 
+video.pause();
 
-        if(video){
+video.src="";
 
-            video.pause();
+}
 
-            video.src="";
+modal.remove();
 
-        }
-
-
-        modal.remove();
-
-    }
+}
 
 }
 
@@ -4086,48 +3996,45 @@ function closeVideoPlayer(){
    DELETE VIDEO
 ========================================================= */
 
-async function deleteVideo(videoId){
+async function deleteVideo(
+videoId
+){
 
-    if(
-        !confirm(
-            "এই ভিডিওটি মুছে ফেলতে চান?"
-        )
-    ){
+if(!confirm(
+"এই ভিডিওটি মুছে ফেলতে চান?"
+)){
 
-        return;
+return;
 
-    }
+}
 
+try{
 
-    try{
+await db.collection(
+"videos"
+)
+.doc(videoId)
+.update({
+active:false
+});
 
-        await db.collection("videos")
-            .doc(videoId)
-            .update({
-                active:false
-            });
+alert(
+"ভিডিও মুছে ফেলা হয়েছে!"
+);
 
+loadAdminVideos();
 
-        alert(
-            "ভিডিও মুছে ফেলা হয়েছে!"
-        );
+loadVideos();
 
+}catch(error){
 
-        loadAdminVideos();
+console.error(error);
 
-        loadVideos();
+alert(
+"ভিডিও মুছতে সমস্যা হয়েছে!"
+);
 
-
-    }catch(error){
-
-        console.error(error);
-
-
-        alert(
-            "ভিডিও মুছতে সমস্যা হয়েছে!"
-        );
-
-    }
+}
 
 }
 
@@ -4138,13 +4045,12 @@ async function deleteVideo(videoId){
 
 function escapeHtml(text){
 
-    return String(text||"")
-
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+return String(text||"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
